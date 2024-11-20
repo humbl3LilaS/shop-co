@@ -1,5 +1,5 @@
 {
-  "id": "bc928b17-67a0-422d-89d3-6cd34055a1da",
+  "id": "921af619-e230-400e-a796-0a510e22b2c2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -37,12 +37,6 @@
           "type": "text[]",
           "primaryKey": false,
           "notNull": false
-        },
-        "cover_image": {
-          "name": "cover_image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {},
@@ -97,6 +91,12 @@
         },
         "description": {
           "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cover_image": {
+          "name": "cover_image",
           "type": "text",
           "primaryKey": false,
           "notNull": true

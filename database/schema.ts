@@ -23,6 +23,7 @@ export const products = pgTable(
         price: integer("price").notNull(),
         discount: integer("discount"),
         description: text("description").notNull(),
+        cover_image: text("cover_image").notNull(),
     }
 )
 
@@ -52,7 +53,6 @@ export const productColors = pgTable(
         color: text().notNull(),
         colorHex: varchar("color_hex", {length: 6}).notNull(),
         imagesUrl: text("images_url").array(),
-        coverImage: text("cover_image").notNull(),
     }
 )
 

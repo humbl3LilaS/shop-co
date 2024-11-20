@@ -17,7 +17,8 @@ const CreateProductForm = () => {
                 name: "",
                 price: 0,
                 description: "",
-                discount: 0
+                discount: 0,
+                coverImage: "",
             }
         }
     )
@@ -100,6 +101,22 @@ const CreateProductForm = () => {
                             <FormItem>
                                 <FormLabel>
                                     Description
+                                </FormLabel>
+                                <FormMessage/>
+                                <FormControl>
+                                    <Input {...field} placeholder={"Description..."}/>
+                                </FormControl>
+                            </FormItem>
+                        }
+                    />
+
+                    <FormField
+                        name={"coverImage"}
+                        control={form.control}
+                        render={({field}) =>
+                            <FormItem>
+                                <FormLabel>
+                                    Cover Image Url
                                 </FormLabel>
                                 <FormMessage/>
                                 <FormControl>

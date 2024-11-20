@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS "product_colors" (
 	"product_id" text,
 	"color" text NOT NULL,
 	"color_hex" varchar(6) NOT NULL,
-	"images_url" text[],
-	"cover_image" text NOT NULL
+	"images_url" text[]
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "products" (
@@ -12,7 +11,8 @@ CREATE TABLE IF NOT EXISTS "products" (
 	"name" text NOT NULL,
 	"price" integer NOT NULL,
 	"discount" integer,
-	"description" text NOT NULL
+	"description" text NOT NULL,
+	"cover_image" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reviews" (

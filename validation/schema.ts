@@ -16,6 +16,7 @@ export const ProductFormSchema = z.object(
             z.number().refine(arg => arg >= 0 && arg <= 80)
         ),
         description: z.string(),
+        coverImage: z.string(),
     })
 
 export type ProductFormSchemaType = Zod.infer<typeof ProductFormSchema>

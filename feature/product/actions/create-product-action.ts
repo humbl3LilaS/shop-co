@@ -8,7 +8,8 @@ export const createProduct = async (payload: ProductFormSchemaType) => {
     try {
         const product = await db.insert(products).values(
             {
-                ...payload
+                ...payload,
+                cover_image: payload.coverImage
             }).returning();
         if (!product) {
             return undefined;
