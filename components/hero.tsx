@@ -16,7 +16,6 @@ const Hero = () => {
                     <Button className={"w-full py-4 mb-5 rounded-2xl font-bold lg:w-[200px] lg:mb-14"}>
                         Shop Now
                     </Button>
-
                     <div className={"px-6 grid grid-cols-4 grid-rows-2 gap-y-6 lg:grid-cols-6 lg:w-full lg:px-0"}>
                         <div className={"col-span-2 border-r border-r-black/60"}>
                             <p className={"mb-2 text-2xl font-bold"}>200+</p>
