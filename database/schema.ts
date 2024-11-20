@@ -1,13 +1,14 @@
-import {check, integer, pgTable, text, timestamp, uuid, varchar} from "drizzle-orm/pg-core";
-import {createId} from "@paralleldrive/cuid2";
+import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
+import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
+
 
 export const users = pgTable(
     "users",
     {
-        id: uuid().primaryKey().$default(() => createId()),
-        email: text().notNull().unique(),
-        password: text().notNull(),
+        id: text("id").primaryKey().$default(() => createUUID()),
+        email: text("email").notNull().unique(),
+        password: text("password").notNull(),
         firstName: text("first_name").notNull(),
         lastName: text("last_name").notNull(),
         userName: text("user_name").notNull(),
@@ -17,12 +18,11 @@ export const users = pgTable(
 export const products = pgTable(
     "products",
     {
-        id: uuid().primaryKey().$default(() => createId()),
-        name: text().notNull(),
-        price: integer().notNull(),
-        discount: integer(),
-        description: text().notNull(),
-        size: text().array().notNull(),
+        id: text("id").primaryKey().$default(() => createUUID()),
+        name: text("name").notNull(),
+        price: integer("price").notNull(),
+        discount: integer("discount"),
+        description: text("description").notNull(),
     }
 )
 
@@ -47,11 +47,12 @@ export const userReviewsRelation = relations(users, ({many}) => (
 export const productColors = pgTable(
     "product_colors",
     {
-        id: uuid().primaryKey().$default(() => createId()),
-        productId: uuid("product_id").references(() => products.id),
+        id: text().primaryKey().$default(() => createUUID()),
+        productId: text("product_id").references(() => products.id),
         color: text().notNull(),
         colorHex: varchar("color_hex", {length: 6}).notNull(),
-        imagesUrl: text("images_url").array()
+        imagesUrl: text("images_url").array(),
+        coverImage: text("cover_image").notNull(),
     }
 )
 
@@ -67,9 +68,9 @@ export const colorsProductRelation = relations(productColors, ({one}) => (
 export const reviews = pgTable(
     "reviews",
     {
-        id: uuid().primaryKey().$default(() => createId()),
-        productId: uuid("product_id").references(() => products.id),
-        userId: uuid("user_id").references(() => users.id),
+        id: text().primaryKey().$default(() => createUUID()),
+        productId: text("product_id").references(() => products.id),
+        userId: text("user_id").references(() => users.id),
         createdAt: timestamp("created_at").defaultNow().notNull(),
         rating: integer().notNull(),
     },
