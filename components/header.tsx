@@ -1,8 +1,9 @@
 import {auth} from "@/auth";
 import DiscountBanner from "@/components/discount-banner";
-import {CircleUser, Menu, Search, ShoppingCartIcon} from "lucide-react";
+import {CircleUser, Search, ShoppingCartIcon} from "lucide-react";
 import Link from "next/link";
 import NavSearch from "@/components/NavSearch";
+import MobileMenu from "@/components/mobile-menu";
 
 const Header = async () => {
     const session = await auth();
@@ -10,8 +11,7 @@ const Header = async () => {
         <header>
             <DiscountBanner bannerVisible={!session}/>
             <nav className={"py-6 px-5 flex items-center shadow gap-x-5 lg:justify-center lg:gap-x-8 xl:gap-x-14"}>
-                {/*TODO: Replace with sheet*/}
-                <Menu className="size-6 h-full lg:hidden"/>
+                <MobileMenu/>
                 <h1 className={"mb-2 text-2xl font-bold uppercase font-title "}>
                     <Link href={"/"}>
                         shop.co
