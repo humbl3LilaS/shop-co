@@ -1,0 +1,1 @@
+ALTER TABLE "products" ADD COLUMN "arrived_at" timestamp DEFAULT now() NOT NULL;

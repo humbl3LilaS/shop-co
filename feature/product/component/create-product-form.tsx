@@ -31,6 +31,7 @@ const CreateProductForm = () => {
             toast({title: "Product Creation Failed", variant: "destructive"})
         }
         toast({title: "Product Created"})
+        form.reset()
     }
 
     return (
