@@ -10,7 +10,8 @@ const Header = async () => {
     return (
         <header>
             <DiscountBanner bannerVisible={!session}/>
-            <nav className={"py-6 px-5 flex items-center shadow gap-x-5 lg:justify-center lg:gap-x-8 xl:gap-x-14"}>
+            <nav
+                className={"py-6 px-5 flex items-center shadow gap-x-5  lg:px-25 lg:justify-between lg:gap-x-8 xl:gap-x-14"}>
                 <MobileMenu/>
                 <h1 className={"mb-2 text-2xl font-bold uppercase font-title "}>
                     <Link href={"/"}>

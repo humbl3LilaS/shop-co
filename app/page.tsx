@@ -3,6 +3,7 @@ import Partners from "@/components/partners";
 import ProductPreview from "@/components/product-preview";
 import {getRecentProducts} from "@/actions/product-actions";
 import BrowseStyle from "@/components/browse-style";
+import Testimonials from "@/components/testimonials";
 
 const Home = async () => {
     const products = await getRecentProducts();
@@ -27,6 +28,7 @@ const Home = async () => {
                 redirect={{url: "/top-selling"}}
             />
             <BrowseStyle/>
+            <Testimonials/>
         </main>
     );
 }
