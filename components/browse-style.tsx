@@ -23,7 +23,7 @@ const BrowseStyle = () => {
                                                alt={`image for style ${item.title}`}
                                                width={750}
                                                height={500}
-                                               className={"w-full h-[200px]"}
+                                               className={"w-full h-[200px] lg:h-[320px]"}
                                            />
                                            <h3 className={"absolute top-4 left-7  z-20 text-2xl font-bold capitalize lg:text-4xl"}>
                                                <Link href={"/"}>
