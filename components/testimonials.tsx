@@ -7,8 +7,11 @@ import {Navigation} from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import "swiper/css/navigation"
 import SwiperNavButton from "@/components/swiper-nav-button";
+import {useMediaQuery} from "@/hooks/use-media-query";
 
 const Testimonials = () => {
+    const isLargeScreen = useMediaQuery('(min-width: 1024px)');
+    const isMediumScreen = useMediaQuery('(min-width: 768px)');
     return (
         <section className="relative px-4 mb-12.5  md:px-10 lg:px-25 lg:mb-20 z-10">
             <header>
@@ -18,7 +21,8 @@ const Testimonials = () => {
             </header>
             <Swiper
                 modules={[Navigation]}
-                slidesPerView={1}
+                slidesPerView={isLargeScreen ? 3 : isMediumScreen ? 2 : 1}
+                spaceBetween={20}
                 loop={true}
                 style={{
                     position: "unset",
