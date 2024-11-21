@@ -10,6 +10,10 @@ export default {
     ],
     theme: {
         extend: {
+            spacing: {
+                "25": "100px",
+                "12.5": "50px"
+            },
             colors: {
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
@@ -50,7 +54,8 @@ export default {
                     '3': 'hsl(var(--chart-3))',
                     '4': 'hsl(var(--chart-4))',
                     '5': 'hsl(var(--chart-5))'
-                }
+                },
+                bgSecondary: "#f0f0f0"
             },
             borderRadius: {
                 lg: 'var(--radius)',

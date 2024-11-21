@@ -5,7 +5,7 @@ const Hero = () => {
     return (
         <section>
             <div className={"md:grid grid-cols-2 md:bg-[#f2f0f1]"}>
-                <div className={"py-10 px-4 md:pb-0 md:px-10  lg:px-[100px] lg:flex flex-col justify-center items-start"}>
+                <div className={"py-10 px-4 md:pb-0 md:px-10  lg:px-25 lg:flex flex-col justify-center items-start"}>
                     <h2 className={"mb-5 text-4xl font-bold uppercase font-title tracking-wide lg:text-[54px] leading-none lg:mb-7"}>
                         find clothes that matches your style
                     </h2>

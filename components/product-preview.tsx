@@ -16,9 +16,9 @@ type ProductPreviewProps = {
 const ProductPreview = async ({title, data, separator, redirect}: ProductPreviewProps) => {
 
     return (
-        <section className={cn("pt-[40px] px-4", !separator && "pb-16")}>
+        <section className={cn("pt-10 px-4", !separator && "pb-16")}>
             <h2 className={"mb-8 text-4xl text-center font-bold font-title uppercase tracking-wide"}>{title}</h2>
-            <div className={"md:px-[100px] md:flex items-start justify-center flex-wrap gap-x-6 lg:flex-nowrap"}>
+            <div className={"md:px-25 md:flex items-start justify-center flex-wrap gap-x-6 lg:flex-nowrap"}>
                 {data.map((product) => <ProductPreviewCard key={product.id} data={product}/>)}
             </div>
             {

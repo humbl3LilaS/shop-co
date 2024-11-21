@@ -5,8 +5,8 @@ import {cn} from "@/lib/utils";
 
 const BrowseStyle = () => {
     return (
-        <section className="px-4 lg:px-[100px]">
-            <div className={"py-10 px-6 rounded-xl bg-[#f0f0f0] lg:px-16"}>
+        <section className="px-4 mb-12.5 lg:px-25 lg:mb-20">
+            <div className={"py-10 px-6 rounded-xl bg-bgSecondary lg:px-16"}>
                 <h2 className={"px-8 mb-7 text-center text-3xl font-bold font-title mb:mb-10 lg:mb-16"}>
                     browse by dress style
                 </h2>
@@ -15,7 +15,9 @@ const BrowseStyle = () => {
                         STYLES.map((item, idx) =>
                                        <div
                                            key={item.title}
-                                           className={cn("relative rounded-2xl overflow-hidden", (idx === 1 || idx == 2) && "col-span-2")}>
+                                           className={cn("relative rounded-2xl overflow-hidden", (
+                                               idx === 1 || idx == 2
+                                           ) && "col-span-2")}>
                                            <Image
                                                src={item.imgUrl}
                                                alt={`image for style ${item.title}`}
