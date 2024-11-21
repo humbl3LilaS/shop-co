@@ -1,29 +1,27 @@
 import Image from "next/image";
 import {Star} from "lucide-react";
 import {calculateDiscount} from "@/lib/utils";
+import Link from "next/link";
+import {IProduct} from "@/types/api.types";
 
 type ProductPreviewCardProps = {
-    data: {
-        id: string;
-        name: string;
-        price: number;
-        discount: number | null;
-        description: string;
-        coverImage: string;
-        arrivedAt: Date;
-    }
+    data: IProduct;
 }
 const ProductPreviewCard = ({data}: ProductPreviewCardProps) => {
     return (
-        <article>
+        <article className={"w-full max-w-[350px] mx-auto"}>
             <Image
                 src={data.coverImage}
                 alt={data.name}
-                width={300}
-                height={300}
-                className={"aspect-square w-[300px] mb-4 rounded-xl"}
+                width={350}
+                height={350}
+                className={"aspect-square w-full mb-4 rounded-xl"}
             />
-            <h3 className={"mb-4 font-bold uppercase"}>{data.name}</h3>
+            <h3 className={"mb-4 font-bold uppercase"}>
+                <Link href={`/product/${data.id}}`}>
+                    {data.name}
+                </Link>
+            </h3>
             {/*TODO: later replace with actual data*/}
             <div className={"mb-1.5 flex items-center gap-x-2"}>
                 <Star color="#f9f06b" fill={"#f9f06b"}/>

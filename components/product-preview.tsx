@@ -2,19 +2,20 @@ import {getProducts} from "@/actions/products";
 import ProductPreviewCard from "@/components/product-preview-card";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {IProduct} from "@/types/api.types";
 
-const ProductPreview = async () => {
-    const products = await getProducts();
+type ProductPreviewProps = {
+    title: string;
+    data: IProduct[];
+}
 
-    if (!products || !products.length) {
-        return <div>No product</div>
-    }
+const ProductPreview = async ({title, data}: ProductPreviewProps) => {
 
     return (
         <section className={"pt-[50px] px-4 pb-16"}>
-            <h2 className={"mb-8 text-4xl text-center font-bold font-title uppercase tracking-wide"}>new arrivals</h2>
-            <div className={"lg:px-[100px] lg:flex items-center gap-x-6"}>
-                {products.map((product) => <ProductPreviewCard key={product.id} data={product}/>)}
+            <h2 className={"mb-8 text-4xl text-center font-bold font-title uppercase tracking-wide"}>{title}</h2>
+            <div className={"md:px-[100px] md:flex items-start justify-center flex-wrap gap-x-6 lg:flex-nowrap"}>
+                {data.map((product) => <ProductPreviewCard key={product.id} data={product}/>)}
             </div>
             <Button
                 variant="outline"
