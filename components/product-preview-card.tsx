@@ -18,7 +18,7 @@ const ProductPreviewCard = ({data}: ProductPreviewCardProps) => {
                 className={"aspect-square w-full mb-4 rounded-xl"}
             />
             <h3 className={"mb-4 font-bold uppercase"}>
-                <Link href={`/product/${data.id}}`}>
+                <Link href={`/product/${data.id}`}>
                     {data.name}
                 </Link>
             </h3>
