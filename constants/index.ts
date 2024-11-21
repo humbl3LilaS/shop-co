@@ -21,3 +21,22 @@ export const PARTNER_ICONS = [
         alt: "calvin-klein logo",
     }
 ]
+
+export const STYLES = [
+    {
+        title: "casual",
+        imgUrl: "/images/style-casual.png"
+    },
+    {
+        title: "formal",
+        imgUrl: "/images/style-formal.png"
+    },
+    {
+        title: "party",
+        imgUrl: "/images/style-party.png"
+    },
+    {
+        title: "gym",
+        imgUrl: "/images/style-gym.png"
+    },
+]

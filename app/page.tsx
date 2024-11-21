@@ -2,6 +2,7 @@ import Hero from "@/components/hero";
 import Partners from "@/components/partners";
 import ProductPreview from "@/components/product-preview";
 import {getRecentProducts} from "@/actions/product-actions";
+import BrowseStyle from "@/components/browse-style";
 
 const Home = async () => {
     const products = await getRecentProducts();
@@ -25,6 +26,7 @@ const Home = async () => {
                 data={products}
                 redirect={{url: "/top-selling"}}
             />
+            <BrowseStyle/>
         </main>
     );
 }
