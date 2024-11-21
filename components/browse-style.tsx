@@ -17,7 +17,7 @@ const BrowseStyle = () => {
                                            key={item.title}
                                            className={cn("relative rounded-2xl overflow-hidden", (
                                                idx === 1 || idx == 2
-                                           ) && "col-span-2")}>
+                                           ) && "lg:col-span-2")}>
                                            <Image
                                                src={item.imgUrl}
                                                alt={`image for style ${item.title}`}
