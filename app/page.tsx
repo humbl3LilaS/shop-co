@@ -4,6 +4,7 @@ import ProductPreview from "@/components/product-preview";
 import {getRecentProducts} from "@/actions/product-actions";
 import BrowseStyle from "@/components/browse-style";
 import Testimonials from "@/components/testimonials";
+import NewsletterFrom from "@/components/newsletter-from";
 
 const Home = async () => {
     const products = await getRecentProducts();
@@ -29,6 +30,7 @@ const Home = async () => {
             />
             <BrowseStyle/>
             <Testimonials/>
+            <NewsletterFrom/>
         </main>
     );
 }
