@@ -2,10 +2,11 @@ import {STYLES} from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import {cn} from "@/lib/utils";
+import Container from "@/components/share/container";
 
 const BrowseStyle = () => {
     return (
-        <section className="px-4 mb-12.5 lg:px-25 lg:mb-20">
+        <Container>
             <div className={"py-10 px-6 rounded-xl bg-bgSecondary lg:px-16"}>
                 <h2 className={"px-8 mb-7 text-center text-3xl font-bold font-title mb:mb-10 lg:mb-16"}>
                     browse by dress style
@@ -34,7 +35,7 @@ const BrowseStyle = () => {
                     }
                 </div>
             </div>
-        </section>
+        </Container>
     );
 };
 
