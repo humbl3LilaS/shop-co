@@ -63,3 +63,22 @@ export const TESTIMONIALS = [
         content: "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends."
     },
 ]
+
+export const FOOTER_SUB_NAVS = [
+    {
+        title: "company",
+        navItems: ["About", "Features", "Works", "Career"]
+    },
+    {
+        title: "help",
+        navItems: ["Customer Support", "Delivery details", "Term & Conditions", "Privacy Policy"],
+    },
+    {
+        title: "faq",
+        navItems: ["Account", "Manage Deliveries", "Orders", "Payment"]
+    },
+    {
+        title: "resources",
+        navItems: ["Free eBook", "Development Tutorial", "How to - Blog", "Youtube Playlist"]
+    }
+]

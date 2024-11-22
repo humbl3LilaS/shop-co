@@ -6,7 +6,7 @@ type ContainerProps = {
 }
 const Container = ({children, className}: ContainerProps) => {
     return (
-        <section className={cn("px-4 mb-12.5  md:px-10 lg:px-25 lg:mb-20 z-10", className)}>
+        <section className={cn("px-4 mb-12.5  md:px-10 lg:px-25 lg:mb-20", className)}>
             {children}
         </section>
     );
