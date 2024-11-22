@@ -1,5 +1,5 @@
 {
-  "id": "921af619-e230-400e-a796-0a510e22b2c2",
+  "id": "3e29b484-be5d-4b5c-9b71-60945e066681",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -100,6 +100,20 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "arrived_at": {
+          "name": "arrived_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "product_category": {
+          "name": "product_category",
+          "type": "project_category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -244,7 +258,18 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.project_category": {
+      "name": "project_category",
+      "schema": "public",
+      "values": [
+        "casual",
+        "formal",
+        "party",
+        "gym"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

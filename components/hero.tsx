@@ -31,7 +31,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-                <div className={"max-h-[600px] relative"}>
+                <div className={"max-h-[600px]  relative"}>
                     <Image
                         src={"/images/banner-mobile.png"}
                         alt={"banner image"}

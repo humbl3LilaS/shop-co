@@ -1,6 +1,7 @@
-import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
+import {check, integer, pgEnum, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
+import {CATEGORIES} from "@/constants";
 
 
 export const users = pgTable(
@@ -15,6 +16,8 @@ export const users = pgTable(
     }
 )
 
+export const productCategoryEnum = pgEnum("project_category", CATEGORIES)
+
 export const products = pgTable(
     "products",
     {
@@ -25,6 +28,7 @@ export const products = pgTable(
         description: text("description").notNull(),
         coverImage: text("cover_image").notNull(),
         arrivedAt: timestamp("arrived_at").defaultNow().notNull(),
+        productCategory: productCategoryEnum("product_category").notNull(),
     }
 )
 

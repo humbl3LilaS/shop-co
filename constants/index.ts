@@ -82,3 +82,5 @@ export const FOOTER_SUB_NAVS = [
         navItems: ["Free eBook", "Development Tutorial", "How to - Blog", "Youtube Playlist"]
     }
 ]
+
+export const CATEGORIES = ["casual", "formal", "party", "gym"] as const

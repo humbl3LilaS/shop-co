@@ -1,3 +1,4 @@
+CREATE TYPE "public"."project_category" AS ENUM('casual', 'formal', 'party', 'gym');--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "product_colors" (
 	"id" text PRIMARY KEY NOT NULL,
 	"product_id" text,
@@ -12,7 +13,9 @@ CREATE TABLE IF NOT EXISTS "products" (
 	"price" integer NOT NULL,
 	"discount" integer,
 	"description" text NOT NULL,
-	"cover_image" text NOT NULL
+	"cover_image" text NOT NULL,
+	"arrived_at" timestamp DEFAULT now() NOT NULL,
+	"product_category" "project_category"
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reviews" (

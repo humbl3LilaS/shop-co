@@ -1,4 +1,7 @@
 import {z} from "zod";
+import {CATEGORIES} from "@/constants";
+import {Writeable} from "@/types/util.types";
+
 
 export const ProductFormSchema = z.object(
     {
@@ -17,6 +20,8 @@ export const ProductFormSchema = z.object(
         ),
         description: z.string(),
         coverImage: z.string(),
+        productCategory: z.string().refine(arg => ([...CATEGORIES] as Writeable<any, any>).includes(arg)),
     })
+
 
 export type ProductFormSchemaType = Zod.infer<typeof ProductFormSchema>

@@ -7,6 +7,8 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useToast} from "@/hooks/use-toast";
 import {createProduct} from "@/feature/product/actions/create-product-action";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {CATEGORIES} from "@/constants";
 
 const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>(
@@ -19,6 +21,7 @@ const CreateProductForm = () => {
                 description: "",
                 discount: 0,
                 coverImage: "",
+                productCategory: "casual",
             }
         }
     )
@@ -127,6 +130,37 @@ const CreateProductForm = () => {
                         }
                     />
 
+                    <FormField
+                        name={"productCategory"}
+                        control={form.control}
+                        render={({field}) =>
+                            <FormItem>
+                                <FormLabel>
+                                    Product Category
+                                </FormLabel>
+                                <FormMessage/>
+                                <Select>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder={field.value}
+                                                         className={"placeholder:capitalize"}/>
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {
+                                            CATEGORIES.map(item =>
+                                                               <SelectItem
+                                                                   value={item} key={item}
+                                                                   className={"capitalize"}>
+                                                                   {item}
+                                                               </SelectItem>
+                                            )
+                                        }
+                                    </SelectContent>
+                                </Select>
+                            </FormItem>
+                        }
+                    />
 
                     <Button className={"mt-4"} type={"submit"}>
                         Submit
