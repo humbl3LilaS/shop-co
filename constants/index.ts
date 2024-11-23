@@ -84,3 +84,7 @@ export const FOOTER_SUB_NAVS = [
 ]
 
 export const CATEGORIES = ["casual", "formal", "party", "gym"] as const
+
+export const TYPES = ["t-shirts", "shorts", "shirts", "hoodie", "jeans"] as const
+
+export const SIZES = ["xxx-small", "x-small", "small", "medium", "large", "x-large", "xx-large", "3x-large", "4x-large"] as const;

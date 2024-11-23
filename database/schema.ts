@@ -1,7 +1,7 @@
 import {check, integer, pgEnum, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
-import {CATEGORIES} from "@/constants";
+import {CATEGORIES, SIZES, TYPES} from "@/constants";
 
 
 export const users = pgTable(
@@ -16,7 +16,9 @@ export const users = pgTable(
     }
 )
 
-export const productCategoryEnum = pgEnum("project_category", CATEGORIES)
+export const productCategoryEnum = pgEnum("product_category", CATEGORIES)
+export const productTypeEnum = pgEnum("product_type", TYPES)
+export const productSizeEnum = pgEnum("product_size", SIZES)
 
 export const products = pgTable(
     "products",
@@ -29,6 +31,8 @@ export const products = pgTable(
         coverImage: text("cover_image").notNull(),
         arrivedAt: timestamp("arrived_at").defaultNow().notNull(),
         productCategory: productCategoryEnum("product_category").notNull(),
+        productType: productTypeEnum("product_type"),
+        availableSize: productSizeEnum("available_size").array(),
     }
 )
 

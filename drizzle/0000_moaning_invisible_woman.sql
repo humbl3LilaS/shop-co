@@ -1,4 +1,6 @@
-CREATE TYPE "public"."project_category" AS ENUM('casual', 'formal', 'party', 'gym');--> statement-breakpoint
+CREATE TYPE "public"."product_category" AS ENUM('casual', 'formal', 'party', 'gym');--> statement-breakpoint
+CREATE TYPE "public"."product_size" AS ENUM('xxx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large', '3x-large', '4x-large');--> statement-breakpoint
+CREATE TYPE "public"."product_type" AS ENUM('t-shirts', 'shorts', 'shirts', 'hoodie', 'jeans');--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "product_colors" (
 	"id" text PRIMARY KEY NOT NULL,
 	"product_id" text,
@@ -15,7 +17,9 @@ CREATE TABLE IF NOT EXISTS "products" (
 	"description" text NOT NULL,
 	"cover_image" text NOT NULL,
 	"arrived_at" timestamp DEFAULT now() NOT NULL,
-	"product_category" "project_category"
+	"product_category" "product_category" NOT NULL,
+	"product_type" "product_type",
+	"available_size" "product_size"[]
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reviews" (
