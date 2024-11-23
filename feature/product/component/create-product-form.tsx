@@ -8,7 +8,8 @@ import {Button} from "@/components/ui/button";
 import {useToast} from "@/hooks/use-toast";
 import {createProduct} from "@/feature/product/actions/create-product-action";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {CATEGORIES} from "@/constants";
+import {CATEGORIES, SIZES, TYPES} from "@/constants";
+import SizeCheckbox from "@/components/size-checkbox";
 
 const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>(
@@ -21,12 +22,15 @@ const CreateProductForm = () => {
                 description: "",
                 discount: 0,
                 coverImage: "",
-                productCategory: "casual",
+                productCategory: "",
+                productType: "",
+                availableSize: [],
             }
         }
     )
 
     const {toast} = useToast();
+    console.log(form.formState.errors)
 
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (value) => {
         const product = await createProduct({...value})
@@ -139,7 +143,7 @@ const CreateProductForm = () => {
                                     Product Category
                                 </FormLabel>
                                 <FormMessage/>
-                                <Select>
+                                <Select onValueChange={field.onChange}>
                                     <FormControl>
                                         <SelectTrigger>
                                             <SelectValue placeholder={field.value}
@@ -162,6 +166,77 @@ const CreateProductForm = () => {
                         }
                     />
 
+                    <FormField
+                        name={"productType"}
+                        control={form.control}
+                        render={({field}) =>
+                            <FormItem>
+                                <FormLabel>
+                                    Product Type
+                                </FormLabel>
+                                <FormMessage/>
+                                <Select onValueChange={field.onChange}>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder={field.value}
+                                                         className={"placeholder:capitalize"}/>
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {
+                                            TYPES.map(item =>
+                                                          <SelectItem
+                                                              value={item} key={item}
+                                                              className={"capitalize"}>
+                                                              {item}
+                                                          </SelectItem>
+                                            )
+                                        }
+                                    </SelectContent>
+                                </Select>
+                            </FormItem>
+                        }
+                    />
+
+                    <FormField
+                        name={"availableSize"}
+                        control={form.control}
+                        render={({field}) =>
+                            <FormItem>
+                                <FormLabel>
+                                    Select Available Sizes
+                                </FormLabel>
+                                <FormControl>
+                                    <ul>
+                                        {
+                                            SIZES.map((size, idx) =>
+                                                          <SizeCheckbox
+                                                              key={idx}
+                                                              value={size}
+                                                              onCheckedChange={(value) => {
+                                                                  if (value) {
+                                                                      form.setValue(
+                                                                          "availableSize",
+                                                                          [...field.value, size]
+                                                                      )
+                                                                  } else {
+                                                                      const filterSizes = field.value.filter(
+                                                                          item => item !== size);
+                                                                      form.setValue(
+                                                                          "availableSize",
+                                                                          [...filterSizes]
+                                                                      )
+                                                                  }
+                                                              }}/>
+                                            )
+                                        }
+                                    </ul>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        }/>
+
+
                     <Button className={"mt-4"} type={"submit"}>
                         Submit
                     </Button>
@@ -169,7 +244,8 @@ const CreateProductForm = () => {
 
             </form>
         </Form>
-    );
+    )
+        ;
 };
 
 export default CreateProductForm;
