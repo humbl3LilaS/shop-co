@@ -12,3 +12,7 @@ export const calculateDiscount = (price: number, discount: number) => {
         )
     )
 }
+
+export const getValidPathnameArray = (pathname: string) => {
+    return pathname.split("/").filter(x => x !== "style" && x !== "")
+}

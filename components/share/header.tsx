@@ -14,7 +14,7 @@ const Header = async () => {
                 className={"py-6 px-5 flex items-center shadow gap-x-5  lg:px-25 lg:justify-between lg:gap-x-8 xl:gap-x-14"}>
                 <MobileMenu/>
                 <h1 className={"mb-2 text-2xl font-bold uppercase font-title "}>
-                    <Link href={"/"}>
+                    <Link href={"/public"}>
                         shop.co
                     </Link>
                 </h1>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {Facebook, Github, Instagram, Twitter} from "lucide-react";
 import {FOOTER_SUB_NAVS} from "@/constants";
-import FooterSubNav from "@/components/footer-sub-nav";
+import FooterSubNav from "@/components/share/footer-sub-nav";
 import Image from "next/image";
 import NewsletterFrom from "@/components/newsletter-from";
 
@@ -14,7 +14,7 @@ const Footer = () => {
                     className={"px-4 mb-12.5 grid grid-cols-2 gap-y-6 md:px-10 md:grid-cols-4  lg:px-25 lg:mb-20 lg:grid-cols-6"}>
                     <div className={"col-span-2 md:col-span-4 lg:col-span-2"}>
                         <h2 className={"mb-3 text-2xl font-bold uppercase font-title "}>
-                            <Link href={"/"}>
+                            <Link href={"/public"}>
                                 shop.co
                             </Link>
                         </h2>

@@ -11,6 +11,7 @@ const Home = async () => {
     if (!products || !products.length) {
         return <div>No product</div>
     }
+
     return (
         <main>
             <Hero/>
