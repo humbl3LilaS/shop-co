@@ -1,9 +1,8 @@
 import type {Metadata} from "next";
 import "./globals.css"
 import localFont from "next/font/local";
-import Header from "@/components/header";
 import {Toaster} from "@/components/ui/toaster";
-import Footer from "@/components/footer";
+
 
 const satoshi = localFont(
     {
@@ -45,12 +44,9 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={`${satoshi.variable} ${integralCF.variable} font-sans`}>
-        <Header/>
         {children}
-        <Footer/>
         <Toaster/>
         </body>
         </html>
-    )
-        ;
+    );
 }

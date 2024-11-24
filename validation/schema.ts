@@ -32,4 +32,15 @@ export const ProductFormSchema = z.object(
     })
 
 
+export const ProductFormSchemaDefaultValues: ProductFormSchemaType = {
+    name: "",
+    price: 0,
+    description: "",
+    discount: 0,
+    coverImage: "",
+    productCategory: "",
+    productType: "",
+    availableSize: [],
+}
+
 export type ProductFormSchemaType = Zod.infer<typeof ProductFormSchema>

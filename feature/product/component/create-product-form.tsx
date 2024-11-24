@@ -1,7 +1,7 @@
 "use client"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {ProductFormSchema, ProductFormSchemaType} from "@/validation/schema";
+import {ProductFormSchema, ProductFormSchemaDefaultValues, ProductFormSchemaType} from "@/validation/schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
@@ -16,21 +16,12 @@ const CreateProductForm = () => {
         {
             resolver: zodResolver(ProductFormSchema),
             mode: "onChange",
-            defaultValues: {
-                name: "",
-                price: 0,
-                description: "",
-                discount: 0,
-                coverImage: "",
-                productCategory: "",
-                productType: "",
-                availableSize: [],
-            }
+            defaultValues: {...ProductFormSchemaDefaultValues}
         }
     )
 
+
     const {toast} = useToast();
-    console.log(form.formState.errors)
 
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (value) => {
         const product = await createProduct({...value})
@@ -38,7 +29,7 @@ const CreateProductForm = () => {
             toast({title: "Product Creation Failed", variant: "destructive"})
         }
         toast({title: "Product Created"})
-        form.reset()
+        form.reset({...ProductFormSchemaDefaultValues})
     }
 
     return (
