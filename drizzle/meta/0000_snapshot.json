@@ -1,5 +1,5 @@
 {
-  "id": "f82c644d-b9e4-4f6d-a325-d7202390c1a5",
+  "id": "2756450e-e7f8-4c0d-a16f-44073d708d6f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -110,21 +110,19 @@
         },
         "product_category": {
           "name": "product_category",
-          "type": "product_category",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "product_type": {
-          "name": "product_type",
-          "type": "product_type",
-          "typeSchema": "public",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "available_size": {
-          "name": "available_size",
-          "type": "product_size[]",
+        "product_type": {
+          "name": "product_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "product_size": {
+          "name": "product_size",
+          "type": "text[]",
           "primaryKey": false,
           "notNull": false
         }
@@ -271,44 +269,7 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {
-    "public.product_category": {
-      "name": "product_category",
-      "schema": "public",
-      "values": [
-        "casual",
-        "formal",
-        "party",
-        "gym"
-      ]
-    },
-    "public.product_size": {
-      "name": "product_size",
-      "schema": "public",
-      "values": [
-        "xxx-small",
-        "x-small",
-        "small",
-        "medium",
-        "large",
-        "x-large",
-        "xx-large",
-        "3x-large",
-        "4x-large"
-      ]
-    },
-    "public.product_type": {
-      "name": "product_type",
-      "schema": "public",
-      "values": [
-        "t-shirts",
-        "shorts",
-        "shirts",
-        "hoodie",
-        "jeans"
-      ]
-    }
-  },
+  "enums": {},
   "schemas": {},
   "sequences": {},
   "roles": {},
