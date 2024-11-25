@@ -54,7 +54,7 @@ export const getProductByCategory = async (category: IProductCategory, query: Ca
         return {
             data: result,
             totalPages,
-            currentPage: parseInt(String(page)) ?? 1,
+            currentPage: parseInt(String(page)) || 1,
             totalProducts,
         };
     } catch (err) {

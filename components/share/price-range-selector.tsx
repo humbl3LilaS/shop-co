@@ -54,14 +54,14 @@ const PriceRangeSelector = (
                 />
             </ConfigProvider>
             <span
-                className={"block text-sm absolute top-4/5 -translate-x-1/2  font-bold"}
+                className={"block text-sm absolute top-4/5 -translate-x-1/2  font-bold z-20"}
                 style={{
                     left: `${(value[0] / max) * 100}%`,
                 }}
             >
                 ${value[0]}
             </span>
-            <span className={"block text-sm absolute top-4/5 -translate-x-1/2 font-bold"}
+            <span className={"block text-sm absolute top-4/5 -translate-x-1/2 font-bold z-20"}
                   style={{
                       left: `${(value[1] / max) * 100}%`,
                   }}>

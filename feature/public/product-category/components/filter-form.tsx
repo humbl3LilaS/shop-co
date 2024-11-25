@@ -3,7 +3,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FilterFormDefaultValues, FilterFormSchema, FilterFormSchemaType} from "@/validation/schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import { SIZES, TYPES} from "@/constants";
+import {SIZES, TYPES} from "@/constants";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import PriceRangeSelector from "@/components/share/price-range-selector";
@@ -21,11 +21,15 @@ function fieldArrayOnChange<T>(value: T, array: T[], callback: (value: T[]) => v
     }
 }
 
-const FilterForm = () => {
+type FilterFormProps = {
+    defaultValues?: FilterFormSchemaType
+}
+
+const FilterForm = ({defaultValues}: FilterFormProps) => {
     const form = useForm<FilterFormSchemaType>({
         resolver: zodResolver(FilterFormSchema),
         mode: "onChange",
-        defaultValues: {...FilterFormDefaultValues}
+        defaultValues: {...FilterFormDefaultValues, ...defaultValues},
     });
     const router = useRouter();
     const pathname = usePathname();
@@ -37,7 +41,7 @@ const FilterForm = () => {
             min: values.priceRange[0],
             max: values.priceRange[1]
         }
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams.get("page") ?? "");
         (Object.keys(processedValues) as (keyof typeof processedValues)[])
             .forEach(key => {
                 if (processedValues[key]) {

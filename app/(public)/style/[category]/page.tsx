@@ -8,6 +8,8 @@ import {SlidersHorizontal} from "lucide-react";
 import ProductPreviewCard from "@/components/product-preview-card";
 import CustomPagination from "@/components/share/custom-pagination";
 import FilterForm from "@/feature/public/product-category/components/filter-form";
+import {FilterFormSchemaType} from "@/validation/schema";
+import {slugToArray} from "@/lib/utils";
 
 export type CategoryPageQuery = {
     page: string;
@@ -35,13 +37,12 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
         notFound();
     }
 
-    if (products.data && products.data.length === 0) {
-        return <Container>
-            <div className={"py-20 text-center"}>
-                <h2 className={"font-bold text-2xl lg:text-4xl"}>There is no product yet!!</h2>
-            </div>
-        </Container>
+    const formDefaultValues: FilterFormSchemaType = {
+        sizes: slugToArray(query.sizes),
+        types: slugToArray(query.types),
+        priceRange: [parseInt(query.min) || 0, parseInt(query.max) || 400]
     }
+
 
     return (
         <Container>
@@ -66,17 +67,32 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                             <SlidersHorizontal className={"size-5"}/>
                         </h2>
                         <hr className={"bg-black/60"}/>
-                        <FilterForm/>
+                        <FilterForm defaultValues={formDefaultValues}/>
                     </div>
                 </div>
                 <div className={"lg:col-span-3"}>
+                    {
+                        products.data && products.data.length === 0 &&
+                        <h1 className={"mt-10 text-2xl font-bold text-center lg:text-3xl"}>No products</h1>
+                    }
                     <div className={"grid  grid-cols-2 gap-4 md:grid-cols-3 lg:gap-5"}>
                         {products.data.map((product, idx) =>
-                            <ProductPreviewCard data={product} key={product.id + idx}/>
+                            <>
+                                <ProductPreviewCard data={product} key={product.id + idx}/>
+
+                            </>
                         )}
                     </div>
-                    <CustomPagination totalPages={products.totalPages} currentPage={products.currentPage}
-                                      hrefBase={"casual"}/>
+
+                    {
+                        products.data && products.data.length > 0 &&
+                        <CustomPagination
+                            totalPages={products.totalPages}
+                            currentPage={products.currentPage}
+                            hrefBase={"casual"}
+                        />
+                    }
+
                 </div>
             </div>
         </Container>

@@ -59,7 +59,7 @@ export const FilterFormSchema = z.object({
 export type FilterFormSchemaType = Zod.infer<typeof FilterFormSchema>;
 
 export const FilterFormDefaultValues: FilterFormSchemaType = {
-    priceRange: [50, 200],
+    priceRange: [0, 400],
     // color: "",
     sizes: [],
     types: [],
