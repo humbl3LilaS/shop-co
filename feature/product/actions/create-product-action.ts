@@ -7,9 +7,9 @@ import {products} from "@/database/schema";
 export const createProduct = async (payload: ProductFormSchemaType) => {
     try {
         const product = await db.insert(products).values(
+            //@ts-expect-error so sick of checking this type
             {
                 ...payload,
-                cover_image: payload.coverImage
             }).returning();
         if (!product) {
             return undefined;

@@ -7,6 +7,7 @@ import Container from "@/components/share/container";
 import {SlidersHorizontal} from "lucide-react";
 import ProductPreviewCard from "@/components/product-preview-card";
 import CustomPagination from "@/components/share/custom-pagination";
+import FilterForm from "@/feature/public/product-category/components/filter-form";
 
 type PageProps = {
     params: Promise<{ category: string }>,
@@ -16,12 +17,12 @@ type PageProps = {
 const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
     const {category} = await params;
     const {page} = await searchParams;
+
     if (STYLES.every(item => item.title !== category)) {
         return notFound();
     }
 
     const products = await getProductByCategory(category as IProductCategory, page ? parseInt(page) : 1);
-    console.log(products)
     if (!products) {
         notFound();
     }
@@ -40,7 +41,7 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
             <nav className={"mb-7 flex items-baseline gap-x-4"}>
                 <h2 className={"text-2xl font-bold capitalize"}>{category}</h2>
                 <p className={"text-black/60"}>
-                    Showing {products.currentPage}-{products.totalPages} of {products.totalProducts} Products
+                    Showing {products.currentPage}-{products.totalPages} of &nbsp;{products.totalProducts} Products
                 </p>
                 {/*TODO: replace with sheet*/}
                 <button
@@ -48,12 +49,28 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                     <SlidersHorizontal className={"size-4"}/>
                 </button>
             </nav>
-            <div className={"grid  grid-cols-2 gap-x-4"}>
-                {products.data.map((product, idx) =>
-                                       <ProductPreviewCard data={product} key={product.id + idx}/>
-                )}
+            <div className={"lg:grid grid-cols-4 gap-x-5"}>
+                <div className={"hidden lg:block col-span-1 border border-black/20 rounded-xl"}>
+                    <div className={"px-6 py-5"}>
+
+                        <h2 className={"mb-6 flex items-center justify-between"}>
+                            <span className={"text-xl font-bold"}>Filters</span>
+                            <SlidersHorizontal className={"size-5"}/>
+                        </h2>
+                        <hr className={"bg-black/60"}/>
+                        <FilterForm/>
+                    </div>
+                </div>
+                <div className={"lg:col-span-3"}>
+                    <div className={"grid  grid-cols-2 gap-4 md:grid-cols-3 lg:gap-5"}>
+                        {products.data.map((product, idx) =>
+                            <ProductPreviewCard data={product} key={product.id + idx}/>
+                        )}
+                    </div>
+                    <CustomPagination totalPages={products.totalPages} currentPage={products.currentPage}
+                                      hrefBase={"casual"}/>
+                </div>
             </div>
-            <CustomPagination totalPages={products.totalPages} currentPage={products.currentPage} hrefBase={"casual"}/>
         </Container>
     );
 };
