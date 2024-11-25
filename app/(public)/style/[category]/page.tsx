@@ -10,6 +10,7 @@ import CustomPagination from "@/components/share/custom-pagination";
 import FilterForm from "@/feature/public/product-category/components/filter-form";
 import {FilterFormSchemaType} from "@/validation/schema";
 import {slugToArray} from "@/lib/utils";
+import FilterSheet from "@/feature/public/product-category/components/filter-sheet";
 
 export type CategoryPageQuery = {
     page: string;
@@ -52,11 +53,7 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                 <p className={"text-black/60"}>
                     Showing {products.currentPage}-{products.totalPages} of &nbsp;{products.totalProducts} Products
                 </p>
-                {/*TODO: replace with sheet*/}
-                <button
-                    className={"size-8 ml-auto flex items-center justify-center rounded-full bg-[#f0f0f0] lg:hidden"}>
-                    <SlidersHorizontal className={"size-4"}/>
-                </button>
+                <FilterSheet defaultValues={formDefaultValues}/>
             </nav>
             <div className={"lg:grid grid-cols-4 gap-x-5"}>
                 <div className={"hidden lg:block col-span-1 border border-black/20 rounded-xl"}>

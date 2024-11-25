@@ -8,9 +8,10 @@ import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import PriceRangeSelector from "@/components/share/price-range-selector";
 import {Button} from "@/components/ui/button";
-import AccordionField from "@/feature/public/product-category/accordion-field";
+import AccordionField from "@/feature/public/product-category/components/accordion-field";
 import {arrayToSlug} from "@/lib/utils";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useFilterSheet} from "@/feature/public/product-category/hooks/use-filter-sheet";
 
 function fieldArrayOnChange<T>(value: T, array: T[], callback: (value: T[]) => void) {
     if (array.includes(value)) {
@@ -26,14 +27,18 @@ type FilterFormProps = {
 }
 
 const FilterForm = ({defaultValues}: FilterFormProps) => {
+
     const form = useForm<FilterFormSchemaType>({
         resolver: zodResolver(FilterFormSchema),
         mode: "onChange",
         defaultValues: {...FilterFormDefaultValues, ...defaultValues},
     });
+
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const toggleFilterSheet = useFilterSheet(state => state.toggle);
+
     const onSubmit: SubmitHandler<FilterFormSchemaType> = (values) => {
         const processedValues = {
             types: arrayToSlug(values.types),
@@ -48,6 +53,7 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
                     params.set(key, processedValues[key].toString());
                 }
             })
+        toggleFilterSheet();
         router.push(`${pathname}?${params.toString()}`);
     }
 
