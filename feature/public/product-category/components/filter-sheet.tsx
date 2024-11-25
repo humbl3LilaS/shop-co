@@ -4,6 +4,8 @@ import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/comp
 import {SlidersHorizontal} from "lucide-react";
 import FilterForm from "@/feature/public/product-category/components/filter-form";
 import {useFilterSheet} from "@/feature/public/product-category/hooks/use-filter-sheet";
+import {useMediaQuery} from "@/hooks/use-media-query";
+import {cn} from "@/lib/utils";
 
 type FilterSheetProps = {
     defaultValues: FilterFormSchemaType;
@@ -11,6 +13,8 @@ type FilterSheetProps = {
 const FilterSheet = ({defaultValues}: FilterSheetProps) => {
     const isOpen = useFilterSheet(state => state.isOpen);
     const toggle = useFilterSheet(state => state.toggle);
+
+    const isMobile = useMediaQuery('(max-width: 768px)');
     return (
         <Sheet open={isOpen} onOpenChange={toggle}>
             <SheetTrigger className={"ml-auto lg:hidden"}>
@@ -19,7 +23,7 @@ const FilterSheet = ({defaultValues}: FilterSheetProps) => {
                     <SlidersHorizontal className={"size-4"}/>
                 </button>
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent side={isMobile ? "bottom" : "right"} className={cn("h-4/5", isMobile && "overflow-y-scroll")}>
                 <SheetHeader>
                     <SheetTitle>
                         Filter

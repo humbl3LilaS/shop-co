@@ -40,20 +40,29 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
     const toggleFilterSheet = useFilterSheet(state => state.toggle);
 
     const onSubmit: SubmitHandler<FilterFormSchemaType> = (values) => {
+
         const processedValues = {
             types: arrayToSlug(values.types),
             sizes: arrayToSlug(values.sizes),
             min: values.priceRange[0],
             max: values.priceRange[1]
         }
+
+        // only get the page params from the search params others are provided via defaultValues prop
         const params = new URLSearchParams(searchParams.get("page") ?? "");
+
+        // set the searchParams object if the values[key] is not "" or undefined
         (Object.keys(processedValues) as (keyof typeof processedValues)[])
             .forEach(key => {
                 if (processedValues[key]) {
                     params.set(key, processedValues[key].toString());
                 }
             })
+
+        //  Toggle the filter-sheet's state
         toggleFilterSheet();
+
+        // push the searchParam to the current route
         router.push(`${pathname}?${params.toString()}`);
     }
 

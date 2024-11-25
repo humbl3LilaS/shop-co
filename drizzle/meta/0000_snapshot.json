@@ -1,5 +1,5 @@
 {
-  "id": "2756450e-e7f8-4c0d-a16f-44073d708d6f",
+  "id": "14ae0672-8a73-42bc-af41-ca8bb4b60f3b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -120,8 +120,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "product_size": {
-          "name": "product_size",
+        "sizes": {
+          "name": "sizes",
           "type": "text[]",
           "primaryKey": false,
           "notNull": false

@@ -190,7 +190,7 @@ const CreateProductForm = () => {
                     />
 
                     <FormField
-                        name={"availableSize"}
+                        name={"sizes"}
                         control={form.control}
                         render={({field}) =>
                             <FormItem>
@@ -207,14 +207,14 @@ const CreateProductForm = () => {
                                                               onCheckedChange={(value) => {
                                                                   if (value) {
                                                                       form.setValue(
-                                                                          "availableSize",
+                                                                          "sizes",
                                                                           [...field.value, size]
                                                                       )
                                                                   } else {
                                                                       const filterSizes = field.value.filter(
                                                                           item => item !== size);
                                                                       form.setValue(
-                                                                          "availableSize",
+                                                                          "sizes",
                                                                           [...filterSizes]
                                                                       )
                                                                   }

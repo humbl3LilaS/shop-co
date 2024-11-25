@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS "products" (
 	"arrived_at" timestamp DEFAULT now() NOT NULL,
 	"product_category" text,
 	"product_type" text,
-	"product_size" text[]
+	"sizes" text[]
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reviews" (
