@@ -3,8 +3,10 @@
 import {db} from "@/database/drizzle";
 import {products} from "@/database/schema";
 import {IProductCategory} from "@/types/object.types";
-import {eq} from "drizzle-orm";
-import {calculatePageCounts} from "@/lib/utils";
+import {and, eq, gt, inArray, lte} from "drizzle-orm";
+import {calculatePageCounts, slugToArray} from "@/lib/utils";
+import {CategoryPageQuery} from "@/app/(public)/style/[category]/page";
+import {arrayOverlaps} from "drizzle-orm/sql/expressions/conditions";
 
 export const getRecentProducts = async () => {
     try {
@@ -18,15 +20,28 @@ export const getRecentProducts = async () => {
     }
 }
 
-export const getProductByCategory = async (category: IProductCategory, page: number) => {
+export const getProductByCategory = async (category: IProductCategory, query: CategoryPageQuery) => {
     try {
-        const offset = (
-            page - 1
-        ) * 10;
+        const page = parseInt(query.page) ?? 1
+        const offset = (page - 1) * 10;
+        const types = slugToArray(query.types);
+        const sizes = slugToArray(query.sizes);
+        const max = query.max ? parseInt(query.max) : 500;
+        const min = query.min ? parseInt(query.min) : 0;
         const result = await db
             .select()
             .from(products)
-            .where(eq(products.productCategory, category))
+            .where(
+                and(
+                    //@ts-expect-error can't find way to type this
+                    types.length > 0 ? inArray(products.productType, types) : undefined,
+                    //@ts-expect-error can't find way to type this
+                    sizes.length > 0 ? arrayOverlaps(products.availableSize, types) : undefined,
+                    eq(products.productCategory, category),
+                    gt(products.price, min),
+                    lte(products.price, max),
+                )
+            )
             .limit(10)
             .offset(offset)
         ;

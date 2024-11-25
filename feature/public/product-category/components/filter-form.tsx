@@ -3,12 +3,14 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FilterFormDefaultValues, FilterFormSchema, FilterFormSchemaType} from "@/validation/schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {CATEGORIES, SIZES, TYPES} from "@/constants";
+import { SIZES, TYPES} from "@/constants";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import PriceRangeSelector from "@/components/share/price-range-selector";
 import {Button} from "@/components/ui/button";
 import AccordionField from "@/feature/public/product-category/accordion-field";
+import {arrayToSlug} from "@/lib/utils";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 function fieldArrayOnChange<T>(value: T, array: T[], callback: (value: T[]) => void) {
     if (array.includes(value)) {
@@ -24,12 +26,26 @@ const FilterForm = () => {
         resolver: zodResolver(FilterFormSchema),
         mode: "onChange",
         defaultValues: {...FilterFormDefaultValues}
-    })
-
+    });
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const onSubmit: SubmitHandler<FilterFormSchemaType> = (values) => {
-        console.log(values);
+        const processedValues = {
+            types: arrayToSlug(values.types),
+            sizes: arrayToSlug(values.sizes),
+            min: values.priceRange[0],
+            max: values.priceRange[1]
+        }
+        const params = new URLSearchParams(searchParams);
+        (Object.keys(processedValues) as (keyof typeof processedValues)[])
+            .forEach(key => {
+                if (processedValues[key]) {
+                    params.set(key, processedValues[key].toString());
+                }
+            })
+        router.push(`${pathname}?${params.toString()}`);
     }
-
 
     return (
         <div className={"mt-6"}>
@@ -37,7 +53,7 @@ const FilterForm = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)}>
 
                     <FormField
-                        name={"productType"}
+                        name={"types"}
                         control={form.control}
                         render={({field}) => (
                             <FormItem>
@@ -126,41 +142,6 @@ const FilterForm = () => {
                                 </FormItem>
                             )}/>
                     </AccordionField>
-
-                    <AccordionField title={"Dress Style"}>
-                        <FormField
-                            name={"productCategory"}
-                            control={form.control}
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <div className={"flex flex-col gap-y-4"}>
-                                            {
-                                                CATEGORIES.map((category, idx) =>
-                                                    <div key={category + idx}
-                                                         className={"flex items-center justify-between"}>
-                                                        <Label htmlFor={category}
-                                                               className={"capitalize text-black/60"}>
-                                                            {category}
-                                                        </Label>
-                                                        <Checkbox
-                                                            id={category}
-                                                            className={"size-5"}
-                                                            checked={field.value.includes(category)}
-                                                            onCheckedChange={() => {
-                                                                fieldArrayOnChange(category, field.value, field.onChange)
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </div>
-                                    </FormControl>
-                                    <FormMessage/>
-                                </FormItem>
-                            )}/>
-                    </AccordionField>
-
 
                     <Button className={"mt-6 w-full rounded-3xl"}>
                         Apply Filter

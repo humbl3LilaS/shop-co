@@ -51,12 +51,9 @@ export const FilterFormSchema = z.object({
     sizes: z.string().refine(arg => (
         [...SIZES] as Writeable<any, any>
     ).includes(arg)).array(),
-    productType: z.string().refine(arg => (
+    types: z.string().refine(arg => (
         [...TYPES] as Writeable<any, any>
     ).includes(arg)).array(),
-    productCategory: z.string().refine(arg => (
-        [...CATEGORIES] as Writeable<any, any>
-    ).includes(arg)).array()
 })
 
 export type FilterFormSchemaType = Zod.infer<typeof FilterFormSchema>;
@@ -65,6 +62,5 @@ export const FilterFormDefaultValues: FilterFormSchemaType = {
     priceRange: [50, 200],
     // color: "",
     sizes: [],
-    productType: [],
-    productCategory: []
+    types: [],
 }

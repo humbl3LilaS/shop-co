@@ -9,20 +9,28 @@ import ProductPreviewCard from "@/components/product-preview-card";
 import CustomPagination from "@/components/share/custom-pagination";
 import FilterForm from "@/feature/public/product-category/components/filter-form";
 
+export type CategoryPageQuery = {
+    page: string;
+    min: string;
+    max: string;
+    types: string;
+    sizes: string;
+}
+
 type PageProps = {
     params: Promise<{ category: string }>,
-    searchParams: Promise<{ page: string }>,
+    searchParams: Promise<CategoryPageQuery>,
 }
 
 const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
     const {category} = await params;
-    const {page} = await searchParams;
+    const query = await searchParams;
 
     if (STYLES.every(item => item.title !== category)) {
         return notFound();
     }
 
-    const products = await getProductByCategory(category as IProductCategory, page ? parseInt(page) : 1);
+    const products = await getProductByCategory(category as IProductCategory, query);
     if (!products) {
         notFound();
     }

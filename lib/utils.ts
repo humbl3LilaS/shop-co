@@ -22,8 +22,8 @@ export const getValidPathnameArray = (pathname: string) => {
 * */
 export const makeshiftPagination = <T>(results: T[], page: number) => {
     return results.slice((
-                             page - 1
-                         ) * 10, page * 10);
+        page - 1
+    ) * 10, page * 10);
 }
 
 export const populateData = <T>(items: T[], times: number) => {
@@ -41,3 +41,12 @@ export const calculatePageCounts = (items: number) => {
     return abs < div ? floor + 1 : floor;
 }
 
+
+export const arrayToSlug = <T>(items: T[]) => {
+    return items.join("_")
+}
+
+export const slugToArray = (slug?: string) => {
+    if (!slug) return [];
+    return slug.split("_").filter(item => !!item);
+}
