@@ -30,7 +30,7 @@ export const products = pgTable(
         productCategory: text("product_category", {enum: [...CATEGORIES]}),
         productType: text("product_type", {enum: [...TYPES]}),
         sizes: text("sizes").array(),
-    }
+    },
 )
 
 export const productColorsRelation = relations(products, ({many}) => (

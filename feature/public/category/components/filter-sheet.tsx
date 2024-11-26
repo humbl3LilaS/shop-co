@@ -2,8 +2,8 @@
 import {FilterFormSchemaType} from "@/validation/schema";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {SlidersHorizontal} from "lucide-react";
-import FilterForm from "@/feature/public/product-category/components/filter-form";
-import {useFilterSheet} from "@/feature/public/product-category/hooks/use-filter-sheet";
+import FilterForm from "@/feature/public/category/components/filter-form";
+import {useFilterSheet} from "@/feature/public/category/hooks/use-filter-sheet";
 import {useMediaQuery} from "@/hooks/use-media-query";
 import {cn} from "@/lib/utils";
 

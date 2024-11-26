@@ -8,10 +8,10 @@ import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import PriceRangeSelector from "@/components/share/price-range-selector";
 import {Button} from "@/components/ui/button";
-import AccordionField from "@/feature/public/product-category/components/accordion-field";
+import AccordionField from "@/feature/public/category/components/accordion-field";
 import {arrayToSlug} from "@/lib/utils";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useFilterSheet} from "@/feature/public/product-category/hooks/use-filter-sheet";
+import {useFilterSheet} from "@/feature/public/category/hooks/use-filter-sheet";
 
 function fieldArrayOnChange<T>(value: T, array: T[], callback: (value: T[]) => void) {
     if (array.includes(value)) {
