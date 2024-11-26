@@ -37,7 +37,7 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const toggleFilterSheet = useFilterSheet(state => state.toggle);
+    const setOpen = useFilterSheet(state => state.setOpen);
 
     const onSubmit: SubmitHandler<FilterFormSchemaType> = (values) => {
 
@@ -60,7 +60,7 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
             })
 
         //  Toggle the filter-sheet's state
-        toggleFilterSheet();
+        setOpen(false);
 
         // push the searchParam to the current route
         router.push(`${pathname}?${params.toString()}`);

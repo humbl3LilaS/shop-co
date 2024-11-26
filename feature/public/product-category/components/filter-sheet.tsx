@@ -12,12 +12,12 @@ type FilterSheetProps = {
 }
 const FilterSheet = ({defaultValues}: FilterSheetProps) => {
     const isOpen = useFilterSheet(state => state.isOpen);
-    const toggle = useFilterSheet(state => state.toggle);
+    const setOpen = useFilterSheet(state => state.setOpen);
 
     const isMobile = useMediaQuery('(max-width: 768px)');
     return (
-        <Sheet open={isOpen} onOpenChange={toggle}>
-            <SheetTrigger className={"ml-auto lg:hidden"}>
+        <Sheet open={isOpen} onOpenChange={setOpen}>
+            <SheetTrigger className={"ml-auto lg:hidden"} asChild={true}>
                 <button
                     className={"size-8  flex items-center justify-center rounded-full bg-[#f0f0f0]"}>
                     <SlidersHorizontal className={"size-4"}/>
