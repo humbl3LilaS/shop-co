@@ -48,13 +48,6 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
     return (
         <Container>
             <CustomBreadcrumb/>
-            <nav className={"mb-7 flex items-baseline gap-x-4"}>
-                <h2 className={"text-2xl font-bold capitalize"}>{category}</h2>
-                <p className={"text-black/60"}>
-                    Showing {products.currentPage}-{products.totalPages} of &nbsp;{products.totalProducts} Products
-                </p>
-                <FilterSheet defaultValues={formDefaultValues}/>
-            </nav>
             <div className={"lg:grid grid-cols-4 gap-x-5"}>
                 <div className={"hidden lg:block col-span-1 border border-black/20 rounded-xl"}>
                     <div className={"px-6 py-5"}>
@@ -68,6 +61,13 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                     </div>
                 </div>
                 <div className={"lg:col-span-3"}>
+                    <nav className={"mb-7 flex items-baseline gap-x-4 lg:justify-between"}>
+                        <h2 className={"text-2xl font-bold capitalize"}>{category}</h2>
+                        <p className={"text-black/60"}>
+                            Showing {products.currentPage}-{products.totalPages} of &nbsp;{products.totalProducts} Products
+                        </p>
+                        <FilterSheet defaultValues={formDefaultValues}/>
+                    </nav>
                     {
                         products.data && products.data.length === 0 &&
                         <h1 className={"mt-10 text-2xl font-bold text-center lg:text-3xl"}>No products</h1>
@@ -80,7 +80,7 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                             </>
                         )}
                     </div>
-
+                    {products.data && products.data.length > 0 && <hr className={"mb-6"}/>}
                     {
                         products.data && products.data.length > 0 &&
                         <CustomPagination

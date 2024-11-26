@@ -66,6 +66,10 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
         router.push(`${pathname}?${params.toString()}`);
     }
 
+    const resetFilterHandler = () => {
+        router.push(pathname);
+    }
+
     return (
         <div className={"mt-6"}>
             <Form {...form}>
@@ -162,8 +166,18 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
                             )}/>
                     </AccordionField>
 
-                    <Button className={"mt-6 w-full rounded-3xl"}>
+                    <Button
+                        type={"submit"}
+                        className={"mt-6 w-full rounded-3xl"}
+                    >
                         Apply Filter
+                    </Button>
+                    <Button
+                        type={"button"}
+                        onClick={resetFilterHandler}
+                        className={"mt-4 w-full rounded-3xl bg-stone-500"}
+                    >
+                        Reset Filter
                     </Button>
                 </form>
             </Form>
