@@ -144,11 +144,11 @@ const CreateProductForm = () => {
                                     <SelectContent>
                                         {
                                             CATEGORIES.map(item =>
-                                                               <SelectItem
-                                                                   value={item} key={item}
-                                                                   className={"capitalize"}>
-                                                                   {item}
-                                                               </SelectItem>
+                                                <SelectItem
+                                                    value={item} key={item}
+                                                    className={"capitalize"}>
+                                                    {item}
+                                                </SelectItem>
                                             )
                                         }
                                     </SelectContent>
@@ -176,11 +176,11 @@ const CreateProductForm = () => {
                                     <SelectContent>
                                         {
                                             TYPES.map(item =>
-                                                          <SelectItem
-                                                              value={item} key={item}
-                                                              className={"capitalize"}>
-                                                              {item}
-                                                          </SelectItem>
+                                                <SelectItem
+                                                    value={item} key={item}
+                                                    className={"capitalize"}>
+                                                    {item}
+                                                </SelectItem>
                                             )
                                         }
                                     </SelectContent>
@@ -201,24 +201,24 @@ const CreateProductForm = () => {
                                     <ul>
                                         {
                                             SIZES.map((size, idx) =>
-                                                          <SizeCheckbox
-                                                              key={idx}
-                                                              value={size}
-                                                              onCheckedChange={(value) => {
-                                                                  if (value) {
-                                                                      form.setValue(
-                                                                          "sizes",
-                                                                          [...field.value, size]
-                                                                      )
-                                                                  } else {
-                                                                      const filterSizes = field.value.filter(
-                                                                          item => item !== size);
-                                                                      form.setValue(
-                                                                          "sizes",
-                                                                          [...filterSizes]
-                                                                      )
-                                                                  }
-                                                              }}/>
+                                                <SizeCheckbox
+                                                    key={idx}
+                                                    value={size}
+                                                    onCheckedChange={(value) => {
+                                                        if (value) {
+                                                            form.setValue(
+                                                                "sizes",
+                                                                [...field.value, size]
+                                                            )
+                                                        } else {
+                                                            const filterSizes = field.value.filter(
+                                                                item => item !== size);
+                                                            form.setValue(
+                                                                "sizes",
+                                                                [...filterSizes]
+                                                            )
+                                                        }
+                                                    }}/>
                                             )
                                         }
                                     </ul>

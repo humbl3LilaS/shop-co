@@ -4,6 +4,7 @@ import Container from "@/components/share/container";
 import PhotoGrid from "@/feature/public/product/components/photo-grid";
 import {Star} from "lucide-react";
 import PriceTag from "@/components/share/price-tag";
+import AddToCartForm from "@/feature/public/product/components/add-to-cart-form";
 
 type PageProps = {
     params: Promise<{ productId: string }>
@@ -23,32 +24,45 @@ const ProductDetailsPage = async ({params}: PageProps) => {
         notFound();
     }
     const {products: product, product_colors: colors} = res;
+
+    const colorOptions = colors
+        ? colors.map(item => item?.colorHex)
+            .filter(color => color !== undefined)
+        : [];
+
+
     return (
         <Container className={"pt-5"}>
             <PhotoGrid coverImage={product.coverImage} colorImages={product.imagesUrl ?? []}/>
-            <article className={"mt-5"}>
-                <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
-                    {product.name}
-                </h2>
-                {/*TODO: later replace with actual data*/}
-                <div className={"mb-1.5 flex items-center gap-x-2"}>
-                    <Star color="#f9f06b" fill={"#f9f06b"}/>
-                    <Star color="#f9f06b" fill={"#f9f06b"}/>
-                    <Star color="#f9f06b" fill={"#f9f06b"}/>
-                    <Star color="#f9f06b" fill={"#f9f06b"}/>
-                    <p>
-                        4.5/<span className={"text-black/60"}>5</span>
+            <div>
+                <article className={"mt-5"}>
+                    <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
+                        {product.name}
+                    </h2>
+                    {/*TODO: later replace with actual data*/}
+                    <div className={"mb-1.5 flex items-center gap-x-2"}>
+                        <Star color="#f9f06b" fill={"#f9f06b"}/>
+                        <Star color="#f9f06b" fill={"#f9f06b"}/>
+                        <Star color="#f9f06b" fill={"#f9f06b"}/>
+                        <Star color="#f9f06b" fill={"#f9f06b"}/>
+                        <p>
+                            4.5/<span className={"text-black/60"}>5</span>
+                        </p>
+                    </div>
+                    <PriceTag
+                        discount={product.discount}
+                        price={product.price}
+                    />
+                    <p className={"mt-5 mb-6 text-black/40"}>
+                        {product.description}
                     </p>
-                </div>
-                <PriceTag
-                    discount={product.discount}
-                    price={product.price}
+                    <hr/>
+                </article>
+                <AddToCartForm
+                    sizesOptions={product.sizes ?? []}
+                    colorOptions={colorOptions}
                 />
-                <p className={"mt-5 mb-6 text-black/40"}>
-                    {product.description}
-                </p>
-                <hr/>
-            </article>
+            </div>
         </Container>
     );
 };
