@@ -6,6 +6,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form";
 import ColorSelector from "@/feature/public/product/components/color-selector";
 import SizeSelector from "@/feature/public/product/components/size-selector";
+import {Button} from "@/components/ui/button";
+import QuantitySelector from "@/feature/public/product/components/quantity-selector";
 
 type AddToCartFormProps = {
     colorOptions: string[];
@@ -19,7 +21,7 @@ const AddToCartForm = ({colorOptions, sizesOptions}: AddToCartFormProps) => {
         defaultValues: {
             color: colorOptions[0],
             size: sizesOptions[0],
-            quantity: 0,
+            quantity: 1,
         }
     })
     return (
@@ -62,6 +64,20 @@ const AddToCartForm = ({colorOptions, sizesOptions}: AddToCartFormProps) => {
                             </FormControl>
                         </FormItem>
                     }/>
+
+                <hr className={"my-6"}/>
+                <div className={"flex items-center gap-x-4"}>
+                    <FormField
+                        name={"quantity"}
+                        control={form.control}
+                        render={({field}) =>
+                            <QuantitySelector value={field.value} onQuantityChange={field.onChange}/>
+                        }
+                    />
+                    <Button className={"w-full rounded-3xl"} type={"submit"}>
+                        Add to cart
+                    </Button>
+                </div>
             </form>
         </Form>
     );
