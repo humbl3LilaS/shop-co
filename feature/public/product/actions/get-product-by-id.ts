@@ -2,15 +2,11 @@
 
 import {db} from "@/database/drizzle";
 import {productColors, products} from "@/database/schema";
-import {eq, sql} from "drizzle-orm";
-// import {productColors, products} from "@/database/schema";
-// import {eq} from "drizzle-orm";
+import {eq} from "drizzle-orm";
 
 type ProductColor = {
     id: string;
-    color: string;
     colorHex: string;
-    imagesUrl: string[] | null;
 }
 type Product = {
     id: string;
@@ -22,6 +18,7 @@ type Product = {
     productCategory: string | null;
     productType: string | null;
     sizes: string[] | null;
+    imagesUrl: string[] | null;
 }
 
 export const getProductById = async (id: string) => {

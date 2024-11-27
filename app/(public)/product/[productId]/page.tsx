@@ -23,10 +23,9 @@ const ProductDetailsPage = async ({params}: PageProps) => {
         notFound();
     }
     const {products: product, product_colors: colors} = res;
-
     return (
         <Container className={"pt-5"}>
-            <PhotoGrid coverImage={product.coverImage} colorImages={colors[0]?.imagesUrl ?? []}/>
+            <PhotoGrid coverImage={product.coverImage} colorImages={product.imagesUrl ?? []}/>
             <article className={"mt-5"}>
                 <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
                     {product.name}
