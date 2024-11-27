@@ -60,7 +60,6 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
                     }
 
                 }, [] as ICart)
-            console.log(newCart);
             sessionStorage.setItem("cart", JSON.stringify([...newCart]));
         }
     }

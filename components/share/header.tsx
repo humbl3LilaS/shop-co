@@ -1,9 +1,10 @@
 import {auth} from "@/auth";
 import DiscountBanner from "@/components/discount-banner";
-import {CircleUser, Search, ShoppingCartIcon} from "lucide-react";
+import {CircleUser, Search} from "lucide-react";
 import Link from "next/link";
 import NavSearch from "@/components/NavSearch";
 import MobileMenu from "@/components/mobile-menu";
+import CartButton from "@/components/cart-button";
 
 const Header = async () => {
     const session = await auth();
@@ -46,19 +47,8 @@ const Header = async () => {
                     {/*TODO: extract into search function in mobile view*/}
                     <Search strokeWidth={3} className={"lg:hidden"}/>
 
-                    <Link
-                        href={"/cart"}
-                        className={"block relative"}
-                    >
-                        <ShoppingCartIcon strokeWidth={3}/>
-                        <span
-                            className={" w-5 absolute -top-[65%] -right-1/2 aspect-square flex justify-center items-center  rounded-full bg-red-500"}>
-                            <span className={"text-xs text-white"}>
-                                {/*TODO: replace with actual data*/}
-                                1
-                            </span>
-                        </span>
-                    </Link>
+                    <CartButton/>
+
                     {/*TODO: extract into profile popup*/}
                     <Link href={"/profile"}>
                         <CircleUser strokeWidth={3}/>
