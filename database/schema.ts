@@ -26,6 +26,7 @@ export const products = pgTable(
         discount: integer("discount"),
         description: text("description").notNull(),
         coverImage: text("cover_image").notNull(),
+        imagesUrl: text("images_url").array(),
         arrivedAt: timestamp("arrived_at").defaultNow().notNull(),
         productCategory: text("product_category", {enum: [...CATEGORIES]}),
         productType: text("product_type", {enum: [...TYPES]}),
@@ -56,9 +57,7 @@ export const productColors = pgTable(
     {
         id: text().primaryKey().$default(() => createUUID()),
         productId: text("product_id").references(() => products.id),
-        color: text().notNull(),
         colorHex: varchar("color_hex", {length: 6}).notNull(),
-        imagesUrl: text("images_url").array(),
     }
 )
 
