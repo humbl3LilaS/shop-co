@@ -4,7 +4,7 @@ import {FormControl, FormItem, FormLabel} from "@/components/ui/form";
 import {Check} from "lucide-react";
 
 type ColorSelectorProps = {
-    options: string[],
+    options: Array<{ id: string; colorHex: string }>,
     onChange: (value: string | undefined) => void,
     defaultValue: string,
 }
@@ -17,16 +17,16 @@ const ColorSelector = ({options, onChange, defaultValue}: ColorSelectorProps) =>
                     options.map((item, idx) =>
                         <FormItem key={idx}>
                             <FormControl className={"hidden"}>
-                                <RadioGroupItem value={item}/>
+                                <RadioGroupItem value={item.id}/>
                             </FormControl>
                             <FormLabel
                                 className={"block aspect-square w-10 rounded-full relative"}
                                 style={{
-                                    backgroundColor: `#${item}`
+                                    backgroundColor: `#${item.colorHex}`
                                 }}
                             >
-                                <span className={"sr-only"}>#{item}</span>
-                                {defaultValue === item && <Check color="#ffffff" strokeWidth={2.5} className={"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}/>}
+                                <span className={"sr-only"}>#{item.colorHex}</span>
+                                {defaultValue === item.id && <Check color="#ffffff" strokeWidth={2.5} className={"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"}/>}
                             </FormLabel>
                         </FormItem>
                     )

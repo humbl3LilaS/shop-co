@@ -23,12 +23,9 @@ const ProductDetailsPage = async ({params}: PageProps) => {
     if (!res) {
         notFound();
     }
-    const {products: product, product_colors: colors} = res;
+    const {products: product, product_colors} = res;
 
-    const colorOptions = colors
-        ? colors.map(item => item?.colorHex)
-            .filter(color => color !== undefined)
-        : [];
+    const colors = product_colors.filter(item => item !== null);
 
 
     return (
@@ -59,8 +56,8 @@ const ProductDetailsPage = async ({params}: PageProps) => {
                     <hr/>
                 </article>
                 <AddToCartForm
-                    sizesOptions={product.sizes ?? []}
-                    colorOptions={colorOptions}
+                    sizes={product.sizes ?? []}
+                    colors={colors}
                 />
             </div>
         </Container>

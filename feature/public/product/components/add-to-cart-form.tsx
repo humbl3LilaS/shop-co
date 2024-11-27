@@ -1,6 +1,6 @@
 "use client"
 
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {AddToCartFormSchema, AddToCartFormSchemaType} from "@/validation/schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form";
@@ -10,23 +10,33 @@ import {Button} from "@/components/ui/button";
 import QuantitySelector from "@/feature/public/product/components/quantity-selector";
 
 type AddToCartFormProps = {
-    colorOptions: string[];
-    sizesOptions: string[];
+    colors: Array<{ id: string; colorHex: string }>;
+    sizes: string[];
 }
 
-const AddToCartForm = ({colorOptions, sizesOptions}: AddToCartFormProps) => {
+const AddToCartForm = ({colors, sizes}: AddToCartFormProps) => {
     const form = useForm<AddToCartFormSchemaType>({
         resolver: zodResolver(AddToCartFormSchema),
         mode: "onChange",
         defaultValues: {
-            color: colorOptions[0],
-            size: sizesOptions[0],
+            color: colors[0].id,
+            size: sizes[0],
             quantity: 1,
         }
     })
+
+    // const colorOptions = colors
+    //     ? colors.map(item => item?.colorHex)
+    //         .filter(color => color !== undefined)
+    //     : [];
+
+    const onSubmit: SubmitHandler<AddToCartFormSchemaType> = (values) => {
+        console.log(values);
+    }
+
     return (
         <Form {...form}>
-            <form className={"py-6"}>
+            <form className={"py-6"} onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     name={"color"}
                     control={form.control}
@@ -37,7 +47,7 @@ const AddToCartForm = ({colorOptions, sizesOptions}: AddToCartFormProps) => {
                             </FormLabel>
                             <FormControl>
                                 <ColorSelector
-                                    options={colorOptions}
+                                    options={colors}
                                     onChange={field.onChange}
                                     defaultValue={field.value}
                                 />
@@ -57,7 +67,7 @@ const AddToCartForm = ({colorOptions, sizesOptions}: AddToCartFormProps) => {
                             </FormLabel>
                             <FormControl>
                                 <SizeSelector
-                                    options={sizesOptions}
+                                    options={sizes}
                                     onChange={field.onChange}
                                     defaultValue={field.value}
                                 />
