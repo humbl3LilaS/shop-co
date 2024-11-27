@@ -3,6 +3,7 @@ import {Star} from "lucide-react";
 import {calculateDiscount} from "@/lib/utils";
 import Link from "next/link";
 import {IProduct} from "@/types/api.types";
+import PriceTag from "@/components/share/price-tag";
 
 type ProductPreviewCardProps = {
     data: IProduct;
@@ -33,19 +34,7 @@ const ProductPreviewCard = ({data}: ProductPreviewCardProps) => {
                 </p>
             </div>
             <div className={"mb-9"}>
-                {
-                    data.discount
-                    ? <p className={"flex items-center gap-x-2 text-2xl font-bold uppercase"}>
-                        <span>
-                            ${calculateDiscount(data.price, data.discount)}
-                        </span>
-                        <span className={"text-black/60 line-through"}>${data.price}</span>
-                        <span
-                            className={"px-[13px] py-[6px] ml-2 block text-sm bg-[#ff333319] font-normal text-[#f33] rounded-2xl"}>
-                            {data.discount}%
-                        </span>
-                    </p>
-                    : <p className={"text-2xl font-bold uppercase"}>${data.price}</p>}
+                <PriceTag price={data.price} discount={data.discount}/>
             </div>
         </article>
     );
