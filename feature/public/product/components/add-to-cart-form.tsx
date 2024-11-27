@@ -8,13 +8,15 @@ import ColorSelector from "@/feature/public/product/components/color-selector";
 import SizeSelector from "@/feature/public/product/components/size-selector";
 import {Button} from "@/components/ui/button";
 import QuantitySelector from "@/feature/public/product/components/quantity-selector";
+import {ICart} from "@/types/object.types";
 
 type AddToCartFormProps = {
     colors: Array<{ id: string; colorHex: string }>;
     sizes: string[];
+    productId: string;
 }
 
-const AddToCartForm = ({colors, sizes}: AddToCartFormProps) => {
+const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
     const form = useForm<AddToCartFormSchemaType>({
         resolver: zodResolver(AddToCartFormSchema),
         mode: "onChange",
@@ -25,13 +27,42 @@ const AddToCartForm = ({colors, sizes}: AddToCartFormProps) => {
         }
     })
 
-    // const colorOptions = colors
-    //     ? colors.map(item => item?.colorHex)
-    //         .filter(color => color !== undefined)
-    //     : [];
 
     const onSubmit: SubmitHandler<AddToCartFormSchemaType> = (values) => {
-        console.log(values);
+        console.log("values", values);
+        if (window !== undefined && typeof window === "object") {
+            const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
+            console.log("cart from session", cart)
+            const newItem: ICart[number] = {
+                pid: productId,
+                cid: values.color,
+                s: values.size,
+                q: values.quantity
+            }
+
+            const newCart = [...cart, newItem].reduce(
+                (acc, value) => {
+                    if (acc.length === 0) {
+                        return [value]
+                    } else {
+                        let isIncluded = false;
+                        const processArr = acc.map(item => {
+                            if (item.pid === value.pid && item.cid === value.cid && item.s === value.s) {
+                                isIncluded = true;
+                                return {
+                                    ...item,
+                                    q: item.q + value.q
+                                }
+                            }
+                            return item;
+                        })
+                        return isIncluded ? processArr : [...processArr, value]
+                    }
+
+                }, [] as ICart)
+            console.log(newCart);
+            sessionStorage.setItem("cart", JSON.stringify([...newCart]));
+        }
     }
 
     return (

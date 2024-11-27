@@ -58,6 +58,7 @@ const ProductDetailsPage = async ({params}: PageProps) => {
                 <AddToCartForm
                     sizes={product.sizes ?? []}
                     colors={colors}
+                    productId={productId}
                 />
             </div>
         </Container>
