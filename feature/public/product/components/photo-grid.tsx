@@ -12,7 +12,7 @@ const PhotoGrid = ({colorImages, coverImage}: PhotoGridProps) => {
                 colorImages.map((item, idx) =>
                     <div
                         key={idx}
-                        className={cn(`w-full aspect-square`)}
+                        className={cn(`w-full h-full aspect-square`)}
                     >
                         <Image
                             src={item}
@@ -25,7 +25,7 @@ const PhotoGrid = ({colorImages, coverImage}: PhotoGridProps) => {
                 )
             }
             <div
-                className={"w-full aspect-square col-span-3 row-span-3 row-start-1 md:col-start-2"}
+                className={"w-full h-full aspect-square col-span-3 row-span-3 row-start-1 md:col-start-2"}
             >
                 <Image
                     src={coverImage}

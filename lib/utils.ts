@@ -1,5 +1,6 @@
 import {clsx, type ClassValue} from "clsx"
 import {twMerge} from "tailwind-merge"
+import {ICart} from "@/types/object.types";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -49,4 +50,14 @@ export const arrayToSlug = <T>(items: T[]) => {
 export const slugToArray = (slug?: string) => {
     if (!slug) return [];
     return slug.split("_").filter(item => !!item);
+}
+
+export const getQuantityInCart = () => {
+    if (window !== undefined && typeof window === "object") {
+        const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
+        return cart.reduce((quantity, cartItem) => quantity + cartItem.q, 0)
+    } else {
+        return 0;
+    }
+
 }
