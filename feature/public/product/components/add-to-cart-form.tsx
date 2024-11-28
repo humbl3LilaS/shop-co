@@ -66,7 +66,7 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
 
     return (
         <Form {...form}>
-            <form className={"py-6"} onSubmit={form.handleSubmit(onSubmit)}>
+            <form className={"pt-6"} onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     name={"color"}
                     control={form.control}

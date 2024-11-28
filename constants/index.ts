@@ -88,3 +88,18 @@ export const CATEGORIES = ["casual", "formal", "party", "gym"] as const
 export const TYPES = ["t-shirts", "shorts", "shirts", "hoodie", "jeans", "pants"] as const
 
 export const SIZES = ["xxx-small", "x-small", "small", "medium", "large", "x-large", "xx-large", "3x-large", "4x-large"] as const;
+
+export const SECTIONS: Array<{ title: string; value: "details" | "reviews" | "faqs" }> = [
+    {
+        title: "Product Details",
+        value: "details"
+    },
+    {
+        title: "Rating & Reviews",
+        value: "reviews"
+    },
+    {
+        title: "FAQs",
+        value: "faqs"
+    }
+]

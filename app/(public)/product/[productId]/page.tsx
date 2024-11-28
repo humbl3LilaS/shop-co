@@ -5,6 +5,8 @@ import PhotoGrid from "@/feature/public/product/components/photo-grid";
 import {Star} from "lucide-react";
 import PriceTag from "@/components/share/price-tag";
 import AddToCartForm from "@/feature/public/product/components/add-to-cart-form";
+import SectionSelector from "@/feature/public/product/components/section-selector";
+
 
 type PageProps = {
     params: Promise<{ productId: string }>
@@ -30,9 +32,9 @@ const ProductDetailsPage = async ({params}: PageProps) => {
 
     return (
         <Container className={"pt-5"}>
-            <div className={"lg:grid grid-cols-2 gap-x-5"}>
+            <div className={"mb-12.5 lg:grid grid-cols-2"}>
                 <PhotoGrid coverImage={product.coverImage} colorImages={product.imagesUrl ?? []}/>
-                <div>
+                <div className={"lg:px-10"}>
                     <article className={"mt-5"}>
                         <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
                             {product.name}
@@ -63,6 +65,7 @@ const ProductDetailsPage = async ({params}: PageProps) => {
                     />
                 </div>
             </div>
+            <SectionSelector/>
         </Container>
     );
 };
