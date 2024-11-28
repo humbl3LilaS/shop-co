@@ -20,6 +20,7 @@ export const ProductFormSchema = z.object(
         ),
         description: z.string(),
         coverImage: z.string(),
+        colorHex: z.string().refine(arg => arg.length === 6),
         productCategory: z.string().refine(arg => (
             [...CATEGORIES] as Writeable<any, any>
         ).includes(arg)),
@@ -41,6 +42,7 @@ export const ProductFormSchemaDefaultValues: ProductFormSchemaType = {
     productCategory: "",
     productType: "",
     sizes: [],
+    colorHex: ""
 }
 
 export type ProductFormSchemaType = Zod.infer<typeof ProductFormSchema>

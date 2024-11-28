@@ -10,6 +10,7 @@ import {createProduct} from "@/feature/product/actions/create-product-action";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {CATEGORIES, SIZES, TYPES} from "@/constants";
 import SizeCheckbox from "@/components/size-checkbox";
+import {createProductColor} from "@/feature/product/actions/create-product-color";
 
 const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>(
@@ -24,8 +25,13 @@ const CreateProductForm = () => {
     const {toast} = useToast();
 
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (value) => {
-        const product = await createProduct({...value})
+        const {colorHex, ...payload} = value;
+        const product = await createProduct({...payload});
         if (!product) {
+            toast({title: "Product Creation Failed", variant: "destructive"})
+        }
+        const color = await createProductColor({colorHex, productId: product?.id ?? ""});
+        if (!color) {
             toast({title: "Product Creation Failed", variant: "destructive"})
         }
         toast({title: "Product Created"})
@@ -120,6 +126,22 @@ const CreateProductForm = () => {
                                 <FormMessage/>
                                 <FormControl>
                                     <Input {...field} placeholder={"Description..."}/>
+                                </FormControl>
+                            </FormItem>
+                        }
+                    />
+
+                    <FormField
+                        name={"colorHex"}
+                        control={form.control}
+                        render={({field}) =>
+                            <FormItem>
+                                <FormLabel>
+                                    Color hex
+                                </FormLabel>
+                                <FormMessage/>
+                                <FormControl>
+                                    <Input {...field} placeholder={"#ffffff"}/>
                                 </FormControl>
                             </FormItem>
                         }

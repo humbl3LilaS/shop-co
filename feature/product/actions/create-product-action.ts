@@ -4,9 +4,9 @@ import {ProductFormSchemaType} from "@/validation/schema";
 import {db} from "@/database/drizzle";
 import {products} from "@/database/schema";
 
-export const createProduct = async (payload: ProductFormSchemaType) => {
+export const createProduct = async (payload: Omit<ProductFormSchemaType, "colorHex">) => {
     try {
-        const product = await db.insert(products).values(
+        const [product] = await db.insert(products).values(
             //@ts-expect-error so sick of checking this type
             {
                 ...payload,
