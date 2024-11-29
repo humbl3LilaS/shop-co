@@ -76,6 +76,7 @@ export const reviews = pgTable(
         id: text().primaryKey().$default(() => createUUID()),
         productId: text("product_id").references(() => products.id),
         userId: text("user_id").references(() => users.id),
+        content: text("content").notNull(),
         createdAt: timestamp("created_at").defaultNow().notNull(),
         rating: integer().notNull(),
     },

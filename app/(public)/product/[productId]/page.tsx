@@ -31,42 +31,44 @@ const ProductDetailsPage = async ({params}: PageProps) => {
 
 
     return (
-        <Container className={"pt-5"}>
-            <div className={"mb-12.5 lg:grid grid-cols-2"}>
-                <PhotoGrid coverImage={product.coverImage} colorImages={product.imagesUrl ?? []}/>
-                <div className={"lg:px-10"}>
-                    <article className={"mt-5"}>
-                        <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
-                            {product.name}
-                        </h2>
-                        {/*TODO: later replace with actual data*/}
-                        <div className={"mb-1.5 flex items-center gap-x-2"}>
-                            <Star color="#f9f06b" fill={"#f9f06b"}/>
-                            <Star color="#f9f06b" fill={"#f9f06b"}/>
-                            <Star color="#f9f06b" fill={"#f9f06b"}/>
-                            <Star color="#f9f06b" fill={"#f9f06b"}/>
-                            <p>
-                                4.5/<span className={"text-black/60"}>5</span>
+        <>
+            <Container className={"pt-5"}>
+                <div className={"mb-12.5 lg:grid grid-cols-2"}>
+                    <PhotoGrid coverImage={product.coverImage} colorImages={product.imagesUrl ?? []}/>
+                    <div className={"lg:px-10"}>
+                        <article className={"mt-5"}>
+                            <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
+                                {product.name}
+                            </h2>
+                            {/*TODO: later replace with actual data*/}
+                            <div className={"mb-1.5 flex items-center gap-x-2"}>
+                                <Star color="#f9f06b" fill={"#f9f06b"}/>
+                                <Star color="#f9f06b" fill={"#f9f06b"}/>
+                                <Star color="#f9f06b" fill={"#f9f06b"}/>
+                                <Star color="#f9f06b" fill={"#f9f06b"}/>
+                                <p>
+                                    4.5/<span className={"text-black/60"}>5</span>
+                                </p>
+                            </div>
+                            <PriceTag
+                                discount={product.discount}
+                                price={product.price}
+                            />
+                            <p className={"mt-5 mb-6 text-black/40"}>
+                                {product.description}
                             </p>
-                        </div>
-                        <PriceTag
-                            discount={product.discount}
-                            price={product.price}
+                            <hr/>
+                        </article>
+                        <AddToCartForm
+                            sizes={product.sizes ?? []}
+                            colors={colors}
+                            productId={productId}
                         />
-                        <p className={"mt-5 mb-6 text-black/40"}>
-                            {product.description}
-                        </p>
-                        <hr/>
-                    </article>
-                    <AddToCartForm
-                        sizes={product.sizes ?? []}
-                        colors={colors}
-                        productId={productId}
-                    />
+                    </div>
                 </div>
-            </div>
+            </Container>
             <SectionSelector/>
-        </Container>
+        </>
     );
 };
 

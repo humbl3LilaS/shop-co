@@ -7,3 +7,11 @@ export interface IProduct {
     coverImage: string;
     arrivedAt: Date;
 }
+
+export interface IReview {
+    id: string;
+    content: string;
+    userName: string | null;
+    rating: number;
+    createdAt: Date;
+}

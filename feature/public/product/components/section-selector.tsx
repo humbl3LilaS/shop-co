@@ -1,5 +1,5 @@
 "use client"
-import ProductReviews from "@/feature/public/product/components/product-reviews";
+import ProductReviews from "@/feature/public/reviews/components/product-reviews";
 import ProductDetails from "@/feature/public/product/components/product-details";
 import ProductFaqs from "@/feature/public/product/components/product-faqs";
 import {useChangeSection} from "@/feature/public/product/hook/use-change-section";
