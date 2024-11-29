@@ -6,6 +6,8 @@ import {Star} from "lucide-react";
 import PriceTag from "@/components/share/price-tag";
 import AddToCartForm from "@/feature/public/product/components/add-to-cart-form";
 import SectionSelector from "@/feature/public/product/components/section-selector";
+import {getTotalRating} from "@/feature/public/reviews/actions/get-total-rating";
+import Rating from "@/feature/public/reviews/components/rating";
 
 
 type PageProps = {
@@ -26,6 +28,7 @@ const ProductDetailsPage = async ({params}: PageProps) => {
         notFound();
     }
     const {products: product, product_colors} = res;
+    const totalRating = await getTotalRating(productId);
 
     const colors = product_colors.filter(item => item !== null);
 
@@ -40,16 +43,11 @@ const ProductDetailsPage = async ({params}: PageProps) => {
                             <h2 className={"mb-1.5 text-2xl font-bold font-title"}>
                                 {product.name}
                             </h2>
-                            {/*TODO: later replace with actual data*/}
-                            <div className={"mb-1.5 flex items-center gap-x-2"}>
-                                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                                <p>
-                                    4.5/<span className={"text-black/60"}>5</span>
-                                </p>
-                            </div>
+                            {
+                                totalRating ?
+                                    <Rating data={totalRating} showAvg={true} className={"mt-2 mb-3"}/>
+                                    : <Rating data={0}/>
+                            }
                             <PriceTag
                                 discount={product.discount}
                                 price={product.price}
