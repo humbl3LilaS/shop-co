@@ -26,6 +26,7 @@ const ProductReviews = () => {
                             className={"size-8  flex items-center justify-center rounded-full bg-[#f0f0f0]"}>
                             <SlidersHorizontal className={"size-4"}/>
                         </button>
+                        {/*TODO: Replace it with pop over or smth*/}
                         <Button className={"rounded-3xl"}>
                             Write a Review
                         </Button>
@@ -35,7 +36,7 @@ const ProductReviews = () => {
             <div className={"mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"}>
                 {
                     data && data.map(item =>
-                        <ReviewCard data={item} key={item.id} />
+                        <ReviewCard data={item} key={item.id}/>
                     )
                 }
             </div>

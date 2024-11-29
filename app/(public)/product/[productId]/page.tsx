@@ -2,7 +2,6 @@ import {getProductById} from "@/feature/public/product/actions/get-product-by-id
 import {notFound} from "next/navigation";
 import Container from "@/components/share/container";
 import PhotoGrid from "@/feature/public/product/components/photo-grid";
-import {Star} from "lucide-react";
 import PriceTag from "@/components/share/price-tag";
 import AddToCartForm from "@/feature/public/product/components/add-to-cart-form";
 import SectionSelector from "@/feature/public/product/components/section-selector";

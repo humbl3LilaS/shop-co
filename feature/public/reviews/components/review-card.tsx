@@ -12,7 +12,7 @@ const ReviewCard = ({data}: ReviewCardProps) => {
             <Rating data={data.rating} className={""}/>
             <h3 className={" font-bold text-xl"}>{data.userName}</h3>
             <p className={"text-black/40 text-sm"}> {data.content}</p>
-            <p className={"mt-auto text-black/40 font-bold"}>Posted on{format(data.createdAt, "do MMM yyyy")}</p>
+            <p className={"mt-auto text-black/40 font-bold"}>Posted on {format(data.createdAt, "do MMM yyyy")}</p>
         </div>
     );
 };

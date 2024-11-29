@@ -23,7 +23,7 @@ const NewsletterFrom = () => {
                             className={"outline-none border-none ring-0 focus-visible:ring-0 focus:outline-none focus-visible:ring-offset-0 placeholder:text-black/60"}
                         />
                     </div>
-                    <Button className={"w-full rounded-3xl font-bold bg-white text-black"}>
+                    <Button className={"w-full rounded-3xl font-bold bg-white text-black hover:bg-slate-400 hover:text-white"}>
                         Subscribe to Newsletter
                     </Button>
                 </form>
