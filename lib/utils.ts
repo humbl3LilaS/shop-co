@@ -61,3 +61,7 @@ export const getQuantityInCart = () => {
     }
 
 }
+
+export const addLineBreaks = (input: string): string => {
+    return input.replace(/  /g, `\n`);
+}

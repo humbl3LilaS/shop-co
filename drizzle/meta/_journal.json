@@ -29,6 +29,13 @@
       "when": 1732859027056,
       "tag": "0003_icy_enchantress",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1732956123498,
+      "tag": "0004_previous_red_wolf",
+      "breakpoints": true
     }
   ]
 }

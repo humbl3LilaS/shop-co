@@ -25,6 +25,7 @@ export const products = pgTable(
         price: integer("price").notNull(),
         discount: integer("discount"),
         description: text("description").notNull(),
+        details: text("details"),
         coverImage: text("cover_image").notNull(),
         imagesUrl: text("images_url").array(),
         arrivedAt: timestamp("arrived_at").defaultNow().notNull(),

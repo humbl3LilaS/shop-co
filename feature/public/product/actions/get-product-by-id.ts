@@ -19,6 +19,7 @@ type Product = {
     productType: string | null;
     sizes: string[] | null;
     imagesUrl: string[] | null;
+    details: string | null;
 }
 
 export const getProductById = async (id: string) => {

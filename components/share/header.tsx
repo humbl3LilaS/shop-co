@@ -19,7 +19,7 @@ const Header = async () => {
                         shop.co
                     </Link>
                 </h1>
-                <ul className={"hidden items-center  gap-x-4 lg:flex"}>
+                <ul className={"hidden items-center  gap-x-8 lg:flex"}>
                     <li>
                         {/*Todo: extract into dropdown later*/}
                         <Link href="/shop">

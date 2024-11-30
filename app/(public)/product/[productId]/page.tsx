@@ -64,7 +64,7 @@ const ProductDetailsPage = async ({params}: PageProps) => {
                     </div>
                 </div>
             </Container>
-            <SectionSelector/>
+            <SectionSelector details={product.details}/>
         </>
     );
 };

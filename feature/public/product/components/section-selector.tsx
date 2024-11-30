@@ -8,7 +8,7 @@ import {cn} from "@/lib/utils";
 import Container from "@/components/share/container";
 
 
-const SectionSelector = () => {
+const SectionSelector = ({details}:{details: string | null }) => {
     const activeSection = useChangeSection(state => state.activeSession);
     const setSection = useChangeSection(state => state.setSection)
     return (
@@ -31,7 +31,7 @@ const SectionSelector = () => {
                 </div>
             </Container>
             {activeSection === "reviews" && <ProductReviews/>}
-            {activeSection === "details" && <ProductDetails/>}
+            {activeSection === "details" && <ProductDetails details={details}/>}
             {activeSection === "faqs" && <ProductFaqs/>}
         </>
     );
