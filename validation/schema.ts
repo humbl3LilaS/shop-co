@@ -62,14 +62,13 @@ export type FilterFormSchemaType = Zod.infer<typeof FilterFormSchema>;
 
 export const FilterFormDefaultValues: FilterFormSchemaType = {
     priceRange: [0, 400],
-    // color: "",
     sizes: [],
     types: [],
 }
 
 
 export const AddToCartFormSchema = z.object({
-    color: z.string(),
+    color: z.string().optional(),
     size: z.string(),
     quantity: z.number().int().positive(),
 })

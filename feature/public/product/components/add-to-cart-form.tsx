@@ -9,6 +9,7 @@ import SizeSelector from "@/feature/public/product/components/size-selector";
 import {Button} from "@/components/ui/button";
 import QuantitySelector from "@/feature/public/product/components/quantity-selector";
 import {ICart} from "@/types/object.types";
+import {useQuantityInCart} from "@/hooks/use-quantity-in-cart";
 
 type AddToCartFormProps = {
     colors: Array<{ id: string; colorHex: string }>;
@@ -21,11 +22,13 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
         resolver: zodResolver(AddToCartFormSchema),
         mode: "onChange",
         defaultValues: {
-            color: colors[0].id,
+            color: colors[0]?.id,
             size: sizes[0],
             quantity: 1,
         }
     })
+
+    const setQuantity = useQuantityInCart(state => state.setQuantity);
 
 
     const onSubmit: SubmitHandler<AddToCartFormSchemaType> = (values) => {
@@ -35,7 +38,7 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
             console.log("cart from session", cart)
             const newItem: ICart[number] = {
                 pid: productId,
-                cid: values.color,
+                cid: values.color ?? "no-option",
                 s: values.size,
                 q: values.quantity
             }
@@ -60,6 +63,7 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
                     }
 
                 }, [] as ICart)
+            setQuantity(values.quantity)
             sessionStorage.setItem("cart", JSON.stringify([...newCart]));
         }
     }

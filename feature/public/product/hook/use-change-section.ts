@@ -2,7 +2,7 @@ import {create} from "zustand";
 
 type Store = {
     activeSession: "details" | "reviews" | "faqs"
-    setSection: (payload:  "details" | "reviews" | "faqs") => void;
+    setSection: (payload: "details" | "reviews" | "faqs") => void;
 }
 
 export const useChangeSection = create<Store>(set => ({

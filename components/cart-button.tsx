@@ -5,8 +5,8 @@ import {useQuantityInCart} from "@/hooks/use-quantity-in-cart";
 
 
 const CartButton = () => {
-
-    const quantity = useQuantityInCart();
+    const quantity = useQuantityInCart(state => state.quantity);
+    console.log(quantity);
     return (
         <Link
             href={"/cart"}

@@ -6,7 +6,7 @@ import {Check} from "lucide-react";
 type ColorSelectorProps = {
     options: Array<{ id: string; colorHex: string }>,
     onChange: (value: string | undefined) => void,
-    defaultValue: string,
+    defaultValue: string | undefined,
 }
 const ColorSelector = ({options, onChange, defaultValue}: ColorSelectorProps) => {
 

@@ -13,7 +13,7 @@ const SectionSelector = () => {
     const setSection = useChangeSection(state => state.setSection)
     return (
         <>
-            <Container className={"py-0 my-0"}>
+            <Container className={"py-0 my-0 lg:mb-4"}>
                 <div>
                     <ul className={"grid grid-cols-3"}>
                         {
@@ -21,7 +21,7 @@ const SectionSelector = () => {
                                 <li
                                     key={item.value}
                                     onClick={() => setSection(item.value)}
-                                    className={cn("block pb-2 text-center text-sm cursor-pointer", item.value === activeSection && "border-b-[1.5px] border-b-black")}
+                                    className={cn("block pb-2 text-center text-sm cursor-pointer md:text-base lg:text-lg", item.value === activeSection && "border-b-[1.5px] border-b-black")}
                                 >
                                     {item.title}
                                 </li>

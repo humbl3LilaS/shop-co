@@ -1,16 +1,20 @@
-import {useEffect, useState} from "react";
+import {create} from "zustand";
 import {ICart} from "@/types/object.types";
 
-export const useQuantityInCart = () => {
-    const [quantity, setQuantity] = useState(0);
-    useEffect(() => {
-        const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
-        const quantity = cart.reduce(
-            (acc, value) => {
-                return acc + value.q;
-            }, 0)
-        setQuantity(quantity)
-    }, [])
-
-    return quantity;
+type State = {
+    quantity: number;
+    setQuantity: (payload: number) => void;
 }
+
+const getQuantityFormSession = () => {
+    const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
+    return cart.reduce((a, b) => a + b.q, 0);
+
+}
+
+export const useQuantityInCart = create<State>((set) => ({
+    quantity: getQuantityFormSession(),
+    setQuantity: (payload: number) => set((state) => ({quantity: payload + state.quantity})),
+}))
+
+

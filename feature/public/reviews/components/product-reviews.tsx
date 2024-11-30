@@ -40,6 +40,13 @@ const ProductReviews = () => {
                     )
                 }
             </div>
+            {
+                data
+                && data.length === 0
+                && <div className={"py-5 lg:py-8"}>
+                    <h3 className={" text-center text-lg font-bold underline lg:text-xl"}>No Reviews Yet</h3>
+                </div>
+            }
         </Container>
     );
 };
