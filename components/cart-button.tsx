@@ -2,10 +2,15 @@
 import {ShoppingCartIcon} from "lucide-react";
 import Link from "next/link";
 import {useQuantityInCart} from "@/hooks/use-quantity-in-cart";
+import {useEffect, useState} from "react";
 
 
 const CartButton = () => {
-    const quantity = useQuantityInCart(state => state.quantity);
+    const stored = useQuantityInCart(state => state.quantity);
+    const [quantity, setQuantity] = useState(0);
+    useEffect(() => {
+        setQuantity(stored)
+    }, [])
     return (
         <Link
             href={"/cart"}
@@ -17,7 +22,8 @@ const CartButton = () => {
                             <span className={"text-xs text-white"}>
                                 {quantity}
                             </span>
-                        </span>
+
+            </span>
         </Link>
     );
 };
