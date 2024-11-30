@@ -10,7 +10,7 @@ const CartButton = () => {
     const [quantity, setQuantity] = useState(0);
     useEffect(() => {
         setQuantity(stored)
-    }, [])
+    }, [stored])
     return (
         <Link
             href={"/cart"}
