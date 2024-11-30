@@ -7,6 +7,9 @@ type State = {
 }
 
 const getQuantityFormSession = () => {
+    if (typeof window === "undefined") {
+        return 0;
+    }
     const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
     return cart.reduce((a, b) => a + b.q, 0);
 
