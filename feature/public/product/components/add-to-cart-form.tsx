@@ -32,10 +32,8 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
 
 
     const onSubmit: SubmitHandler<AddToCartFormSchemaType> = (values) => {
-        console.log("values", values);
         if (window !== undefined && typeof window === "object") {
             const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
-            console.log("cart from session", cart)
             const newItem: ICart[number] = {
                 pid: productId,
                 cid: values.color ?? "no-option",
