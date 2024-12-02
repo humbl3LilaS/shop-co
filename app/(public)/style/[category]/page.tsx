@@ -49,7 +49,7 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
         <Container>
             <CustomBreadcrumb/>
             <div className={"lg:grid grid-cols-4 gap-x-5"}>
-                <div className={"hidden lg:block col-span-1 border border-black/20 rounded-xl"}>
+                <div className={"hidden lg:block h-fit col-span-1 border border-black/20 rounded-xl"}>
                     <div className={"px-6 py-5"}>
 
                         <h2 className={"mb-6 flex items-center justify-between"}>

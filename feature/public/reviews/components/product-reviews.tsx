@@ -1,4 +1,4 @@
-import {useGetAllReviews} from "@/feature/public/reviews/hooks/use-get-all-reviews";
+import {useGetReviewByProductId} from "@/feature/public/reviews/hooks/use-get-review-by-product-id";
 import {useParams} from "next/navigation";
 import {SlidersHorizontal} from "lucide-react";
 import {Button} from "@/components/ui/button";
@@ -8,9 +8,7 @@ import ReviewCard from "@/feature/public/reviews/components/review-card";
 
 const ProductReviews = () => {
     const params = useParams() as { productId: string };
-
-    const {data} = useGetAllReviews(params?.productId);
-
+    const {data} = useGetReviewByProductId(params?.productId);
     return (
         <Container className={"py-5"}>
             <header>
