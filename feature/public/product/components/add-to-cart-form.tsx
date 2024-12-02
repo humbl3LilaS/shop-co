@@ -9,7 +9,7 @@ import SizeSelector from "@/feature/public/product/components/size-selector";
 import {Button} from "@/components/ui/button";
 import QuantitySelector from "@/feature/public/product/components/quantity-selector";
 import {ICart} from "@/types/object.types";
-import {useQuantityInCart} from "@/hooks/use-quantity-in-cart";
+import {useCartStore} from "@/hooks/use-cart-store";
 
 type AddToCartFormProps = {
     colors: Array<{ id: string; colorHex: string }>;
@@ -28,42 +28,26 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
         }
     })
 
-    const setQuantity = useQuantityInCart(state => state.setQuantity);
 
+    const cart = useCartStore(state => state.cart);
+    const addToCart = useCartStore(state => state.addToCart);
+    const increaseQuantity = useCartStore(state => state.increaseQty)
 
     const onSubmit: SubmitHandler<AddToCartFormSchemaType> = (values) => {
-        if (window !== undefined && typeof window === "object") {
-            const cart = JSON.parse(sessionStorage.getItem("cart") ?? "[]") as ICart;
-            const newItem: ICart[number] = {
-                pid: productId,
-                cid: values.color ?? "no-option",
-                s: values.size,
-                q: values.quantity
-            }
-
-            const newCart = [...cart, newItem].reduce(
-                (acc, value) => {
-                    if (acc.length === 0) {
-                        return [value]
-                    } else {
-                        let isIncluded = false;
-                        const processArr = acc.map(item => {
-                            if (item.pid === value.pid && item.cid === value.cid && item.s === value.s) {
-                                isIncluded = true;
-                                return {
-                                    ...item,
-                                    q: item.q + value.q
-                                }
-                            }
-                            return item;
-                        })
-                        return isIncluded ? processArr : [...processArr, value]
-                    }
-
-                }, [] as ICart)
-            setQuantity(values.quantity)
-            sessionStorage.setItem("cart", JSON.stringify([...newCart]));
+        const newItem: ICart[number] = {
+            pid: productId,
+            cid: values.color ?? "no-option",
+            s: values.size,
+            q: values.quantity
         }
+        const isInCart = cart.find(item => item.pid === newItem.pid && item.cid === newItem.cid);
+        console.log(isInCart)
+        if (!isInCart) {
+            addToCart(newItem)
+        } else {
+            increaseQuantity(newItem.pid, newItem.cid);
+        }
+
     }
 
     return (

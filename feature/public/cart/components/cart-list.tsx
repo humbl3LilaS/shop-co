@@ -4,6 +4,7 @@ import {Button} from "@/components/ui/button";
 import {Trash} from "lucide-react";
 import {useCallback} from "react";
 import {useCartStore} from "@/hooks/use-cart-store";
+import {useQueryClient} from "react-query";
 
 type CartListProps = {
     ids: Array<{ pid: string, cid: string }>
@@ -12,9 +13,9 @@ type CartListProps = {
 const CartList = ({ids}: CartListProps) => {
     const cart = useCartStore(state => state.cart);
     const removeFromCart = useCartStore(state => state.remove);
-    const {data} = useGetItemInCart(ids);
-    console.log("result", data)
-
+    const {data, isFetching} = useGetItemInCart(ids);
+    console.log(isFetching, data);
+    const queryClient = useQueryClient();
 
     const getSize = useCallback((pid: string, cid: string) => {
         return cart.find(item => item.pid === pid && item.cid === cid)?.s;
@@ -42,7 +43,12 @@ const CartList = ({ids}: CartListProps) => {
                                 </span>
                                 <Button
                                     variant={"link"}
-                                    onClick={() => removeFromCart(item.pid, item.cid ?? "")}
+                                    onClick={async () => {
+                                        removeFromCart(item.pid, item.cid ?? "")
+
+                                        queryClient.setQueryData(["cart"], data.filter(cartItem => cartItem.pid !== item.pid || cartItem.cid !== item.cid))
+
+                                    }}
                                 >
                                     <Trash color={"red"}/>
                                 </Button>

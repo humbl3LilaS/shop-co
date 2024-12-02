@@ -1,16 +1,12 @@
 "use client"
 import {ShoppingCartIcon} from "lucide-react";
 import Link from "next/link";
-import {useQuantityInCart} from "@/hooks/use-quantity-in-cart";
-import {useEffect, useState} from "react";
+import {useCartStore} from "@/hooks/use-cart-store";
 
 
 const CartButton = () => {
-    const stored = useQuantityInCart(state => state.quantity);
-    const [quantity, setQuantity] = useState(0);
-    useEffect(() => {
-        setQuantity(stored)
-    }, [stored])
+    const cart = useCartStore(state => state.cart);
+    const quantity = cart.reduce((a, b) => a + b.q, 0);
     return (
         <Link
             href={"/cart"}
