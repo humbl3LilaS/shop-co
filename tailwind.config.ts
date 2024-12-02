@@ -14,6 +14,9 @@ export default {
     			'25': '100px',
     			'12.5': '50px'
     		},
+			width: {
+
+			},
     		colors: {
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',

@@ -6,7 +6,7 @@ type Store = {
 }
 
 export const useChangeSection = create<Store>(set => ({
-    activeSession: "details",
+    activeSession: "reviews",
     setSection: (payload) => (set(() => ({activeSession: payload}))),
 }))
 
