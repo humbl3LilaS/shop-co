@@ -6,6 +6,7 @@ import CartList from "@/feature/public/cart/components/cart-list";
 const Cart = () => {
 
     const cart = useCartStore(state => state.cart);
+    console.log("cart", cart)
     const ids = cart.map(item => ({
         pid: item.pid,
         cid: item.cid,

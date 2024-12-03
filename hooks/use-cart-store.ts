@@ -13,7 +13,7 @@ type Store = {
 
 const getItemsInCart = () => {
     if (typeof window === "undefined") {
-        return 0;
+        return [];
     }
     const cart = sessionStorage.getItem('cart') ?? `[]`
 
