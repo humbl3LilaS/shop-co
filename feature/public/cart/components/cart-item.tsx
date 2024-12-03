@@ -7,6 +7,7 @@ import Image from "next/image";
 import {useCartStore} from "@/hooks/use-cart-store";
 import {Skeleton} from "@/components/ui/skeleton";
 import {useGetItemData} from "@/feature/public/cart/hooks/use-get-item-data";
+import QuantityController from "@/feature/public/cart/components/quantity-controller";
 
 type CartItemProps = {
     data: ICart[number]
@@ -70,6 +71,7 @@ const CartItem = ({data}: CartItemProps) => {
                             <span>Quantity: </span>
                             <span>{data.q}</span>
                         </p>
+                        <QuantityController data={data}/>
                     </div>
                 </div>
             }
