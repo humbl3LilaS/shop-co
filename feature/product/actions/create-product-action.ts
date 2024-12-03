@@ -14,7 +14,6 @@ export const createProduct = async (payload: Omit<ProductFormSchemaType, "colorH
         if (!product) {
             return undefined;
         }
-        console.log(product);
         return product;
     } catch (error) {
         console.log("error inserting product", error)

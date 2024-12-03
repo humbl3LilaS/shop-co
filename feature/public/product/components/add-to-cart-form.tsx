@@ -40,12 +40,11 @@ const AddToCartForm = ({colors, sizes, productId}: AddToCartFormProps) => {
             s: values.size,
             q: values.quantity
         }
-        const isInCart = cart.find(item => item.pid === newItem.pid && item.cid === newItem.cid);
-        console.log(isInCart)
+        const isInCart = cart.find(item => item.pid === newItem.pid && item.cid === newItem.cid && item.s === newItem.s);
         if (!isInCart) {
             addToCart(newItem)
         } else {
-            increaseQuantity(newItem.pid, newItem.cid);
+            increaseQuantity(newItem);
         }
 
     }

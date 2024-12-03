@@ -6,9 +6,9 @@ import {immer} from "zustand/middleware/immer";
 type Store = {
     cart: ICart,
     addToCart: (payload: ICart[number]) => void,
-    increaseQty: (pid: string, cid: string) => void,
-    reduceQty: (pid: string, cid: string, qty?: number) => void,
-    remove: (pid: string, cid: string) => void,
+    increaseQty: (payload: { pid: string, cid: string, s: string, qty?: number }) => void,
+    reduceQty: (payload: { pid: string, cid: string, s: string }) => void,
+    remove: (payload: { pid: string, cid: string, s: string }) => void,
 }
 
 const getItemsInCart = () => {
@@ -24,29 +24,28 @@ export const useCartStore = create<Store>()(immer((set) => ({
     cart: getItemsInCart(),
     addToCart: (payload) => set((state) => {
         state.cart.push(payload);
-        console.log("add to cart executed")
         sessionStorage.setItem("cart", JSON.stringify(state.cart));
     }),
-    increaseQty: (pid: string, cid: string, qty = 1) => set((state) => {
+    increaseQty: (payload) => set((state) => {
         state.cart = state.cart.map(item => {
-            if (item.pid === pid && item.cid === cid) {
-                return {...item, q: item.q + qty}
+            if (item.pid === payload.pid && item.cid === payload.cid && item.s === payload.s) {
+                return {...item, q: item.q + (payload.qty ?? 1)}
             }
             return item;
         });
         sessionStorage.setItem("cart", JSON.stringify(state.cart));
     }),
-    reduceQty: (pid: string, cid: string) => set((state) => {
+    reduceQty: (payload) => set((state) => {
         state.cart = state.cart.map(item => {
-            if (item.pid === pid && item.cid === cid) {
+            if (item.pid === payload.pid && item.cid === payload.cid && item.s === payload.s) {
                 return {...item, q: item.q - 1}
             }
             return item;
         });
         sessionStorage.setItem("cart", JSON.stringify(state.cart));
     }),
-    remove: (pid: string, cid: string) => set((state) => {
-        state.cart = state.cart.filter(item => item.cid !== cid || item.pid !== pid)
+    remove: (payload) => set((state) => {
+        state.cart = state.cart.filter(item => item.cid !== payload.cid || item.pid !== payload.pid || item.s !== payload.s)
         sessionStorage.setItem("cart", JSON.stringify(state.cart));
     })
 })))

@@ -6,7 +6,6 @@ type PhotoGridProps = {
     colorImages: string[];
 }
 const PhotoGrid = ({colorImages, coverImage}: PhotoGridProps) => {
-    console.log(colorImages)
     return (
         <div className={"grid grid-cols-3 grid-rows-4 gap-3 md:grid-cols-4 md:grid-rows-3"}>
             {
