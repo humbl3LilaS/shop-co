@@ -74,10 +74,7 @@ const ProductCategoryPage = async ({params, searchParams}: PageProps) => {
                     }
                     <div className={"grid  grid-cols-2 gap-4 md:grid-cols-3 lg:gap-5"}>
                         {products.data.map((product, idx) =>
-                            <>
-                                <ProductPreviewCard data={product} key={product.id + idx}/>
-
-                            </>
+                            <ProductPreviewCard data={product} key={product.id + idx}/>
                         )}
                     </div>
                     {products.data && products.data.length > 0 && <hr className={"mb-6"}/>}

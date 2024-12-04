@@ -35,12 +35,12 @@ const CartItem = ({data}: CartItemProps) => {
                 </div>
             }
             {
-                !isFetching && cart && <div className={"flex items-center gap-x-4"}>
-                    <div className={"max-w-25 aspect-square"}>
+                !isFetching && cart && <div className={"flex items-center gap-x-4 md:justify-between"}>
+                    <div className={" aspect-square"}>
                         <Image src={cart?.imageUrl ?? ''} alt={cart?.name ?? ""} width={500} height={500}
-                               className={"rounded-lg"}/>
+                               className={"w-25 aspect-square rounded-lg md:w-[150px] lg:w-[200px]"}/>
                     </div>
-                    <div>
+                    <div className={"md:flex-1"}>
                         <h3 className={"flex items-center justify-between uppercase  gap-x-4"}>
                                 <span className={"font-bold text-lg line-clamp-1"}>
                                     {cart?.name}
@@ -53,7 +53,7 @@ const CartItem = ({data}: CartItemProps) => {
                             </Button>
                         </h3>
                         <p className={"flex items-center gap-x-4"}>
-                            <span>Color: </span>
+                            <span className={"text-sm"}>Color: </span>
                             <span className={"sr-only"}>{cart?.color}</span>
                             <span
                                 className={"block w-6 aspect-square rounded-full"}
@@ -63,15 +63,18 @@ const CartItem = ({data}: CartItemProps) => {
                             />
 
                         </p>
-                        <p>
+                        <p className={"text-sm"}>
                             <span>Size: </span>
-                            <span>{data.s}</span>
+                            <span className={"capitalize"}>{data.s}</span>
                         </p>
-                        <p>
+                        <p className={"text-sm"}>
                             <span>Quantity: </span>
                             <span>{data.q}</span>
                         </p>
-                        <QuantityController data={data}/>
+                        <div className={"flex items-center justify-between"}>
+                            <p className={"text-xl font-bold"}>${data.q * cart.price}</p>
+                            <QuantityController data={data}/>
+                        </div>
                     </div>
                 </div>
             }

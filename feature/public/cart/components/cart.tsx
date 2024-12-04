@@ -1,10 +1,14 @@
 "use client"
 import CartList from "@/feature/public/cart/components/cart-list";
+import CartSummary from "@/feature/public/cart/components/cart-summary";
 
 const Cart = () => {
 
     return (
-        <CartList/>
+        <div  className={"md:grid gap-x-4 grid-cols-3"}>
+            <CartList/>
+            <CartSummary/>
+        </div>
     );
 };
 

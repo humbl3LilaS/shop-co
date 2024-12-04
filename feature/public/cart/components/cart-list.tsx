@@ -9,7 +9,7 @@ const CartList = () => {
     const cart = useCartStore(state => state.cart);
 
     return (
-        <div className={"mt-4 p-4 border border-black/20 flex flex-col gap-y-4 rounded-lg"}>
+        <div className={"mt-4 p-4 border border-black/20 flex flex-col gap-y-4 rounded-lg md:col-span-2"}>
             {
                 (cart.length === 0) &&
                 <h3 className={"py-8 text-center font-bold text-2xl flex items-center justify-center gap-x-3"}>
