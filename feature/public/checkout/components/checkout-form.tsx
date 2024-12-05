@@ -282,7 +282,9 @@ const CheckoutForm = () => {
                         }
                     />
                     <h3 className={"font-bold text-2xl mb-2"}>Order Summary</h3>
-                    <CheckoutSummary/>
+                    <div className={"md:hidden"}>
+                        <CheckoutSummary/>
+                    </div>
                     <Button className={"mt-4 w-full rounded-3xl"}>
                         Checkout
                     </Button>
