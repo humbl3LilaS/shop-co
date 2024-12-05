@@ -1,5 +1,5 @@
-import {z} from "zod";
-import {CATEGORIES, SIZES, TYPES} from "@/constants";
+import {IssueData, z} from "zod";
+import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants";
 import {Writeable} from "@/types/util.types";
 
 
@@ -74,3 +74,39 @@ export const AddToCartFormSchema = z.object({
 })
 
 export type AddToCartFormSchemaType = Zod.infer<typeof AddToCartFormSchema>;
+
+
+export const CheckoutFormSchema = z.object({
+    email: z.string().email(),
+    deliveryMethod: z.string().refine(arg => arg === "delivery" || arg === "pickup"),
+    firstName: z.string().min(1, {message: "First name is required"}),
+    lastName: z.string().min(1, {message: "Last name is required"}),
+    address: z.string(),
+    state: z.string().refine(arg => ZONES.includes(arg)),
+    township: z.string(),
+    postalCode: z.string().refine(arg => arg.length === 6, {message: "Invalid Postal Code"}),
+    phone: z.string().regex(/^09\d{9}$/, {message: "Invalid Phone Number"}),
+    transactionMethod: z.string().refine(arg => arg === "card" || arg === "paypal")
+}).superRefine((arg, ctx) => {
+    const state = arg.state;
+    if (!TOWNSHIPS[state].includes(arg.township)) {
+        ctx.addIssue({
+            path: ["township"],
+        } as IssueData)
+    }
+})
+
+export type CheckoutFormSchemaType = Zod.infer<typeof CheckoutFormSchema>;
+
+export const CheckoutFormDefaultValues: CheckoutFormSchemaType = {
+    email: "",
+    deliveryMethod: "delivery",
+    firstName: "",
+    lastName: "",
+    address: "",
+    state: "Ayeyarwady",
+    township: "",
+    postalCode: "",
+    phone: "",
+    transactionMethod: "card",
+}
