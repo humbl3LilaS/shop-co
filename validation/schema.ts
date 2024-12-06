@@ -110,3 +110,40 @@ export const CheckoutFormDefaultValues: CheckoutFormSchemaType = {
     phone: "",
     transactionMethod: "card",
 }
+
+export const SignUpSchema = z.object({
+    firstName: z.string().min(1, {message: "First name is required"}),
+    lastName: z.string().min(1, {message: "Last name is required"}),
+    userName: z.string().min(5, {message: "User name must be at least 5 characters"}),
+    email: z.string().email(),
+    password: z.string()
+        .min(8, {message: "Password must be at least 8 characters long"})
+        .regex(/[A-Z]/, {message: "Password must contain at least one uppercase letter"})
+        .regex(/[a-z]/, {message: "Password must contain at least one lowercase letter"})
+        .regex(/[0-9]/, {message: "Password must contain at least one number"})
+        .regex(/[@$!%*?&]/, {message: "Password must contain at least one special character (@$!%*?&)"}),
+    confirmPassword: z.string()
+        .min(8, {message: "Password must be at least 8 characters long"})
+        .regex(/[A-Z]/, {message: "Password must contain at least one uppercase letter"})
+        .regex(/[a-z]/, {message: "Password must contain at least one lowercase letter"})
+        .regex(/[0-9]/, {message: "Password must contain at least one number"})
+        .regex(/[@$!%*?&]/, {message: "Password must contain at least one special character (@$!%*?&)"})
+}).superRefine((arg, ctx) => {
+    if (arg.confirmPassword !== arg.confirmPassword) {
+        ctx.addIssue({
+            path: ["password", "confirmPassword"],
+            message: "Password and ConfirmPassword must be the same",
+        } as IssueData)
+    }
+})
+
+export type SignUpSchemaType = Zod.infer<typeof SignUpSchema>;
+
+export const SignUpSchemaDefaultValues: SignUpSchemaType = {
+    email: "",
+    lastName: "",
+    firstName: "",
+    userName: "",
+    password: "",
+    confirmPassword: "",
+}
