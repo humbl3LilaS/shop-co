@@ -147,3 +147,10 @@ export const SignUpSchemaDefaultValues: SignUpSchemaType = {
     password: "",
     confirmPassword: "",
 }
+
+export const SignInSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(1),
+})
+
+export type SignInSchemaType = Zod.infer<typeof SignInSchema>
