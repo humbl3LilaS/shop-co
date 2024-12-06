@@ -44,7 +44,7 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={`${satoshi.variable} ${integralCF.variable} font-sans`}>
-            {children}
+        {children}
         <Toaster/>
         </body>
         </html>

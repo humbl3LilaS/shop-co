@@ -7,6 +7,8 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {signUp} from "@/feature/auth/actions/sign-up";
 import {useRouter} from "next/navigation";
+import {Loader2} from "lucide-react";
+import PasswordField from "@/feature/auth/components/password-field";
 
 const SignUpForm = () => {
     const form = useForm<SignUpSchemaType>({
@@ -26,7 +28,7 @@ const SignUpForm = () => {
     }
 
     return (
-        <div className={"w-full max-w-screen-sm  px-4 py-6 rounded-lg bg-white shadow-lg"}>
+        <div className={"w-full max-w-screen-sm  px-4 py-6 rounded-2xl bg-white shadow-lg lg:max-w-screen-md md:p-10"}>
             <h1 className={"mb-3 text-2xl font-bold"}>Sign Up</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -35,7 +37,7 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     Email
                                 </FormLabel>
                                 <FormControl>
@@ -50,7 +52,7 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     First Name
                                 </FormLabel>
                                 <FormControl>
@@ -66,7 +68,7 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     Last Name
                                 </FormLabel>
                                 <FormControl>
@@ -82,7 +84,7 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     User Name
                                 </FormLabel>
                                 <FormControl>
@@ -98,11 +100,11 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     Password
                                 </FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: Abc123@"}/>
+                                    <PasswordField value={field.value} onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -114,22 +116,25 @@ const SignUpForm = () => {
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
+                                <FormLabel className={"md:text-base"}>
                                     Confirm Password
                                 </FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: Abc123@"}/>
+                                    <PasswordField value={field.value} onChange={field.onChange}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         }
                     />
 
-                    <Button
-                        type="submit"
-                        className={"w-full rounded-3xl"}
-                    >
-                        Sign Up
+                    <Button className={"w-full rounded-3xl"}>
+                        {
+                            form.formState.isSubmitting
+                                ? <>
+                                    <span>Submitting</span>
+                                    <Loader2 className={"animate-spin"}/>
+                                </>
+                                : "Sign Up"}
                     </Button>
                 </form>
             </Form>
