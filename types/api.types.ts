@@ -15,3 +15,12 @@ export interface IReview {
     rating: number;
     createdAt: Date;
 }
+
+export interface IUserInfo {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    profileImage: string | null;
+}

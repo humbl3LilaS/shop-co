@@ -1,4 +1,4 @@
-import CreateProductForm from "@/feature/product/component/create-product-form";
+import CreateProductForm from "@/feature/admin/product/component/create-product-form";
 
 const AdminPage = () => {
     return <section>

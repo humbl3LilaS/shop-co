@@ -1,5 +1,5 @@
 import {useCartStore} from "@/hooks/use-cart-store";
-import {useGetCartSummaryInfo} from "@/feature/public/cart/hooks/use-get-cart-summary-info";
+import {useGetCartSummaryInfo} from "@/feature/client/cart/hooks/use-get-cart-summary-info";
 
 export const useCartSummary = () => {
     const cart = useCartStore(state => state.cart)

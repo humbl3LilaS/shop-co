@@ -1,6 +1,6 @@
 import Container from "@/components/share/container";
 import CustomBreadcrumb from "@/components/share/custom-breadcrumb";
-import Cart from "@/feature/public/cart/components/cart";
+import Cart from "@/feature/client/cart/components/cart";
 
 const Page = () => {
 

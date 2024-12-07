@@ -7,10 +7,10 @@ import Container from "@/components/share/container";
 import {SlidersHorizontal} from "lucide-react";
 import ProductPreviewCard from "@/components/product-preview-card";
 import CustomPagination from "@/components/share/custom-pagination";
-import FilterForm from "@/feature/public/category/components/filter-form";
+import FilterForm from "@/feature/client/category/components/filter-form";
 import {FilterFormSchemaType} from "@/validation/schema";
 import {slugToArray} from "@/lib/utils";
-import FilterSheet from "@/feature/public/category/components/filter-sheet";
+import FilterSheet from "@/feature/client/category/components/filter-sheet";
 
 export type CategoryPageQuery = {
     page: string;

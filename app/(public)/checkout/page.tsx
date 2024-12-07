@@ -1,6 +1,6 @@
-import CheckoutSummaryDropDown from "@/feature/public/checkout/components/checkout-summary-drop-down";
-import CheckoutForm from "@/feature/public/checkout/components/checkout-form";
-import CheckoutSummary from "@/feature/public/checkout/components/checkout-summary";
+import CheckoutSummaryDropDown from "@/feature/client/checkout/components/checkout-summary-drop-down";
+import CheckoutForm from "@/feature/client/checkout/components/checkout-form";
+import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import Container from "@/components/share/container";
 
 const CheckoutPage = () => {

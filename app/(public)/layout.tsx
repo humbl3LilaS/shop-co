@@ -1,6 +1,6 @@
 import Header from "@/components/share/header";
 import Footer from "@/components/share/footer";
-import QueryProvider from "@/feature/public/product/components/query-provider";
+import QueryProvider from "@/feature/client/product/components/query-provider";
 
 const PublicLayout = ({
                           children,

@@ -1,12 +1,12 @@
-import {getProductById} from "@/feature/public/product/actions/get-product-by-id";
+import {getProductById} from "@/feature/client/product/actions/get-product-by-id";
 import {notFound} from "next/navigation";
 import Container from "@/components/share/container";
-import PhotoGrid from "@/feature/public/product/components/photo-grid";
+import PhotoGrid from "@/feature/client/product/components/photo-grid";
 import PriceTag from "@/components/share/price-tag";
-import AddToCartForm from "@/feature/public/product/components/add-to-cart-form";
-import SectionSelector from "@/feature/public/product/components/section-selector";
-import {getTotalRating} from "@/feature/public/reviews/actions/get-total-rating";
-import Rating from "@/feature/public/reviews/components/rating";
+import AddToCartForm from "@/feature/client/product/components/add-to-cart-form";
+import SectionSelector from "@/feature/client/product/components/section-selector";
+import {getTotalRating} from "@/feature/client/reviews/actions/get-total-rating";
+import Rating from "@/feature/client/reviews/components/rating";
 
 
 type PageProps = {
