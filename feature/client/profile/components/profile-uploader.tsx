@@ -4,12 +4,23 @@ import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {uploadProfile} from "@/feature/client/profile/actions/upload-profile";
 import {useState} from "react";
+import {useFormState} from "react-dom";
+
+const initialState = {
+    status: ""
+}
 
 const ProfileUploader = () => {
     const [profile, setProfile] = useState<File[] | null>(null);
-
+    const [state, formAction] = useFormState(uploadProfile, initialState);
+    console.log(state)
+    console.log(profile)
     return (
-        <form className={"relative"} action={uploadProfile} encType={"multipart/form-data"}>
+        <form
+            className={"relative"}
+            action={formAction}
+            encType={"multipart/form-data"}
+        >
             <div
                 className={"w-[100px] aspect-square flex items-center justify-center rounded-full bg-gray-300"}
             >
@@ -29,10 +40,10 @@ const ProfileUploader = () => {
                         ? <div className={"w-3/4 flex flex-col justify-center items-center"}>
 
                             <label htmlFor={"profile"}>
-                                <Upload/>
+                                <Upload className={"mx-auto"}/>
                                 <span className={"text-xs"}>
-                                Upload
-                            </span>
+                                    Upload
+                                </span>
                             </label>
                         </div>
                         :
@@ -43,7 +54,8 @@ const ProfileUploader = () => {
             </div>
 
             {
-                profile && <div className={"absolute w-full -bottom-12 right-0 flex items-center gap-x-2"}>
+                !state.status && profile &&
+                <div className={"absolute w-full -bottom-12 right-0 flex items-center gap-x-2"}>
                     <Button type={"submit"} className={"bg-blue-400"}>
                         <Check/>
                     </Button>

@@ -6,11 +6,12 @@ import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {eq} from "drizzle-orm";
 
-export const uploadProfile = async (formData: FormData) => {
+export const uploadProfile = async (prevState: any, formData: FormData) => {
     try {
         const session = await auth();
 
         const profileImage = formData.get('profile') as File;
+        console.log(profileImage)
         const imageBuffer = await profileImage.arrayBuffer();
         const imageArray = Array.from(new Uint8Array(imageBuffer));
         const imageData = Buffer.from(imageArray);
@@ -22,10 +23,12 @@ export const uploadProfile = async (formData: FormData) => {
             }
         );
         if (!session) {
-            return undefined;
+            return {status: "failed"};
         }
         await db.update(users).set({profileImage: result.secure_url}).where(eq(users.id, session.user.id));
+        return {status: "success"};
     } catch (error) {
         console.log(error)
+        return {status: "failed"}
     }
 }
