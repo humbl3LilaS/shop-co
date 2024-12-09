@@ -23,8 +23,14 @@ const ProfilePage = async () => {
             <PersonalInfo data={profile}/>
             <BillingInfo data={profile}/>
             <Link
+                href={"/transaction"}
+                className={"block mt-4 py-3 border border-black/40 font-semibold text-center rounded-3xl lg:max-w-[340px]"}
+            >
+                See Transactions
+            </Link>
+            <Link
                 href={"/profile/edit"}
-                className={"block mt-4 py-3 bg-black text-white font-semibold text-center rounded-3xl"}
+                className={"block mt-4 py-3 bg-black text-white font-semibold text-center rounded-3xl lg:hidden"}
             >
                 Edit Profile
             </Link>
