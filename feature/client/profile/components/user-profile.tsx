@@ -4,7 +4,7 @@ import ProfileUploader from "@/feature/client/profile/components/profile-uploade
 
 const UserProfile = ({data}: { data: IUserInfo }) => {
     return (
-        <div className={"flex items-center gap-x-4"}>
+        <div className={"px-6 py-4 flex items-center gap-x-4 border border-black/40 rounded-3xl shadow-md"}>
             <div>
                 {data.profileImage
                     ? <Image
@@ -18,7 +18,7 @@ const UserProfile = ({data}: { data: IUserInfo }) => {
                 }
             </div>
             <div>
-                <p className={"font-bold text-xl"}>{data.firstName} {data.lastName}</p>
+                <p className={"font-bold text-xl"}>{data.firstName}  {data.lastName}</p>
                 <p className={"text-black/40 font-semibold"}>@{data.userName}</p>
             </div>
         </div>

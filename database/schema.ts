@@ -14,6 +14,7 @@ export const users = pgTable(
         lastName: text("last_name").notNull(),
         userName: text("user_name").notNull(),
         profileImage: text('profile_image'),
+        phoneNumber: text("phone_number"),
     }
 )
 
