@@ -160,14 +160,14 @@ export const ProfileEditFormSchema = z.object({
     email: z.string().email(),
     firstName: z.string().min(1),
     lastName: z.string().min(1),
-    phone: z.string().regex(/^09\d{9}$/, {message: "Invalid Phone Number"}),
-    state: z.string().refine(arg => ZONES.includes(arg)),
-    township: z.string(),
-    address: z.string().min(10),
-    postalCode: z.string().refine(arg => arg.length === 6, {message: "Invalid Postal Code"}),
+    userName: z.string().min(1),
+    phoneNumber: z.string().regex(/^09\d{9}$/, {message: "Invalid Phone Number"}).optional(),
+    state: z.string().optional().refine(arg => !arg || ZONES.includes(arg)),
+    township: z.string().optional(),
+    address: z.string().optional().refine(arg => !arg || arg.length > 10),
+    postalCode: z.string().optional().refine(arg => !arg || arg.length === 6, {message: "Invalid Postal Code"}),
 }).superRefine((arg, ctx) => {
-    const state = arg.state;
-    if (!TOWNSHIPS[state].includes(arg.township)) {
+    if (arg.state && arg.township && !TOWNSHIPS[arg.state]?.includes(arg.township)) {
         ctx.addIssue({
             path: ["township"],
         } as IssueData)

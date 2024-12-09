@@ -5,7 +5,7 @@ import ProfileEditSheet from "@/feature/client/profile/components/profile-edit-s
 
 const UserProfile = ({data}: { data: IUserInfo }) => {
     return (
-        <div className={"px-6 py-4 flex items-center gap-x-4 border border-black/40 rounded-3xl shadow-md"}>
+        <div className={"px-6 py-4 flex items-center gap-x-4 border border-black/40 rounded-2xl shadow-md"}>
             <div>
                 {data.profileImage
                     ? <Image
@@ -22,7 +22,7 @@ const UserProfile = ({data}: { data: IUserInfo }) => {
                 <p className={"font-bold text-xl"}>{data.firstName} {data.lastName}</p>
                 <p className={"text-black/40 font-semibold"}>@{data.userName}</p>
             </div>
-            <ProfileEditSheet/>
+            <ProfileEditSheet data={data}/>
         </div>
     );
 };
