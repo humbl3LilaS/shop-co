@@ -11,7 +11,6 @@ export const uploadProfile = async (prevState: any, formData: FormData) => {
         const session = await auth();
 
         const profileImage = formData.get('profile') as File;
-        console.log(profileImage)
         const imageBuffer = await profileImage.arrayBuffer();
         const imageArray = Array.from(new Uint8Array(imageBuffer));
         const imageData = Buffer.from(imageArray);

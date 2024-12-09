@@ -13,8 +13,6 @@ const initialState = {
 const ProfileUploader = () => {
     const [profile, setProfile] = useState<File[] | null>(null);
     const [state, formAction] = useFormState(uploadProfile, initialState);
-    console.log(state)
-    console.log(profile)
     return (
         <form
             className={"relative"}

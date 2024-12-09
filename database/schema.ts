@@ -30,9 +30,9 @@ export const products = pgTable(
         coverImage: text("cover_image").notNull(),
         imagesUrl: text("images_url").array(),
         arrivedAt: timestamp("arrived_at").defaultNow().notNull(),
-        productCategory: text("product_category", {enum: [...CATEGORIES]}),
-        productType: text("product_type", {enum: [...TYPES]}),
-        sizes: text("sizes").array(),
+        productCategory: text("product_category", {enum: [...CATEGORIES]}).notNull(),
+        productType: text("product_type", {enum: [...TYPES]}).notNull(),
+        sizes: text("sizes").array().notNull(),
     },
 )
 
@@ -58,7 +58,7 @@ export const productColors = pgTable(
     "product_colors",
     {
         id: text().primaryKey().$default(() => createUUID()),
-        productId: text("product_id").references(() => products.id),
+        productId: text("product_id").references(() => products.id).notNull(),
         colorHex: varchar("color_hex", {length: 6}).notNull(),
     }
 )
@@ -76,8 +76,8 @@ export const reviews = pgTable(
     "reviews",
     {
         id: text().primaryKey().$default(() => createUUID()),
-        productId: text("product_id").references(() => products.id),
-        userId: text("user_id").references(() => users.id),
+        productId: text("product_id").references(() => products.id).notNull(),
+        userId: text("user_id").references(() => users.id).notNull(),
         content: text("content").notNull(),
         createdAt: timestamp("created_at").defaultNow().notNull(),
         rating: integer().notNull(),
