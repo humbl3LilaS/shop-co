@@ -10,7 +10,7 @@ const BillingInfo = ({data}: { data: IUserInfo }) => {
                         Division/State
                     </span>
                     <span className={"font-semibold lg:text-lg"}>
-                        Not provided
+                        {data.state ?? "Not provided"}
                     </span>
                 </div>
                 <div className={"*:block"}>
@@ -18,7 +18,7 @@ const BillingInfo = ({data}: { data: IUserInfo }) => {
                         Township
                     </span>
                     <span className={"font-semibold lg:text-lg"}>
-                        Not provided
+                        {data.township ?? "Not provided"}
                     </span>
                 </div>
                 <div className={"*:block col-span-2 lg:col-span-1"}>
@@ -26,7 +26,7 @@ const BillingInfo = ({data}: { data: IUserInfo }) => {
                         Address
                     </span>
                     <span className={"font-semibold lg:text-lg"}>
-                        Not provided
+                        {data.address ?? "Not provided"}
                     </span>
                 </div>
 
@@ -35,7 +35,7 @@ const BillingInfo = ({data}: { data: IUserInfo }) => {
                         Postal Code
                     </span>
                     <span className={"font-semibold lg:text-lg"}>
-                        Not provided
+                        {data.postalCode ?? "Not provided"}
                     </span>
                 </div>
             </div>

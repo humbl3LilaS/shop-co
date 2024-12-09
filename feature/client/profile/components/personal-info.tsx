@@ -34,7 +34,7 @@ const PersonalInfo = ({data}: { data: IUserInfo }) => {
                         Phone Number
                     </span>
                     <span className={"font-semibold lg:text-lg"}>
-                        Not provided
+                        {data.phoneNumber ?? "Not provided"}
                     </span>
                 </div>
 
