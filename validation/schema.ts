@@ -154,3 +154,24 @@ export const SignInSchema = z.object({
 })
 
 export type SignInSchemaType = Zod.infer<typeof SignInSchema>
+
+
+export const ProfileEditFormSchema = z.object({
+    email: z.string().email(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
+    phone: z.string().regex(/^09\d{9}$/, {message: "Invalid Phone Number"}),
+    state: z.string().refine(arg => ZONES.includes(arg)),
+    township: z.string(),
+    address: z.string().min(10),
+    postalCode: z.string().refine(arg => arg.length === 6, {message: "Invalid Postal Code"}),
+}).superRefine((arg, ctx) => {
+    const state = arg.state;
+    if (!TOWNSHIPS[state].includes(arg.township)) {
+        ctx.addIssue({
+            path: ["township"],
+        } as IssueData)
+    }
+})
+
+export type ProfileEditFormSchemaType = Zod.infer<typeof ProfileEditFormSchema>;

@@ -7,14 +7,7 @@ import {eq} from "drizzle-orm";
 export const getProfileData = async (profileId: string) => {
     try {
         const [data] = await db
-            .select({
-                id: users.id,
-                email: users.email,
-                firstName: users.firstName,
-                lastName: users.lastName,
-                userName: users.userName,
-                profileImage: users.profileImage,
-            })
+            .select()
             .from(users)
             .where(eq(users.id, profileId));
         if (!data) {

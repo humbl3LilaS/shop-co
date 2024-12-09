@@ -15,6 +15,10 @@ export const users = pgTable(
         userName: text("user_name").notNull(),
         profileImage: text('profile_image'),
         phoneNumber: text("phone_number"),
+        state: text("state"),
+        township: text("township"),
+        address: text("address"),
+        postalCode: text("postal_code"),
     }
 )
 

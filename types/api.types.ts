@@ -23,4 +23,9 @@ export interface IUserInfo {
     lastName: string;
     userName: string;
     profileImage: string | null;
+    state: string | null;
+    township: string | null;
+    address: string | null;
+    postalCode: string | null;
+    phoneNumber:string | null;
 }
