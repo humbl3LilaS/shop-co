@@ -24,10 +24,10 @@ const AdminAuthForm = () => {
     const onSubmit: SubmitHandler<AdminLoginSchemaType> = async (value) => {
         const res = await authenticateAdmin(value);
         if (res.error) {
-            toast({title: `Error: ${res.message}`, variant: "destructive", duration: 500})
+            toast({title: `Error: ${res.message}`, variant: "destructive", duration: 1500})
             return;
         }
-        toast({title: res.message, duration: 500})
+        toast({title: res.message, duration: 1500})
         router.push("/admin/dashboard")
     }
 

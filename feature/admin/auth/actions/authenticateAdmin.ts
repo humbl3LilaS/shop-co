@@ -4,6 +4,7 @@ import {db} from "@/database/drizzle";
 import {admins} from "@/database/schema";
 import {eq} from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import {createSession} from "@/lib/session";
 
 export const authenticateAdmin = async (payload: AdminLoginSchemaType) => {
     try {
@@ -16,6 +17,7 @@ export const authenticateAdmin = async (payload: AdminLoginSchemaType) => {
             return {error: true, message: "Invalid Credentials: Passkey"};
         }
         //Todo: add session management for admin
+        await createSession(admin.adminId);
         return {error: false, message: "Authenticated Successfully"};
 
     } catch (error) {
