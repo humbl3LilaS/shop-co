@@ -6,6 +6,9 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import PasswordField from "@/components/share/password-field";
+import {authenticateAdmin} from "@/feature/admin/auth/actions/authenticateAdmin";
+import {useToast} from "@/hooks/use-toast";
+import {useRouter} from "next/navigation";
 
 const AdminAuthForm = () => {
     const form = useForm<AdminLoginSchemaType>({
@@ -16,9 +19,16 @@ const AdminAuthForm = () => {
             id: "",
         }
     })
-
+    const {toast} = useToast();
+    const router = useRouter();
     const onSubmit: SubmitHandler<AdminLoginSchemaType> = async (value) => {
-        console.log(value)
+        const res = await authenticateAdmin(value);
+        if (res.error) {
+            toast({title: `Error: ${res.message}`, variant: "destructive", duration: 500})
+            return;
+        }
+        toast({title: res.message, duration: 500})
+        router.push("/admin/dashboard")
     }
 
     return (

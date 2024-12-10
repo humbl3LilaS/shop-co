@@ -22,6 +22,14 @@ export const users = pgTable(
     }
 )
 
+export const admins = pgTable(
+    "admins",
+    {
+        id: text("id").primaryKey().$default(() => createUUID()),
+        adminId: text("admin_id").unique(),
+        password: text("password").notNull(),
+    }
+)
 
 export const products = pgTable(
     "products",

@@ -165,7 +165,7 @@ export type ProfileEditFormSchemaType = Zod.infer<typeof ProfileEditFormSchema>;
 
 
 export const AdminLoginSchema = z.object({
-    id: z.string().refine(arg => arg.length === 8),
+    id: z.string().refine(arg => arg.length === 6),
     passkey: z.string(),
 })
 

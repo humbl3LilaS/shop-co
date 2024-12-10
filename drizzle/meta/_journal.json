@@ -57,6 +57,13 @@
       "when": 1733724543287,
       "tag": "0007_cuddly_cerebro",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1733814861584,
+      "tag": "0008_glossy_bloodaxe",
+      "breakpoints": true
     }
   ]
 }
