@@ -20,7 +20,7 @@ const CartSummary = () => {
                         <span className={"text-black/40"}>Subtotal</span>
                         <span className={"font-bold"}>
                             {
-                                summary ? summary.totalPrice : "..."
+                                summary ? `$${summary.totalPrice}` : "..."
                             }
                         </span>
                     </p>
@@ -28,7 +28,7 @@ const CartSummary = () => {
                         <span className={"text-black/40"}>Discount</span>
                         <span className={"font-bold text-red-500"}>
                             {
-                                summary ? `-${summary?.discountedPrice}` : "..."
+                                summary ? `-$${summary?.discountedPrice}` : "..."
                             }
                         </span>
                     </p>
@@ -45,7 +45,7 @@ const CartSummary = () => {
                         <span className={"text-black/40"}>Total</span>
                         <span className={"font-bold"}>
                             {
-                                summary ? `-${summary.totalPrice - 15}` : "..."
+                                summary ? `$${summary.totalPrice - 15}` : "..."
                             }
                         </span>
                     </p>

@@ -1,6 +1,6 @@
 "use client"
 import {SubmitHandler, useForm} from "react-hook-form";
-import {CheckoutFormDefaultValues, CheckoutFormSchema, CheckoutFormSchemaType} from "@/validation/schema";
+import {CheckoutFormSchema, CheckoutFormSchemaType} from "@/validation/schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
@@ -12,12 +12,25 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {TOWNSHIPS, ZONES} from "@/constants";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import {Button} from "@/components/ui/button";
+import {IUserInfo} from "@/types/api.types";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
+    console.log(defaultValues);
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
         mode: "onChange",
-        defaultValues: {...CheckoutFormDefaultValues}
+        defaultValues: {
+            email: defaultValues.email ?? "",
+            deliveryMethod: "delivery",
+            firstName: defaultValues.firstName ?? "",
+            lastName: defaultValues.lastName ?? "",
+            address: defaultValues.address ?? "",
+            state: defaultValues.state ?? "Ayeyarwady",
+            township: defaultValues.township ?? "",
+            postalCode: defaultValues.postalCode ?? "",
+            phone: defaultValues.phoneNumber ?? "",
+            transactionMethod: "card"
+        },
     })
 
     const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (values) => {

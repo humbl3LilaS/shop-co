@@ -4,12 +4,12 @@ import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {eq} from "drizzle-orm";
 
-export const getProfileData = async (profileId: string) => {
+export const getProfileData = async (userId: string) => {
     try {
         const [data] = await db
             .select()
             .from(users)
-            .where(eq(users.id, profileId));
+            .where(eq(users.id, userId));
         if (!data) {
             return undefined;
         }
