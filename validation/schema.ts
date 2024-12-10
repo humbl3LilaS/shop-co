@@ -98,19 +98,6 @@ export const CheckoutFormSchema = z.object({
 
 export type CheckoutFormSchemaType = Zod.infer<typeof CheckoutFormSchema>;
 
-export const CheckoutFormDefaultValues: CheckoutFormSchemaType = {
-    email: "",
-    deliveryMethod: "delivery",
-    firstName: "",
-    lastName: "",
-    address: "",
-    state: "Ayeyarwady",
-    township: "",
-    postalCode: "",
-    phone: "",
-    transactionMethod: "card",
-}
-
 export const SignUpSchema = z.object({
     firstName: z.string().min(1, {message: "First name is required"}),
     lastName: z.string().min(1, {message: "Last name is required"}),
@@ -175,3 +162,11 @@ export const ProfileEditFormSchema = z.object({
 })
 
 export type ProfileEditFormSchemaType = Zod.infer<typeof ProfileEditFormSchema>;
+
+
+export const AdminLoginSchema = z.object({
+    id: z.string().refine(arg => arg.length === 8),
+    passkey: z.string(),
+})
+
+export type AdminLoginSchemaType = Zod.infer<typeof AdminLoginSchema>;

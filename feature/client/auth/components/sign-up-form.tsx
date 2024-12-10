@@ -5,10 +5,10 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {signUp} from "@/feature/auth/actions/sign-up";
+import {signUp} from "@/feature/client/auth/actions/sign-up";
 import {useRouter} from "next/navigation";
 import {Loader2} from "lucide-react";
-import PasswordField from "@/feature/auth/components/password-field";
+import PasswordField from "@/components/share/password-field";
 
 const SignUpForm = () => {
     const form = useForm<SignUpSchemaType>({

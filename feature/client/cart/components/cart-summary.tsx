@@ -9,7 +9,6 @@ const CartSummary = () => {
     const cart = useCartStore(state => state.cart);
     const summary = useCartSummary();
 
-
     return (
         <>
             {

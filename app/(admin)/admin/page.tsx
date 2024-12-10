@@ -1,9 +1,11 @@
-import CreateProductForm from "@/feature/admin/product/component/create-product-form";
+import AdminAuthForm from "@/feature/admin/auth/components/admin-auth-form";
 
-const AdminPage = () => {
-    return <section>
-        <CreateProductForm/>
-    </section>
+const AdminAuthPage = () => {
+    return (
+        <section className={"w-dvw h-dvh md:w-screen md:h-screen flex items-center justify-center bg-[#f0f0f0]"}>
+            <AdminAuthForm/>
+        </section>
+    );
 };
 
-export default AdminPage;
+export default AdminAuthPage;

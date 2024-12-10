@@ -1,68 +1,52 @@
 "use client"
 import {SubmitHandler, useForm} from "react-hook-form";
-import {SignInSchema, SignInSchemaType} from "@/validation/schema";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {AdminLoginSchema, AdminLoginSchemaType} from "@/validation/schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {signIn} from "@/feature/auth/actions/sign-in";
-import {useRouter} from "next/navigation";
-import PasswordField from "@/feature/auth/components/password-field";
-import {useToast} from "@/hooks/use-toast";
-import {Loader2} from "lucide-react";
+import PasswordField from "@/components/share/password-field";
 
-const SignInForm = () => {
-
-    const form = useForm<SignInSchemaType>({
-        resolver: zodResolver(SignInSchema),
+const AdminAuthForm = () => {
+    const form = useForm<AdminLoginSchemaType>({
+        resolver: zodResolver(AdminLoginSchema),
         mode: "onChange",
         defaultValues: {
-            email: "",
-            password: ""
+            passkey: "",
+            id: "",
         }
     })
 
-    const {toast} = useToast();
-
-    const router = useRouter();
-
-    const onSubmit: SubmitHandler<SignInSchemaType> = async (values) => {
-        const auth = await signIn(values);
-        if (!auth.success) {
-            toast({title: `Login Failed Invalid ${auth.error}`, variant: "destructive", duration: 500})
-        } else {
-            router.push("/");
-        }
-
+    const onSubmit: SubmitHandler<AdminLoginSchemaType> = async (value) => {
+        console.log(value)
     }
 
     return (
         <div className={"w-full max-w-screen-sm  px-4 py-6 rounded-2xl bg-white shadow-lg lg:max-w-screen-md md:p-10"}>
-            <h1 className={"mb-3 text-2xl font-bold"}>Sign In</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField
-                        name={"email"}
+                        name={"id"}
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
                                 <FormLabel className={"md:text-base"}>
-                                    Email
+                                    Id:
                                 </FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: example@gmail.com"}/>
+                                    <Input {...field} placeholder={"Enter Id"}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         }
                     />
                     <FormField
-                        name={"password"}
+                        name={"passkey"}
                         control={form.control}
                         render={({field}) =>
                             <FormItem className={"mb-8"}>
                                 <FormLabel className={"md:text-base"}>
-                                    Password
+                                    Passkey:
                                 </FormLabel>
                                 <FormControl>
                                     <PasswordField value={field.value} onChange={field.onChange}/>
@@ -71,14 +55,8 @@ const SignInForm = () => {
                             </FormItem>
                         }
                     />
-                    <Button className={"w-full rounded-3xl"}>
-                        {
-                            form.formState.isSubmitting
-                                ? <>
-                                    <span>Submitting</span>
-                                    <Loader2 className={"animate-spin"}/>
-                                </>
-                                : "Sign In"}
+                    <Button type="submit">
+                        Authenticate
                     </Button>
                 </form>
             </Form>
@@ -86,4 +64,4 @@ const SignInForm = () => {
     );
 };
 
-export default SignInForm;
+export default AdminAuthForm;
