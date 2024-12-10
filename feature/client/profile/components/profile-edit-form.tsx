@@ -13,6 +13,7 @@ import {updateUserInfo} from "@/feature/client/profile/actions/update-user-info"
 import {useToast} from "@/hooks/use-toast";
 import {useRouter} from "next/navigation";
 import {useEditProfileSheet} from "@/feature/client/profile/hooks/use-edit-profile-sheet";
+import {Loader2} from "lucide-react";
 
 
 const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
@@ -32,7 +33,7 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     const {toast} = useToast();
     const router = useRouter();
     const setOpen = useEditProfileSheet(state => state.setOpen);
-
+    const disableSubmit = !form.formState.isDirty || form.formState.isSubmitting
     const onSubmit: SubmitHandler<ProfileEditFormSchemaType> = async (values) => {
         const dirtyField = Object.keys(form.formState.dirtyFields) as unknown as Array<keyof IUserInfo>;
         if (dirtyField.length === 0) {
@@ -68,10 +69,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 Email
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: example@gmail.com"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -84,10 +85,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 First Name
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: Yamashita"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -100,10 +101,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 Last Name
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: Shirakawa"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -116,10 +117,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 User name
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: Super User"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -132,10 +133,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 Phone Number
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: 09123456789"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -149,11 +150,11 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel className={"sr-only"}>
                                 State/ Division
                             </FormLabel>
-                            <FormMessage/>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl className={"py-2"}>
-                                    <SelectTrigger className={"pb-7 pt-9 relative"}>
-                                        <span className={"absolute top-1 left-3.5 text-xs"}>State/Division</span>
+                                    <SelectTrigger className={cn("relative", field.value && "pb-7 pt-9")}>
+                                        {field.value &&
+                                            <span className={"absolute top-1 left-3.5 text-xs"}>State/Division</span>}
                                         <SelectValue placeholder={"State/Division"}/>
                                     </SelectTrigger>
                                 </FormControl>
@@ -177,7 +178,6 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel className={"sr-only"}>
                                 TownShip
                             </FormLabel>
-                            <FormMessage/>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger className={cn("relative", field.value && "pb-7 pt-9")}>
@@ -206,10 +206,10 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 Address
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Address"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
@@ -222,17 +222,25 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                             <FormLabel>
                                 Postal Code
                             </FormLabel>
-                            <FormMessage/>
                             <FormControl>
                                 <Input {...field} placeholder={"Eg: 111111"}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     }
                 />
 
 
-                <Button className={"mt-4 w-full rounded-3xl"}>
-                    Checkout
+                <Button
+                    className={"mt-4 w-full rounded-3xl"}
+                    disabled={disableSubmit}
+                >
+                    {form.formState.isSubmitting
+                        ? <>
+                            <Loader2 className={"animate-spin"}/>
+                            <span>Submitting</span>
+                        </>
+                        : <span>Save Changes</span>}
                 </Button>
             </form>
         </Form>

@@ -6,6 +6,7 @@ import UserProfile from "@/feature/client/profile/components/user-profile";
 import PersonalInfo from "@/feature/client/profile/components/personal-info";
 import BillingInfo from "@/feature/client/profile/components/billing-info";
 import Link from "next/link";
+import CustomBreadcrumb from "@/components/share/custom-breadcrumb";
 
 const ProfilePage = async () => {
     const session = await auth();
@@ -19,6 +20,7 @@ const ProfilePage = async () => {
     }
     return (
         <Container className={"py-8"}>
+            <CustomBreadcrumb/>
             <UserProfile data={profile}/>
             <PersonalInfo data={profile}/>
             <BillingInfo data={profile}/>
