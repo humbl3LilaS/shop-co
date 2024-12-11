@@ -1,7 +1,7 @@
 "use client"
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import {useState} from "react";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import {useCartSummary} from "@/hooks/use-cart-summary";
 

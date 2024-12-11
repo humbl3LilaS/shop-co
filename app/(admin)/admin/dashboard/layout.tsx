@@ -1,15 +1,19 @@
+import SideNav from "@/components/admin/side-nav";
+
 const DashboardLayout = ({
                              children,
                          }: Readonly<{
     children: React.ReactNode;
 }>) => {
     return (
-        <>
-            <header className={"p-5 bg-slate-600 text-white"}>
-                Dash board layout
-            </header>
-            {children}
-        </>
+        <main>
+            <div className={"w-screen h-screen grid grid-cols-12 gap-x-4"}>
+                <SideNav/>
+                <div className={"col-span-10"}>
+                    {children}
+                </div>
+            </div>
+        </main>
     );
 };
 

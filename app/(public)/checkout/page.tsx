@@ -1,7 +1,7 @@
 import CheckoutSummaryDropDown from "@/feature/client/checkout/components/checkout-summary-drop-down";
 import CheckoutForm from "@/feature/client/checkout/components/checkout-form";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import {auth} from "@/auth";
 import {notFound, redirect} from "next/navigation";
 import {getProfileData} from "@/feature/client/profile/actions/getProfileData";

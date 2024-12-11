@@ -1,15 +1,15 @@
 "use client"
 import {SubmitHandler, useForm} from "react-hook-form";
-import {CheckoutFormSchema, CheckoutFormSchemaType} from "@/validation/schema";
+import {CheckoutFormSchema, CheckoutFormSchemaType} from "@/validation/client-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {CreditCard, Store, Truck} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants";
+import {TOWNSHIPS, ZONES} from "@/constants/client-constants";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import {Button} from "@/components/ui/button";
 import {IUserInfo} from "@/types/api.types";

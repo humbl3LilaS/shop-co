@@ -1,7 +1,7 @@
 "use client"
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {AdminLoginSchema, AdminLoginSchemaType} from "@/validation/schema";
+import {AdminLoginSchema, AdminLoginSchemaType} from "@/validation/client-schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
@@ -28,7 +28,7 @@ const AdminAuthForm = () => {
             return;
         }
         toast({title: res.message, duration: 1500})
-        router.push("/admin/dashboard")
+        router.push("/admin/dashboard/overview")
     }
 
     return (

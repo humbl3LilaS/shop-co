@@ -1,5 +1,5 @@
-import Container from "@/components/share/container";
-import CustomBreadcrumb from "@/components/share/custom-breadcrumb";
+import Container from "@/components/client/container";
+import CustomBreadcrumb from "@/components/client/custom-breadcrumb";
 import {Skeleton} from "@/components/ui/skeleton";
 
 const CategoryLoadingPage = () => {

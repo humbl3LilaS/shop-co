@@ -1,13 +1,13 @@
 "use client"
 import {IUserInfo} from "@/types/api.types";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {ProfileEditFormSchema, ProfileEditFormSchemaType} from "@/validation/schema";
+import {ProfileEditFormSchema, ProfileEditFormSchemaType} from "@/validation/client-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants";
+import {TOWNSHIPS, ZONES} from "@/constants/client-constants";
 import {Button} from "@/components/ui/button";
 import {updateUserInfo} from "@/feature/client/profile/actions/update-user-info";
 import {useToast} from "@/hooks/use-toast";

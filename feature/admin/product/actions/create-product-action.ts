@@ -1,6 +1,6 @@
 "use server"
 
-import {ProductFormSchemaType} from "@/validation/schema";
+import {ProductFormSchemaType} from "@/validation/client-schema";
 import {db} from "@/database/drizzle";
 import {products} from "@/database/schema";
 

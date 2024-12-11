@@ -1,5 +1,5 @@
 "use client"
-import {FilterFormSchemaType} from "@/validation/schema";
+import {FilterFormSchemaType} from "@/validation/client-schema";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {SlidersHorizontal} from "lucide-react";
 import FilterForm from "@/feature/client/category/components/filter-form";

@@ -1,7 +1,7 @@
 "use client"
 
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AddToCartFormSchema, AddToCartFormSchemaType} from "@/validation/schema";
+import {AddToCartFormSchema, AddToCartFormSchemaType} from "@/validation/client-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form";
 import ColorSelector from "@/feature/client/product/components/color-selector";

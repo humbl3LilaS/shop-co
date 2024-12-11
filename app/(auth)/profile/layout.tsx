@@ -1,4 +1,4 @@
-import Header from "@/components/share/header";
+import Header from "@/components/client/header";
 
 const ProfileLayout = ({
                            children,

@@ -1,5 +1,5 @@
 "use server"
-import {SignInSchemaType} from "@/validation/schema";
+import {SignInSchemaType} from "@/validation/client-schema";
 import {signIn as signInAuth} from "@/auth";
 import {CredentialsSignin} from "next-auth";
 

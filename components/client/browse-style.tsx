@@ -1,8 +1,8 @@
-import {STYLES} from "@/constants";
+import {STYLES} from "@/constants/client-constants";
 import Image from "next/image";
 import Link from "next/link";
 import {cn} from "@/lib/utils";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 
 const BrowseStyle = () => {
     return (

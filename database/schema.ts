@@ -1,7 +1,7 @@
 import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
-import {CATEGORIES, TYPES} from "@/constants";
+import {CATEGORIES, TYPES} from "@/constants/client-constants";
 
 
 export const users = pgTable(

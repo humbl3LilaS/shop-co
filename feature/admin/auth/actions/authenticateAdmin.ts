@@ -1,5 +1,5 @@
 "use server"
-import {AdminLoginSchemaType} from "@/validation/schema";
+import {AdminLoginSchemaType} from "@/validation/client-schema";
 import {db} from "@/database/drizzle";
 import {admins} from "@/database/schema";
 import {eq} from "drizzle-orm";

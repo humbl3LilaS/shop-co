@@ -1,5 +1,5 @@
-import Header from "@/components/share/header";
-import Footer from "@/components/share/footer";
+import Header from "@/components/client/header";
+import Footer from "@/components/client/footer";
 import QueryProvider from "@/feature/client/product/components/query-provider";
 
 const PublicLayout = ({

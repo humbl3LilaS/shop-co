@@ -1,4 +1,4 @@
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 
 import markdownit from "markdown-it";
 import {addLineBreaks} from "@/lib/utils";

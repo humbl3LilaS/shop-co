@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {Facebook, Github, Instagram, Twitter} from "lucide-react";
-import {FOOTER_SUB_NAVS} from "@/constants";
-import FooterSubNav from "@/components/share/footer-sub-nav";
+import {FOOTER_SUB_NAVS} from "@/constants/client-constants";
+import FooterSubNav from "@/components/client/footer-sub-nav";
 import Image from "next/image";
-import NewsletterFrom from "@/components/newsletter-from";
+import NewsletterFrom from "@/components/client/newsletter-from";
 
 const Footer = () => {
     return (

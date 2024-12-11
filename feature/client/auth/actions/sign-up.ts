@@ -1,5 +1,5 @@
 "use server"
-import {SignUpSchemaType} from "@/validation/schema";
+import {SignUpSchemaType} from "@/validation/client-schema";
 import bcrypt from "bcryptjs";
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";

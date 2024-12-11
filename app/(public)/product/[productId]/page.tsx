@@ -1,6 +1,6 @@
 import {getProductById} from "@/feature/client/product/actions/get-product-by-id";
 import {notFound} from "next/navigation";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import PhotoGrid from "@/feature/client/product/components/photo-grid";
 import PriceTag from "@/components/share/price-tag";
 import AddToCartForm from "@/feature/client/product/components/add-to-cart-form";

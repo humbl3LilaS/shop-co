@@ -1,4 +1,4 @@
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import {Label} from "@/components/ui/label";
 import {Mail} from "lucide-react";
 import {Input} from "@/components/ui/input";

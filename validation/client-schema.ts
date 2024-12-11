@@ -1,5 +1,5 @@
 import {IssueData, z} from "zod";
-import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants";
+import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants/client-constants";
 import {Writeable} from "@/types/util.types";
 
 
@@ -164,9 +164,3 @@ export const ProfileEditFormSchema = z.object({
 export type ProfileEditFormSchemaType = Zod.infer<typeof ProfileEditFormSchema>;
 
 
-export const AdminLoginSchema = z.object({
-    id: z.string().refine(arg => arg.length === 6),
-    passkey: z.string(),
-})
-
-export type AdminLoginSchemaType = Zod.infer<typeof AdminLoginSchema>;

@@ -1,12 +1,12 @@
 import {auth, signOut} from "@/auth";
 import {notFound, redirect} from "next/navigation";
 import {getProfileData} from "@/feature/client/profile/actions/getProfileData";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import UserProfile from "@/feature/client/profile/components/user-profile";
 import PersonalInfo from "@/feature/client/profile/components/personal-info";
 import BillingInfo from "@/feature/client/profile/components/billing-info";
 import Link from "next/link";
-import CustomBreadcrumb from "@/components/share/custom-breadcrumb";
+import CustomBreadcrumb from "@/components/client/custom-breadcrumb";
 import {Button} from "@/components/ui/button";
 
 const ProfilePage = async () => {

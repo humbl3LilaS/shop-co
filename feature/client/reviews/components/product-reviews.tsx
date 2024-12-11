@@ -2,7 +2,7 @@ import {useGetReviewByProductId} from "@/feature/client/reviews/hooks/use-get-re
 import {useParams} from "next/navigation";
 import {SlidersHorizontal} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 import ReviewCard from "@/feature/client/reviews/components/review-card";
 
 

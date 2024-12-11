@@ -1,14 +1,14 @@
 "use client"
 
-import TestimonialCard from "@/components/testimonial-card";
-import {TESTIMONIALS} from "@/constants";
+import TestimonialCard from "@/components/client/testimonial-card";
+import {TESTIMONIALS} from "@/constants/client-constants";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import "swiper/css/navigation"
-import SwiperNavButton from "@/components/swiper-nav-button";
+import SwiperNavButton from "@/components/client/swiper-nav-button";
 import {useMediaQuery} from "@/hooks/use-media-query";
-import Container from "@/components/share/container";
+import Container from "@/components/client/container";
 
 const Testimonials = () => {
     const isLargeScreen = useMediaQuery('(min-width: 1024px)');

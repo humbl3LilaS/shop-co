@@ -1,10 +1,10 @@
 import {auth} from "@/auth";
-import DiscountBanner from "@/components/discount-banner";
+import DiscountBanner from "@/components/client/discount-banner";
 import {CircleUser, Search} from "lucide-react";
 import Link from "next/link";
-import NavSearch from "@/components/NavSearch";
-import MobileMenu from "@/components/mobile-menu";
-import CartButton from "@/components/cart-button";
+import NavSearch from "@/components/client/NavSearch";
+import MobileMenu from "@/components/client/mobile-menu";
+import CartButton from "@/components/client/cart-button";
 
 const Header = async () => {
     const session = await auth();
@@ -15,7 +15,7 @@ const Header = async () => {
                 className={"py-6 px-5 flex items-center shadow gap-x-5  lg:px-25 lg:justify-between lg:gap-x-8 xl:gap-x-14"}>
                 <MobileMenu/>
                 <h1 className={"mb-2 text-2xl font-bold uppercase font-title "}>
-                    <Link href={"/"}>
+                    <Link href={"/public"}>
                         shop.co
                     </Link>
                 </h1>

@@ -1,4 +1,4 @@
-import ProductPreviewCard from "@/components/product-preview-card";
+import ProductPreviewCard from "@/components/client/product-preview-card";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {IProduct} from "@/types/api.types";
