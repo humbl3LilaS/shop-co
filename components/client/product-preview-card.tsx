@@ -1,6 +1,5 @@
 import Image from "next/image";
 import {Star} from "lucide-react";
-import {calculateDiscount} from "@/lib/utils";
 import Link from "next/link";
 import {IProduct} from "@/types/api.types";
 import PriceTag from "@/components/share/price-tag";

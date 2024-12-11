@@ -1,14 +1,32 @@
+import {Briefcase, ChartArea, LayoutGrid, ShoppingCart, Truck, Users, WalletMinimal} from "lucide-react";
+
 export const NAV_ITEMS = [
     {
-        icon: "",
-        title: "Overview"
+        icon: <LayoutGrid/>,
+        title: "overview"
     },
     {
-        order: "",
-        title: "Order",
+        icon: <ShoppingCart />,
+        title: "orders",
     },
     {
-        product: "",
-        title: "Product",
+        icon: <Briefcase />,
+        title: "products",
+    },
+    {
+        icon: <Users />,
+        title: "customers",
+    },
+    {
+        icon: <ChartArea />,
+        title: "reports",
+    },
+    {
+        icon: <WalletMinimal />,
+        title: "transactions"
+    },
+    {
+        icon: <Truck />,
+        title: "shipment",
     }
 ]

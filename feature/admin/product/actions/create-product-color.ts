@@ -11,7 +11,7 @@ export const createProductColor = async (payload: { colorHex: string, productId:
         return productColor;
 
     } catch (error) {
-        console.log("error creating product color", error);
+        console.log("error creating products color", error);
         return undefined;
     }
 }

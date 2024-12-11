@@ -22,7 +22,7 @@ const Home = async () => {
                 separator={true}
                 redirect={{url: "/new-arrivals"}}
             />
-            {/*TODO: replace with top selling product's query*/}
+            {/*TODO: replace with top selling products's query*/}
             <ProductPreview
                 title={"top selling"}
                 data={products}

@@ -7,7 +7,7 @@ import {addLineBreaks} from "@/lib/utils";
 const ProductDetails = ({details}: { details: string | null }) => {
 
     const md = new markdownit();
-    //TODO: remove addLineBreaks after adding markdown parser in create-product-from in admin panel
+    //TODO: remove addLineBreaks after adding markdown parser in create-products-from in admin panel
     const parsedHtml = md.render(addLineBreaks(details ?? ""));
     return (
         <Container>

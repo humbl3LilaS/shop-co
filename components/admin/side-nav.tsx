@@ -1,4 +1,6 @@
 import Link from "next/link";
+import {NAV_ITEMS} from "@/constants/admin-constants";
+import NavItem from "@/components/admin/nav-item";
 
 const SideNav = () => {
     return (
@@ -10,8 +12,14 @@ const SideNav = () => {
                         shop.co
                     </Link>
                 </h1>
-                <nav>
-
+                <nav className={"pt-8"}>
+                    <ul className={"flex flex-col gap-y-8"}>
+                        {
+                            NAV_ITEMS.map((item) => (
+                                <NavItem data={item} key={item.title}/>
+                            ))
+                        }
+                    </ul>
                 </nav>
             </aside>
         </div>

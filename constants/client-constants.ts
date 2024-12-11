@@ -123,7 +123,7 @@ export const FAQS = [
     },
     {
         "question": "How do I know what size to order?",
-        "answer": "We provide a detailed size guide on each product page to help you find the right fit. If you're still unsure, feel free to contact our customer support team for assistance."
+        "answer": "We provide a detailed size guide on each products page to help you find the right fit. If you're still unsure, feel free to contact our customer support team for assistance."
     },
     {
         "question": "Can I cancel or modify my order after placing it?",
