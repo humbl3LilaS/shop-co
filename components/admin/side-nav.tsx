@@ -4,7 +4,7 @@ import NavItem from "@/components/admin/nav-item";
 
 const SideNav = () => {
     return (
-        <div className={"col-span-2 w-full h-full pl-8 py-8"}>
+        <div className={"col-span-2 w-full h-screen pl-8 py-8"}>
             <aside>
                 <h1
                     className={"mb-3 text-2xl font-bold uppercase font-title "}>

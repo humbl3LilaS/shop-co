@@ -7,9 +7,9 @@ const DashboardLayout = ({
 }>) => {
     return (
         <main>
-            <div className={"w-screen h-screen grid grid-cols-12 gap-x-4"}>
+            <div className={"w-screen h-screen grid grid-cols-12"}>
                 <SideNav/>
-                <div className={"col-span-10"}>
+                <div className={"col-span-10 overflow-hidden"}>
                     {children}
                 </div>
             </div>

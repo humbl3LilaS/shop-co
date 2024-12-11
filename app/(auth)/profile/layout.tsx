@@ -7,12 +7,12 @@ const ProfileLayout = ({
 }>) => {
     return (
 
-        <>
+        <body>
             <Header/>
             <main>
                 {children}
             </main>
-        </>
+        </body>
     );
 };
 

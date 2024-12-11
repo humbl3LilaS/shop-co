@@ -1,9 +1,10 @@
 import CreateProductForm from "@/feature/admin/product/components/create-product-form";
+import Container from "@/components/admin/Container";
 
 const ProductPage = () => {
-    return <section>
+    return <Container className={"overflow-y-scroll"}>
         <CreateProductForm/>
-    </section>
+    </Container>
 };
 
 export default ProductPage;

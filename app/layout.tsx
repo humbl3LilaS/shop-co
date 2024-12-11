@@ -1,8 +1,6 @@
 import type {Metadata} from "next";
 import "./globals.css"
 import localFont from "next/font/local";
-import {Toaster} from "@/components/ui/toaster";
-
 
 const satoshi = localFont(
     {
@@ -42,11 +40,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-        <body className={`${satoshi.variable} ${integralCF.variable} font-sans`}>
+        <html lang="en" className={`${satoshi.variable} ${integralCF.variable} font-sans`}>
         {children}
-        <Toaster/>
-        </body>
         </html>
     );
 }

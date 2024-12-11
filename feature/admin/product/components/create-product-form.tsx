@@ -39,10 +39,9 @@ const CreateProductForm = () => {
     }
 
     return (
-
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className={"max-w-xl mx-auto py-10"}>
+            <form onSubmit={form.handleSubmit(onSubmit)} >
+                <div className={"max-w-xl mx-auto pt-10"}>
 
                     <FormField
                         name={"name"}
