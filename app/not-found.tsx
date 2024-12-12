@@ -1,6 +1,4 @@
-import {Button} from "@/components/ui/button";
-import {redirect} from "next/navigation";
-import ActionButton from "@/components/share/action-button";
+import RedirectBtn from "@/components/share/redirect-btn";
 
 const NotFound = () => {
     return (
@@ -12,16 +10,7 @@ const NotFound = () => {
                     <p className={"text-center text-lg font-semibold text-black/40"}>
                         Your requested page is invalid
                     </p>
-                    <ActionButton
-                        className={"mx-auto mt-4"}
-                        onClick={async () => {
-                            "use server"
-                            redirect("/")
-                        }}
-                        pendingLabel={"Redirecting"}
-                    >
-                        Back to home
-                    </ActionButton>
+                    <RedirectBtn/>
                 </div>
 
             </section>
