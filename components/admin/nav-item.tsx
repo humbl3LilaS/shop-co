@@ -16,7 +16,7 @@ const NavItem = ({data}: NavItemProps) => {
     const currentPath = pathArray[pathArray.length - 1];
     return (
         <li key={data.title}
-            className={cn("flex items-center gap-x-3", currentPath === data.title && "text-blue-600")}
+            className={cn("py-2 flex items-center gap-x-3", currentPath === data.title && "text-blue-600 border-r-[6px] rounded-r-sm border-r-blue-600")}
         >
             {data.icon}
             <Link

@@ -1,8 +1,10 @@
+import Container from "@/components/admin/Container";
+
 const OverviewPage = () => {
     return (
-        <section className={"p-8"}>
+        <Container>
             Over view
-        </section>
+        </Container>
     );
 };
 

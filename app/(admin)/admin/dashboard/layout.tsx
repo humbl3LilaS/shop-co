@@ -10,6 +10,9 @@ const DashboardLayout = ({
             <div className={"w-screen h-screen grid grid-cols-12"}>
                 <SideNav/>
                 <div className={"col-span-10 overflow-hidden"}>
+                    <header className={"px-8 pt-8 pb-4 bg-[#f0f0f0]"}>
+                        <h2 className={"text-3xl font-bold"}>Dashboard</h2>
+                    </header>
                     {children}
                 </div>
             </div>

@@ -1,7 +1,6 @@
 "use client"
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {AdminLoginSchema, AdminLoginSchemaType} from "@/validation/client-schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
@@ -9,6 +8,8 @@ import PasswordField from "@/components/share/password-field";
 import {authenticateAdmin} from "@/feature/admin/auth/actions/authenticateAdmin";
 import {useToast} from "@/hooks/use-toast";
 import {useRouter} from "next/navigation";
+import {AdminLoginSchema, AdminLoginSchemaType} from "@/validation/admin-schema";
+import {Loader2} from "lucide-react";
 
 const AdminAuthForm = () => {
     const form = useForm<AdminLoginSchemaType>({
@@ -65,8 +66,17 @@ const AdminAuthForm = () => {
                             </FormItem>
                         }
                     />
-                    <Button type="submit">
-                        Authenticate
+                    <Button type="submit"
+                            disabled={form.formState.isSubmitting || !form.formState.isValid}
+                    >
+                        {
+                            form.formState.isSubmitting
+                                ? <>
+                                    <span>Authenticating</span>
+                                    <Loader2 className={"animate-spin"}/>
+                                </>
+                                : "Authenticate"
+                        }
                     </Button>
                 </form>
             </Form>
