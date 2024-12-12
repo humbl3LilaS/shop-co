@@ -71,7 +71,10 @@ const SignInForm = () => {
                             </FormItem>
                         }
                     />
-                    <Button className={"w-full rounded-3xl"}>
+                    <Button
+                        className={"w-full rounded-3xl"}
+                        disabled={form.formState.isSubmitting || !form.formState.isValid}
+                    >
                         {
                             form.formState.isSubmitting
                                 ? <>

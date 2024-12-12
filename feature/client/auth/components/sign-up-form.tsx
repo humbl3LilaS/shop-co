@@ -21,7 +21,6 @@ const SignUpForm = () => {
 
     const onSubmit: SubmitHandler<SignUpSchemaType> = async (values) => {
         const user = await signUp(values);
-        console.log(user)
         if (user) {
             router.push("/")
         }
@@ -127,7 +126,10 @@ const SignUpForm = () => {
                         }
                     />
 
-                    <Button className={"w-full rounded-3xl"}>
+                    <Button
+                        className={"w-full rounded-3xl"}
+                        disabled={form.formState.isSubmitting || !form.formState.isValid}
+                    >
                         {
                             form.formState.isSubmitting
                                 ? <>

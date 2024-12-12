@@ -8,6 +8,7 @@ import BillingInfo from "@/feature/client/profile/components/billing-info";
 import Link from "next/link";
 import CustomBreadcrumb from "@/components/client/custom-breadcrumb";
 import {Button} from "@/components/ui/button";
+import ActionButton from "@/components/share/action-button";
 
 const ProfilePage = async () => {
     const session = await auth();
@@ -32,15 +33,16 @@ const ProfilePage = async () => {
                 >
                     See Transactions
                 </Link>
-                <Button
+                <ActionButton
                     className={"w-full bg-red-500 rounded-3xl lg:max-w-[260px]"}
                     onClick={async () => {
                         "use server"
                         await signOut({redirectTo: "/"});
                     }}
+                    pendingLabel={"Logging Out"}
                 >
                     Logout
-                </Button>
+                </ActionButton>
             </div>
         </Container>
     );
