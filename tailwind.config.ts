@@ -10,6 +10,9 @@ export default {
     ],
     theme: {
     	extend: {
+			gridTemplateRows: {
+				"overview": "minmax(1fr, 150px) repeat(4, 1fr)"
+			},
     		spacing: {
     			'25': '100px',
     			'12.5': '50px'
