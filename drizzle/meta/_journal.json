@@ -92,6 +92,13 @@
       "when": 1734244910156,
       "tag": "0012_loose_lilith",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1734248439004,
+      "tag": "0013_illegal_wolfsbane",
+      "breakpoints": true
     }
   ]
 }

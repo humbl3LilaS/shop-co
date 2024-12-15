@@ -163,9 +163,9 @@ export const transactions = pgTable("transactions", {
     id: text("id").primaryKey().$default(() => createUUID()),
     customerId: text("customer_id").references(() => users.id).notNull(),
     orders: text("orders").array().notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
     status: text("status", {enum: [...ORDER_STATUS]}).notNull(),
     amount: integer("amount").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
 export const transactionsCustomerRelation = relations(transactions, ({one}) => (
@@ -185,7 +185,7 @@ export const customerTransactionRelation = relations(users, ({many}) => (
 
 export const transactionDetails = pgTable("transaction_details", {
     id: text("id").primaryKey().$default(() => createUUID()),
-    transactionId: text("order_id").references(() => transactions.id).notNull(),
+    transactionId: text("transaction_id").references(() => transactions.id).notNull(),
     region: text("region").notNull(),
     township: text("township").notNull(),
     address: text("address").notNull(),

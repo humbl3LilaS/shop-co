@@ -6,7 +6,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input";
 import Container from "@/components/client/container";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {CreditCard, Store, Truck} from "lucide-react";
+import {CreditCard, Loader2, Store, Truck} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {TOWNSHIPS, ZONES} from "@/constants/constants";
@@ -14,9 +14,16 @@ import CheckoutSummary from "@/feature/client/checkout/components/checkout-summa
 import {Button} from "@/components/ui/button";
 import {IUserInfo} from "@/types/api.types";
 import {useCartStore} from "@/hooks/use-cart-store";
+import {submitCheckout} from "@/feature/client/checkout/actions/submit-checkout";
+import {useCartSummary} from "@/hooks/use-cart-summary";
+import {useRouter} from "next/navigation";
+
 
 const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     const cart = useCartStore(state => state.cart);
+    const emptyCart = useCartStore(state => state.emptyCart);
+    const summary = useCartSummary();
+
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
         mode: "onChange",
@@ -34,9 +41,12 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
         },
     })
 
+    const router = useRouter();
+
     const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (values) => {
-        console.log(values);
-        console.log(cart)
+        const res = await submitCheckout(cart, values, summary?.totalPrice ?? 0);
+        emptyCart();
+        router.push("/");
     }
 
     const state = form.watch("state");
@@ -300,8 +310,16 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                     <div className={"md:hidden"}>
                         <CheckoutSummary/>
                     </div>
-                    <Button className={"mt-4 w-full rounded-3xl"}>
-                        Checkout
+                    <Button
+                        className={"mt-4 w-full rounded-3xl"}
+                        disabled={form.formState.isSubmitting || !form.formState.isValid}
+                    >
+                        {
+                            form.formState.isSubmitting ? <>
+                                <Loader2 className={"animate-spin"}/>
+                                <span>Checking Out</span>
+                            </> : "Checkout"
+                        }
                     </Button>
                 </form>
             </Form>

@@ -9,6 +9,7 @@ type Store = {
     increaseQty: (payload: { pid: string, cid: string, s: string, qty?: number }) => void,
     reduceQty: (payload: { pid: string, cid: string, s: string }) => void,
     remove: (payload: { pid: string, cid: string, s: string }) => void,
+    emptyCart: () => void,
 }
 
 const getItemsInCart = () => {
@@ -47,5 +48,9 @@ export const useCartStore = create<Store>()(immer((set) => ({
     remove: (payload) => set((state) => {
         state.cart = state.cart.filter(item => item.cid !== payload.cid || item.pid !== payload.pid || item.s !== payload.s)
         sessionStorage.setItem("cart", JSON.stringify(state.cart));
+    }),
+    emptyCart: () => set((state) => {
+        state.cart = []
+        sessionStorage.setItem("cart", JSON.stringify(state.cart))
     })
 })))
