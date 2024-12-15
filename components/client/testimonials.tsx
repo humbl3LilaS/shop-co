@@ -1,7 +1,7 @@
 "use client"
 
 import TestimonialCard from "@/components/client/testimonial-card";
-import {TESTIMONIALS} from "@/constants/client-constants";
+import {TESTIMONIALS} from "@/constants/ui-constants";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from 'swiper/modules';
 import 'swiper/swiper-bundle.css';

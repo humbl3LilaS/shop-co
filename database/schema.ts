@@ -1,7 +1,7 @@
 import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
-import {CATEGORIES, TYPES} from "@/constants/client-constants";
+import {CATEGORIES, ORDER_STATUS, TYPES} from "@/constants/constants";
 
 
 export const users = pgTable(
@@ -116,6 +116,71 @@ export const reviewUserRelation = relations(reviews, ({one}) => (
         user: one(users, {
             fields: [reviews.userId],
             references: [users.id]
+        })
+    }
+))
+
+export const orders = pgTable("orders", {
+    id: text("id").primaryKey().$default(() => createUUID()),
+    productId: text("product_id").references(() => products.id).notNull(),
+    quantity: integer("quantity").notNull(),
+})
+
+export const orderProductRelation = relations(orders, ({one}) => (
+    {
+        product: one(products, {
+            fields: [orders.productId],
+            references: [products.id]
+        })
+    }
+))
+
+export const productOrderRelation = relations(products, ({many}) => (
+    {
+        orders: many(orders),
+    }
+))
+
+export const transactions = pgTable("transactions", {
+    id: text("id").primaryKey().$default(() => createUUID()),
+    customerId: text("customer_id").references(() => users.id).notNull(),
+    orders: text("orders").array().notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    status: text("status", {enum: [...ORDER_STATUS]}).notNull(),
+    amount: integer("amount").notNull(),
+})
+
+export const transactionsCustomerRelation = relations(transactions, ({one}) => (
+    {
+        customer: one(users, {
+            fields: [transactions.customerId],
+            references: [users.id]
+        })
+    }
+))
+
+export const customerTransactionRelation = relations(users, ({many}) => (
+    {
+        transactions: many(transactions)
+    }
+))
+
+export const transactionDetails = pgTable("transaction_details", {
+    id: text("id").primaryKey().$default(() => createUUID()),
+    transactionId: text("order_id").references(() => transactions.id).notNull(),
+    region: text("region").notNull(),
+    township: text("township").notNull(),
+    address: text("address").notNull(),
+    postalCode: text("postalCode").notNull(),
+    phoneNumber: text("phoneNumber").notNull(),
+    email: text("email").notNull(),
+})
+
+export const tDetailsAndTransactionRelation = relations(transactionDetails, ({one}) => (
+    {
+        transactions: one(transactions, {
+            fields: [transactionDetails.transactionId],
+            references: [transactions.id]
         })
     }
 ))

@@ -1,4 +1,4 @@
-import {STYLES} from "@/constants/client-constants";
+import {STYLES} from "@/constants/ui-constants";
 import Image from "next/image";
 import Link from "next/link";
 import {cn} from "@/lib/utils";

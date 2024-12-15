@@ -9,13 +9,12 @@ import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {CreditCard, Store, Truck} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants/client-constants";
+import {TOWNSHIPS, ZONES} from "@/constants/constants";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import {Button} from "@/components/ui/button";
 import {IUserInfo} from "@/types/api.types";
 
 const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
-    console.log(defaultValues);
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
         mode: "onChange",

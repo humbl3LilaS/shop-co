@@ -1,5 +1,5 @@
 import {IssueData, z} from "zod";
-import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants/client-constants";
+import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants/constants";
 import {Writeable} from "@/types/util.types";
 
 

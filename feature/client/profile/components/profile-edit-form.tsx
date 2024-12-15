@@ -7,7 +7,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants/client-constants";
+import {TOWNSHIPS, ZONES} from "@/constants/constants";
 import {Button} from "@/components/ui/button";
 import {updateUserInfo} from "@/feature/client/profile/actions/update-user-info";
 import {useToast} from "@/hooks/use-toast";

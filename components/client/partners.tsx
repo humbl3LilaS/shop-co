@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {PARTNER_ICONS} from "@/constants/client-constants";
+import {PARTNER_ICONS} from "@/constants/ui-constants";
 
 const Partners = () => {
     return (

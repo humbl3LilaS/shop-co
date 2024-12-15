@@ -1,4 +1,4 @@
-import {STYLES} from "@/constants/client-constants";
+import {STYLES} from "@/constants/ui-constants";
 import {notFound} from "next/navigation";
 import {getProductByCategory} from "@/actions/product-actions";
 import {IProductCategory} from "@/types/object.types";

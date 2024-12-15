@@ -1,6 +1,6 @@
 import Container from "@/components/client/container";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import {FAQS} from "@/constants/client-constants";
+import {FAQS} from "@/constants/ui-constants";
 
 const ProductFaqs = () => {
     return (

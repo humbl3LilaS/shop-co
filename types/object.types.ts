@@ -1,4 +1,4 @@
-import {CATEGORIES, SIZES, TYPES} from "@/constants/client-constants";
+import {CATEGORIES, SIZES, TYPES} from "@/constants/constants";
 
 export type IProductTypes = (typeof TYPES)[number]
 

@@ -3,7 +3,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FilterFormDefaultValues, FilterFormSchema, FilterFormSchemaType} from "@/validation/client-schema";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {SIZES, TYPES} from "@/constants/client-constants";
+import {SIZES, TYPES} from "@/constants/constants";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import PriceRangeSelector from "@/components/share/price-range-selector";

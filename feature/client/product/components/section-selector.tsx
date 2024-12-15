@@ -3,7 +3,7 @@ import ProductReviews from "@/feature/client/reviews/components/product-reviews"
 import ProductDetails from "@/feature/client/product/components/product-details";
 import ProductFaqs from "@/feature/client/product/components/product-faqs";
 import {useChangeSection} from "@/feature/client/product/hook/use-change-section";
-import {SECTIONS} from "@/constants/client-constants";
+import {SECTIONS} from "@/constants/ui-constants";
 import {cn} from "@/lib/utils";
 import Container from "@/components/client/container";
 

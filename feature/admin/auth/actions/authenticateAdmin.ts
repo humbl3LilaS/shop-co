@@ -1,10 +1,11 @@
 "use server"
-import {AdminLoginSchemaType} from "@/validation/client-schema";
+
 import {db} from "@/database/drizzle";
 import {admins} from "@/database/schema";
 import {eq} from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import {createSession} from "@/lib/session";
+import {AdminLoginSchemaType} from "@/validation/admin-schema";
 
 export const authenticateAdmin = async (payload: AdminLoginSchemaType) => {
     try {

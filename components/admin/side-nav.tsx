@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {NAV_ITEMS} from "@/constants/admin-constants";
+import {ADMIN_NAV_ITEM} from "@/constants/ui-constants";
 import NavItem from "@/components/admin/nav-item";
 
 const SideNav = () => {
@@ -15,7 +15,7 @@ const SideNav = () => {
                 <nav className={"pt-8"}>
                     <ul className={"flex flex-col gap-y-8"}>
                         {
-                            NAV_ITEMS.map((item) => (
+                            ADMIN_NAV_ITEM.map((item) => (
                                 <NavItem data={item} key={item.title}/>
                             ))
                         }

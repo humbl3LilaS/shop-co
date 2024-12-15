@@ -8,7 +8,7 @@ import {Button} from "@/components/ui/button";
 import {useToast} from "@/hooks/use-toast";
 import {createProduct} from "@/feature/admin/product/actions/create-product-action";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {CATEGORIES, SIZES, TYPES} from "@/constants/client-constants";
+import {CATEGORIES, SIZES, TYPES} from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
 import {createProductColor} from "@/feature/admin/product/actions/create-product-color";
 

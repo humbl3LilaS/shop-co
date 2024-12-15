@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {Facebook, Github, Instagram, Twitter} from "lucide-react";
-import {FOOTER_SUB_NAVS} from "@/constants/client-constants";
+import {FOOTER_SUB_NAVS} from "@/constants/ui-constants";
 import FooterSubNav from "@/components/client/footer-sub-nav";
 import Image from "next/image";
 import NewsletterFrom from "@/components/client/newsletter-from";
