@@ -13,8 +13,10 @@ import {TOWNSHIPS, ZONES} from "@/constants/constants";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import {Button} from "@/components/ui/button";
 import {IUserInfo} from "@/types/api.types";
+import {useCartStore} from "@/hooks/use-cart-store";
 
 const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
+    const cart = useCartStore(state => state.cart);
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
         mode: "onChange",
@@ -33,7 +35,8 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     })
 
     const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (values) => {
-        console.log(values)
+        console.log(values);
+        console.log(cart)
     }
 
     const state = form.watch("state");

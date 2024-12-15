@@ -123,6 +123,8 @@ export const reviewUserRelation = relations(reviews, ({one}) => (
 export const orders = pgTable("orders", {
     id: text("id").primaryKey().$default(() => createUUID()),
     productId: text("product_id").references(() => products.id).notNull(),
+    colorId: text("color_id").references(() => productColors.id).notNull(),
+    size: text("size").notNull(),
     quantity: integer("quantity").notNull(),
 })
 
@@ -140,6 +142,22 @@ export const productOrderRelation = relations(products, ({many}) => (
         orders: many(orders),
     }
 ))
+
+export const orderColorRelation = relations(orders, ({one}) => (
+    {
+        color: one(productColors, {
+            fields: [orders.colorId],
+            references: [productColors.id]
+        })
+    }
+));
+
+export const colorOrderRelation = relations(products, ({many}) => (
+    {
+        orders: many(orders),
+    }
+))
+
 
 export const transactions = pgTable("transactions", {
     id: text("id").primaryKey().$default(() => createUUID()),
@@ -173,6 +191,8 @@ export const transactionDetails = pgTable("transaction_details", {
     address: text("address").notNull(),
     postalCode: text("postalCode").notNull(),
     phoneNumber: text("phoneNumber").notNull(),
+    deliveryMethod: text("delivery_method").notNull(),
+    transactionMethod: text("transaction_method").notNull(),
     email: text("email").notNull(),
 })
 
