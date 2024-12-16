@@ -17,12 +17,12 @@ const CheckoutPage = async () => {
     }
 
     return (
-        <div className={"lg:grid grid-cols-2 lg:h-[90vh] lg:py-8"}>
+        <div className={"lg:grid grid-cols-2 lg:h-[90vh] lg:py-8 lg:overflow-y-scroll"}>
             <CheckoutSummaryDropDown/>
             <div className={"overflow-y-scroll"}>
                 <CheckoutForm defaultValues={profile}/>
             </div>
-            <Container className={"hidden lg:block lg:pr-25 lg:pl-10"}>
+            <Container className={"hidden md:block lg:pr-25 lg:pl-10"}>
                 <h3 className={"font-bold text-2xl mb-4"}>Order Summary</h3>
                 <CheckoutSummary/>
             </Container>
