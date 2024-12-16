@@ -17,6 +17,7 @@ import {useCartStore} from "@/hooks/use-cart-store";
 import {submitCheckout} from "@/feature/client/checkout/actions/submit-checkout";
 import {useCartSummary} from "@/hooks/use-cart-summary";
 import {useRouter} from "next/navigation";
+import {useToast} from "@/hooks/use-toast";
 
 
 const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
@@ -42,11 +43,25 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     })
 
     const router = useRouter();
+    const {toast} = useToast();
 
     const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (values) => {
         const res = await submitCheckout(cart, values, summary?.totalPrice ?? 0);
-        emptyCart();
-        router.push("/");
+        if (res.error) {
+            toast({
+                title: res.message,
+                variant: "destructive",
+                duration: 1500,
+            })
+        } else {
+            toast({
+                title: "Checkout Success",
+                description: 1500,
+            })
+            emptyCart();
+            router.push("/checkout/success");
+        }
+
     }
 
     const state = form.watch("state");

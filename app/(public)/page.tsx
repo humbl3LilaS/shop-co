@@ -30,7 +30,6 @@ const Home = async () => {
             />
             <BrowseStyle/>
             <Testimonials/>
-
         </main>
     );
 }

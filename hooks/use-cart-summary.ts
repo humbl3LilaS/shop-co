@@ -20,7 +20,7 @@ export const useCartSummary = () => {
             totalPrice: acc.totalPrice + ((val.price - ((discount / 100) * val.price)) * counts),
             discountedPrice: acc.discountedPrice + ((discount / 100) * val.price),
         }
-    }, ({totalPrice: 0, discountedPrice: 0}) as { totalPrice: number, discountedPrice: number }) as {
+    }, ({totalPrice: 0, discountedPrice: 0})) as {
         totalPrice: number,
         discountedPrice: number
     };
