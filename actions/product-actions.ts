@@ -5,7 +5,7 @@ import {products} from "@/database/schema";
 import {IProductCategory, IProductTypes} from "@/types/object.types";
 import {and, eq, gt, inArray, lte, arrayOverlaps} from "drizzle-orm";
 import {calculatePageCounts, slugToArray} from "@/lib/utils";
-import {CategoryPageQuery} from "@/app/(public)/style/[category]/page";
+import {CategoryPageQuery} from "@/app/(client)/style/[category]/page";
 
 
 export const getRecentProducts = async () => {
