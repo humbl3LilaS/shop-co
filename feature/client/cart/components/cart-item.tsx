@@ -9,14 +9,21 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {useGetItemData} from "@/feature/client/cart/hooks/use-get-item-data";
 import QuantityController from "@/feature/client/cart/components/quantity-controller";
 import {useQueryClient} from "@tanstack/react-query";
+import {useGotToCheckoutBtnState} from "@/feature/client/cart/hooks/use-got-to-checkout-btn-state";
+import {useEffect} from "react";
 
 type CartItemProps = {
     data: ICart[number]
 }
 const CartItem = ({data}: CartItemProps) => {
 
-    const {data: cart, isFetching} = useGetItemData({...data})
+    const {data: cart, isLoading} = useGetItemData({...data})
+    const setDisable = useGotToCheckoutBtnState(state => state.setDisable)
+    const btnState = useGotToCheckoutBtnState(state => state.disable)
 
+    useEffect(() => {
+        setDisable(btnState && isLoading)
+    }, [isLoading, btnState, setDisable])
     const queryClient = useQueryClient();
 
     const removeFromCart = useCartStore(state => state.remove)
@@ -31,12 +38,12 @@ const CartItem = ({data}: CartItemProps) => {
     return (
         <>
             {
-                isFetching && <div>
+                isLoading && <div>
                     <Skeleton className={"w-full h-[200px] "}/>
                 </div>
             }
             {
-                !isFetching && cart && <div className={"flex items-center gap-x-4 md:justify-between"}>
+                !isLoading && cart && <div className={"flex items-center gap-x-4 md:justify-between"}>
                     <div className={" aspect-square"}>
                         <Image src={cart?.imageUrl ?? ''} alt={cart?.name ?? ""} width={500} height={500}
                                className={"w-25 aspect-square rounded-lg md:w-[150px] lg:w-[200px]"}/>

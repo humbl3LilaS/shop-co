@@ -1,14 +1,15 @@
 "use client"
 import {useCartStore} from "@/hooks/use-cart-store";
 import {ArrowRight} from "lucide-react";
-import Link from "next/link";
 import {useCartSummary} from "@/hooks/use-cart-summary";
+import {useGotToCheckoutBtnState} from "@/feature/client/cart/hooks/use-got-to-checkout-btn-state";
+import {Button} from "@/components/ui/button";
 
 
 const CartSummary = () => {
     const cart = useCartStore(state => state.cart);
     const summary = useCartSummary();
-
+    const btnState = useGotToCheckoutBtnState(state => state.disable);
     return (
         <>
             {
@@ -48,11 +49,13 @@ const CartSummary = () => {
                             }
                         </span>
                     </p>
-                    <Link href={"/checkout"}
-                          className={"py-2 flex items-center justify-center gap-x-2 bg-black text-white rounded-3xl font-bold"}>
+                    <Button
+                        disabled={btnState}
+                        className={"flex items-center justify-center gap-x-2 bg-black text-white rounded-3xl font-bold"}
+                    >
                         <span>Go to Checkout</span>
                         <ArrowRight className={"block size-8"}/>
-                    </Link>
+                    </Button>
                 </div>
             }
         </>
