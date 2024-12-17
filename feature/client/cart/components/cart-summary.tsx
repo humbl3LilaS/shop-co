@@ -4,12 +4,14 @@ import {ArrowRight} from "lucide-react";
 import {useCartSummary} from "@/hooks/use-cart-summary";
 import {useGotToCheckoutBtnState} from "@/feature/client/cart/hooks/use-got-to-checkout-btn-state";
 import {Button} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
 
 
 const CartSummary = () => {
     const cart = useCartStore(state => state.cart);
     const summary = useCartSummary();
     const btnState = useGotToCheckoutBtnState(state => state.disable);
+    const router = useRouter();
     return (
         <>
             {
@@ -45,12 +47,15 @@ const CartSummary = () => {
                         <span className={"text-black/40"}>Total</span>
                         <span className={"font-bold"}>
                             {
-                                summary ? `$${summary.totalPrice - 15}` : "..."
+                                summary ? `$${summary.totalPrice + 15 - summary.discountedPrice}` : "..."
                             }
                         </span>
                     </p>
                     <Button
                         disabled={btnState}
+                        onClick={() => {
+                            router.push("/checkout");
+                        }}
                         className={"flex items-center justify-center gap-x-2 bg-black text-white rounded-3xl font-bold"}
                     >
                         <span>Go to Checkout</span>
