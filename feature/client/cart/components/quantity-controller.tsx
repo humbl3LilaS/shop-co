@@ -3,7 +3,8 @@ import {Button} from "@/components/ui/button";
 import {Minus, Plus} from "lucide-react";
 import {ICart} from "@/types/object.types";
 import {useCartStore} from "@/hooks/use-cart-store";
-import {useQueryClient} from "react-query";
+import {useQueryClient} from "@tanstack/react-query";
+
 
 type QuantityControllerProps = {
     data: ICart[number]

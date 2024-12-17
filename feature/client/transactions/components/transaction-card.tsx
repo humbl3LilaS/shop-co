@@ -8,7 +8,7 @@ const TransactionCard = ({data}: { data: ITransaction }) => {
     return (
         <div className={"p-4  bg-[#f0f0f0] rounded-lg"}>
 
-            <p className={"mb-1 border-b border-b-transparent line-clamp-1 font-bold text-lg hover:border-b-black/40 transition-colors duration-500"}>
+            <p className={"w-fit mb-1 border-b border-b-transparent line-clamp-1 font-bold text-lg hover:border-b-black/40 transition-colors duration-500"}>
                 <Link href={`/transactions/${data.id}`}>
                     Order#{data.id}
                 </Link>

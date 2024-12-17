@@ -1,7 +1,4 @@
 import {ITransaction} from "@/feature/client/transactions/actions/get-transactions";
-import {format} from "date-fns";
-import Link from "next/link";
-import {cn} from "@/lib/utils";
 import TransactionCard from "@/feature/client/transactions/components/transaction-card";
 
 const TransactionsList = ({data}: { data: ITransaction[] }) => {

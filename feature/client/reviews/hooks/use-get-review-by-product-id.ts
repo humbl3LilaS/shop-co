@@ -1,5 +1,5 @@
-import {useQuery} from "react-query";
 import {getAllReviews} from "@/feature/client/reviews/actions/get-all-reviews";
+import {useQuery} from "@tanstack/react-query";
 
 export const useGetReviewByProductId = (productId: string) => {
     return useQuery({

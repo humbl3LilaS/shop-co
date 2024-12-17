@@ -1,6 +1,6 @@
 "use client"
 import {ICart} from "@/types/object.types";
-import {useQueryClient} from "react-query";
+
 import {Button} from "@/components/ui/button";
 import {Trash} from "lucide-react";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import {useCartStore} from "@/hooks/use-cart-store";
 import {Skeleton} from "@/components/ui/skeleton";
 import {useGetItemData} from "@/feature/client/cart/hooks/use-get-item-data";
 import QuantityController from "@/feature/client/cart/components/quantity-controller";
+import {useQueryClient} from "@tanstack/react-query";
 
 type CartItemProps = {
     data: ICart[number]

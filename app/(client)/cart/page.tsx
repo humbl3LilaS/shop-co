@@ -3,8 +3,6 @@ import CustomBreadcrumb from "@/components/client/custom-breadcrumb";
 import Cart from "@/feature/client/cart/components/cart";
 
 const Page = () => {
-
-
     return (
         <Container>
             <CustomBreadcrumb/>
