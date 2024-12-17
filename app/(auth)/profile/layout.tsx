@@ -7,12 +7,12 @@ const ProfileLayout = ({
 }>) => {
     return (
 
-        <body>
+        <div className={"w-dvw h-dvh md:w-screen md:h-screen overflow-y-scroll"}>
             <Header/>
             <main>
                 {children}
             </main>
-        </body>
+        </div>
     );
 };
 

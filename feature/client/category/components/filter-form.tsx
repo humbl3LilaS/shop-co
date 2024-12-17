@@ -48,7 +48,7 @@ const FilterForm = ({defaultValues}: FilterFormProps) => {
             max: values.priceRange[1]
         }
 
-        // only get the page params from the search params others are provided via defaultValues prop
+        // only get the page.tsx params from the search params others are provided via defaultValues prop
         const params = new URLSearchParams(searchParams.get("page") ?? "");
 
         // set the searchParams object if the values[key] is not "" or undefined

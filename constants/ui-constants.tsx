@@ -134,7 +134,7 @@ export const SECTIONS: Array<{ title: string; value: "details" | "reviews" | "fa
 export const FAQS = [
     {
         "question": "What is your return and exchange policy?",
-        "answer": "We accept returns and exchanges within 30 days of purchase. Items must be in their original condition with tags attached. Please visit our Returns & Exchanges page for more details."
+        "answer": "We accept returns and exchanges within 30 days of purchase. Items must be in their original condition with tags attached. Please visit our Returns & Exchanges page.tsx for more details."
     },
     {
         "question": "How can I track my order?",
@@ -146,11 +146,11 @@ export const FAQS = [
     },
     {
         "question": "Do you offer international shipping?",
-        "answer": "Yes, we ship to many countries worldwide. Shipping costs and delivery times vary by location. Please check our Shipping Policy page for more details."
+        "answer": "Yes, we ship to many countries worldwide. Shipping costs and delivery times vary by location. Please check our Shipping Policy page.tsx for more details."
     },
     {
         "question": "How do I know what size to order?",
-        "answer": "We provide a detailed size guide on each products page to help you find the right fit. If you're still unsure, feel free to contact our customer support team for assistance."
+        "answer": "We provide a detailed size guide on each products page.tsx to help you find the right fit. If you're still unsure, feel free to contact our customer support team for assistance."
     },
     {
         "question": "Can I cancel or modify my order after placing it?",

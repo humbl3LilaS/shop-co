@@ -25,6 +25,7 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     const emptyCart = useCartStore(state => state.emptyCart);
     const summary = useCartSummary();
 
+
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
         mode: "onChange",
@@ -45,6 +46,10 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
     const router = useRouter();
     const {toast} = useToast();
 
+    if(cart.length === 0) {
+        router.replace("/");
+    }
+
     const onSubmit: SubmitHandler<CheckoutFormSchemaType> = async (values) => {
         const res = await submitCheckout(cart, values, summary?.totalPrice ?? 0);
         if (res.error) {
@@ -59,7 +64,7 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                 description: 1500,
             })
             emptyCart();
-            router.push("/checkout/success");
+            router.replace("/checkout/success");
         }
 
     }
