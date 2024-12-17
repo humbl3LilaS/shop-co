@@ -28,7 +28,7 @@ const ProfilePage = async () => {
             <BillingInfo data={profile}/>
             <div className={"lg:flex items-center gap-x-4"}>
                 <Link
-                    href={"/transaction"}
+                    href={"/transactions"}
                     className={"block my-4 py-2 w-full border border-black/40 font-semibold text-center rounded-3xl lg:max-w-[260px]"}
                 >
                     See Transactions

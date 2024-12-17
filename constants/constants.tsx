@@ -41,4 +41,4 @@ export const TOWNSHIPS: Record<string, string[]> = {
 };
 
 
-export const ORDER_STATUS = ["pending", "delivered", "canceled"] as const;
+export const ORDER_STATUS = ["pending", "delivered", "canceled", "on-the-way"] as const;
