@@ -18,7 +18,7 @@ const CustomBreadcrumb = () => {
         <Breadcrumb className={"mt-6 mb-4"}>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/public">Home</BreadcrumbLink>
+                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator/>
                 {
