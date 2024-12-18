@@ -34,7 +34,6 @@ const CartItem = ({data}: CartItemProps) => {
         })
     }
 
-
     return (
         <>
             {

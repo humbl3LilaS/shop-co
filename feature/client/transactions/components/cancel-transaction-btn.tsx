@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {useToast} from "@/hooks/use-toast";
 import {cancelTransaction} from "@/feature/client/transactions/actions/cancel-transaction";
 
-const CancelTransactionBtn = ({transactionId}: { transactionId: string }) => {
+const CancelTransactionBtn = ({transactionId, redirect}: { transactionId: string, redirect?: boolean }) => {
     const [pending, setPending] = useState(false);
     const router = useRouter();
     const {toast} = useToast();
@@ -26,7 +26,11 @@ const CancelTransactionBtn = ({transactionId}: { transactionId: string }) => {
             title: `Successfully Cancelled Order#${transactionId}`,
             duration: 500,
         })
-        router.refresh();
+        if (redirect) {
+            router.replace("/transactions");
+        } else {
+            router.refresh();
+        }
         setPending(false)
     }
 

@@ -7,7 +7,6 @@ import PersonalInfo from "@/feature/client/profile/components/personal-info";
 import BillingInfo from "@/feature/client/profile/components/billing-info";
 import Link from "next/link";
 import CustomBreadcrumb from "@/components/client/custom-breadcrumb";
-import {Button} from "@/components/ui/button";
 import ActionButton from "@/components/share/action-button";
 
 const ProfilePage = async () => {
