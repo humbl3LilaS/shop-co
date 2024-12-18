@@ -1,7 +1,7 @@
 "use server"
 import {db} from "@/database/drizzle";
-import {transactionDetails, transactions} from "@/database/schema";
-import {eq} from "drizzle-orm";
+import {orders, transactionDetails, transactions} from "@/database/schema";
+import {eq, inArray} from "drizzle-orm";
 
 export const cancelTransaction = async (transactionId: string) => {
     try {
@@ -11,6 +11,10 @@ export const cancelTransaction = async (transactionId: string) => {
         }
         const [delTransaction] = await db.delete(transactions).where(eq(transactions.id, transactionId)).returning();
         if (!delTransaction) {
+            return undefined;
+        }
+        const [delOrders] = await db.delete(orders).where(inArray(orders.id, delTransaction.orders)).returning();
+        if (!delOrders) {
             return undefined;
         }
         return delTransaction;
