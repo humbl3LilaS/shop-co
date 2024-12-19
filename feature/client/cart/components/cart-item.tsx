@@ -6,9 +6,9 @@ import {Trash} from "lucide-react";
 import Image from "next/image";
 import {useCartStore} from "@/hooks/use-cart-store";
 import {Skeleton} from "@/components/ui/skeleton";
-import {useGetItemData} from "@/feature/client/cart/hooks/use-get-item-data";
+import {getItemDataOption} from "@/feature/client/cart/hooks/get-item-data-option";
 import QuantityController from "@/feature/client/cart/components/quantity-controller";
-import {useQueryClient} from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 
 
 type CartItemProps = {
@@ -16,8 +16,8 @@ type CartItemProps = {
 }
 const CartItem = ({data}: CartItemProps) => {
 
-    const {data: cart, isLoading} = useGetItemData({...data})
-
+    // const {data: cart, isLoading} = useGetItemData({...data})
+    const {data: cart, isLoading} = useQuery(getItemDataOption({...data}))
     const queryClient = useQueryClient();
 
     const removeFromCart = useCartStore(state => state.remove);

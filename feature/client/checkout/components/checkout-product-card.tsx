@@ -1,13 +1,22 @@
 import {ICart} from "@/types/object.types";
-import {useGetItemData} from "@/feature/client/cart/hooks/use-get-item-data";
+import {getItemDataOption} from "@/feature/client/cart/hooks/get-item-data-option";
 import {Skeleton} from "@/components/ui/skeleton";
 import Image from "next/image";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {getCartItemData} from "@/feature/client/cart/actions/get-cart-item-data";
 
 type CheckoutProductCardProps = {
     data: ICart[number]
 }
 const CheckoutProductCard = ({data}: CheckoutProductCardProps) => {
-    const {data: cart, isFetching} = useGetItemData({...data})
+    const queryClient = useQueryClient();
+
+    const {data: cart, isFetching} = useQuery({
+        ...getItemDataOption({...data}),
+        placeholderData: () => {
+            return queryClient.getQueriesData({queryKey: ["cart-item", data.pid, data.cid, data.s]}) as unknown as Awaited<ReturnType<typeof getCartItemData>>
+        }
+    })
     return (
         <>
             {
