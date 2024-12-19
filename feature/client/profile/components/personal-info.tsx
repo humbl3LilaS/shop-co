@@ -1,4 +1,5 @@
 import {IUserInfo} from "@/types/api.types";
+import {getGenderIcon} from "@/lib/icon-selector";
 
 const PersonalInfo = ({data}: { data: IUserInfo }) => {
     return (
@@ -37,7 +38,17 @@ const PersonalInfo = ({data}: { data: IUserInfo }) => {
                         {data.phoneNumber ?? "Not provided"}
                     </span>
                 </div>
-
+                <div className={"*:block"}>
+                    <span className={"mb-1.5 text-black/40 text-sm font-semibold lg:text-base"}>
+                        Gender
+                    </span>
+                    <span className={"font-semibold lg:text-lg !flex items-center gap-x-3"}>
+                        {
+                            data.gender && <span className={"inline-block w-4 aspect-square"}>{getGenderIcon(data.gender)}</span>
+                        }
+                        <span className={"capitalize"}>{data.gender ?? "Not provided"}</span>
+                    </span>
+                </div>
             </div>
 
         </div>

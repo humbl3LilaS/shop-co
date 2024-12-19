@@ -1,7 +1,7 @@
 import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
-import {CATEGORIES, ORDER_STATUS, TYPES} from "@/constants/constants";
+import {CATEGORIES, GENDERS, ORDER_STATUS, TYPES} from "@/constants/constants";
 
 
 export const users = pgTable(
@@ -19,6 +19,7 @@ export const users = pgTable(
         township: text("township"),
         address: text("address"),
         postalCode: text("postal_code"),
+        gender: text("gender", {enum: [...GENDERS]}),
     }
 )
 

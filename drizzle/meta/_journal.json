@@ -99,6 +99,13 @@
       "when": 1734248439004,
       "tag": "0013_illegal_wolfsbane",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1734589567750,
+      "tag": "0014_peaceful_vanisher",
+      "breakpoints": true
     }
   ]
 }

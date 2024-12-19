@@ -1,6 +1,7 @@
 import {IssueData, z} from "zod";
-import {CATEGORIES, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants/constants";
+import {CATEGORIES, GENDERS, SIZES, TOWNSHIPS, TYPES, ZONES} from "@/constants/constants";
 import {Writeable} from "@/types/util.types";
+import {IGender} from "@/types/object.types";
 
 
 export const ProductFormSchema = z.object(
@@ -153,6 +154,7 @@ export const ProfileEditFormSchema = z.object({
     township: z.string().optional(),
     address: z.string().optional().refine(arg => !arg || arg.length > 10),
     postalCode: z.string().optional().refine(arg => !arg || arg.length === 6, {message: "Invalid Postal Code"}),
+    gender: z.string().refine(arg => !arg || GENDERS.includes(arg as IGender)),
 }).superRefine((arg, ctx) => {
     if (arg.state && arg.township && !TOWNSHIPS[arg.state]?.includes(arg.township)) {
         ctx.addIssue({

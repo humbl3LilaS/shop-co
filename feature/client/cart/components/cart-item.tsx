@@ -16,7 +16,6 @@ type CartItemProps = {
 }
 const CartItem = ({data}: CartItemProps) => {
 
-    // const {data: cart, isLoading} = useGetItemData({...data})
     const {data: cart, isLoading} = useQuery(getItemDataOption({...data}))
     const queryClient = useQueryClient();
 

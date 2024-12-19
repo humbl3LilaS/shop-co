@@ -42,3 +42,5 @@ export const TOWNSHIPS: Record<string, string[]> = {
 
 
 export const ORDER_STATUS = ["pending", "delivered", "canceled", "on-the-way"] as const;
+
+export const GENDERS = ["male", "female", "non-binary", "others"] as const;

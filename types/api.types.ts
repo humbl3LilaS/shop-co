@@ -28,6 +28,7 @@ export interface IUserInfo {
     address: string | null;
     postalCode: string | null;
     phoneNumber:string | null;
+    gender: string | null;
 }
 
 

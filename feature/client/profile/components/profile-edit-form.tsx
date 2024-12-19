@@ -7,13 +7,14 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input";
 import {cn} from "@/lib/utils";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants/constants";
+import {GENDERS, TOWNSHIPS, ZONES} from "@/constants/constants";
 import {Button} from "@/components/ui/button";
 import {updateUserInfo} from "@/feature/client/profile/actions/update-user-info";
 import {useToast} from "@/hooks/use-toast";
 import {useRouter} from "next/navigation";
 import {useEditProfileSheet} from "@/feature/client/profile/hooks/use-edit-profile-sheet";
 import {Loader2} from "lucide-react";
+import {getGenderIcon} from "@/lib/icon-selector";
 
 
 const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
@@ -27,6 +28,7 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
             township: defaultValues.township ?? "",
             address: defaultValues.address ?? "",
             postalCode: defaultValues.postalCode ?? "",
+            gender: defaultValues.gender ?? "",
         },
     });
 
@@ -140,6 +142,38 @@ const ProfileEditForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                         </FormItem>
                     }
                 />
+
+                <FormField
+                    name={"gender"}
+                    control={form.control}
+                    render={({field}) =>
+                        <FormItem className={"mb-8"}>
+                            <FormLabel className={"sr-only"}>
+                                Gender
+                            </FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl className={"py-2"}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={"State/Division"}/>
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {
+                                        GENDERS.map(item =>
+                                            <SelectItem value={item} key={item} >
+                                                <div className={"flex items-center gap-x-3"}>
+                                                    <span className={"block w-4 aspect-square"}>{getGenderIcon(item)}</span>
+                                                    <span className={"capitalize"}>{item}</span>
+                                                </div>
+                                            </SelectItem>
+                                        )
+                                    }
+                                </SelectContent>
+                            </Select>
+                        </FormItem>
+                    }
+                />
+
 
                 <h2 className={"font-bold text-lg mb-3"}>Billing Info</h2>
                 <FormField
