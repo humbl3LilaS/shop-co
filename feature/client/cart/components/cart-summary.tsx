@@ -2,15 +2,16 @@
 import {useCartStore} from "@/hooks/use-cart-store";
 import {ArrowRight} from "lucide-react";
 import {useCartSummary} from "@/hooks/use-cart-summary";
-import {useGotToCheckoutBtnState} from "@/feature/client/cart/hooks/use-got-to-checkout-btn-state";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
+import {useIsFetching} from "@tanstack/react-query";
 
 
 const CartSummary = () => {
     const cart = useCartStore(state => state.cart);
     const summary = useCartSummary();
-    const btnState = useGotToCheckoutBtnState(state => state.disable);
+    const numOfFetchingQuery = useIsFetching({queryKey: ["cart-item"]});
+
     const router = useRouter();
     return (
         <>
@@ -52,7 +53,7 @@ const CartSummary = () => {
                         </span>
                     </p>
                     <Button
-                        disabled={btnState}
+                        disabled={numOfFetchingQuery !== 0}
                         onClick={() => {
                             router.push("/checkout");
                         }}

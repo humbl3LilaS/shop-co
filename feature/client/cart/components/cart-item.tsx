@@ -9,8 +9,7 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {useGetItemData} from "@/feature/client/cart/hooks/use-get-item-data";
 import QuantityController from "@/feature/client/cart/components/quantity-controller";
 import {useQueryClient} from "@tanstack/react-query";
-import {useGotToCheckoutBtnState} from "@/feature/client/cart/hooks/use-got-to-checkout-btn-state";
-import {useEffect} from "react";
+
 
 type CartItemProps = {
     data: ICart[number]
@@ -18,15 +17,11 @@ type CartItemProps = {
 const CartItem = ({data}: CartItemProps) => {
 
     const {data: cart, isLoading} = useGetItemData({...data})
-    const setDisable = useGotToCheckoutBtnState(state => state.setDisable)
-    const btnState = useGotToCheckoutBtnState(state => state.disable)
 
-    useEffect(() => {
-        setDisable(btnState && isLoading)
-    }, [isLoading, btnState, setDisable])
     const queryClient = useQueryClient();
 
-    const removeFromCart = useCartStore(state => state.remove)
+    const removeFromCart = useCartStore(state => state.remove);
+
     const removeHandler = () => {
         removeFromCart({pid: data.pid, cid: data.cid, s: data.s});
         queryClient.removeQueries({

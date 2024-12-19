@@ -6,6 +6,6 @@ export const useGetItemData = ({pid, cid, s}: { pid: string, cid: string, s: str
         enabled: !!pid && !!cid,
         queryKey: ["cart-item", pid, cid, s],
         queryFn: () => getCartItemData(pid, cid),
-        staleTime: 60 * 60 * 1000
+        staleTime: 60 * 10 * 1000
     })
 }
