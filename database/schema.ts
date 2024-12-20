@@ -2,6 +2,7 @@ import {check, integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-
 import {v4 as createUUID} from "uuid";
 import {relations, sql} from "drizzle-orm";
 import {CATEGORIES, GENDERS, ORDER_STATUS, TYPES} from "@/constants/constants";
+import {createInsertSchema} from "drizzle-zod";
 
 
 export const users = pgTable(
@@ -205,3 +206,11 @@ export const tDetailsAndTransactionRelation = relations(transactionDetails, ({on
         })
     }
 ))
+
+export const userInsertSchema = createInsertSchema(users);
+export const reviewInsertSchema = createInsertSchema(reviews);
+export const orderInsertSchema = createInsertSchema(orders)
+
+export type IUser = Zod.infer<typeof userInsertSchema>;
+export type IReviews = Zod.infer<typeof reviewInsertSchema>
+export type IOrders = Zod.infer<typeof orderInsertSchema>
