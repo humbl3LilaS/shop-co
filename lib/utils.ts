@@ -65,3 +65,15 @@ export const getQuantityInCart = () => {
 export const addLineBreaks = (input: string): string => {
     return input.replace(/  /g, `\n`);
 }
+
+
+export const runOnceAsync = (() => {
+    let hasRun = false;
+    return async (callback: () => Promise<void>) => {
+        if (!hasRun) {
+            hasRun = true;
+            console.log("seeding run")
+            await callback();
+        }
+    };
+})();

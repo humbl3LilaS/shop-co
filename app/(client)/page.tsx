@@ -4,15 +4,15 @@ import ProductPreview from "@/components/client/product-preview";
 import {getRecentProducts} from "@/actions/product-actions";
 import BrowseStyle from "@/components/client/browse-style";
 import Testimonials from "@/components/client/testimonials";
-import {v4 as createUUID} from "uuid";
+import {generateAdminId, generateUUID} from "@/database/seed";
 
 const Home = async () => {
     const products = await getRecentProducts();
-
+    // console.log(generateUUID())
+    // console.log(generateAdminId())
     if (!products || !products.length) {
         return <div>No product</div>
     }
-    console.log(createUUID());
     return (
         <main>
             <Hero/>
