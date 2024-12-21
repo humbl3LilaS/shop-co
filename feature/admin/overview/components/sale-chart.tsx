@@ -1,13 +1,11 @@
 "use client"
 
-import {TrendingUp} from "lucide-react"
 import {CartesianGrid, Line, LineChart, XAxis} from "recharts"
 
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -17,15 +15,10 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {useQuery} from "@tanstack/react-query";
+import {getSalesPerMonth} from "@/feature/admin/overview/actions/get-sales-per-month";
+import {getSalePlaceHolder} from "@/feature/admin/overview/util/get-sale-period";
 
-const chartData = [
-    {month: "January", revenue: 186},
-    {month: "February", revenue: 305},
-    {month: "March", revenue: 237},
-    {month: "April", revenue: 73},
-    {month: "May", revenue: 209},
-    {month: "June", revenue: 214},
-]
 
 const chartConfig = {
     desktop: {
@@ -35,17 +28,25 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export default function SaleChart() {
+    const {data} = useQuery({
+        queryKey: ["sale-data"],
+        queryFn: getSalesPerMonth,
+        staleTime: Infinity,
+        placeholderData: getSalePlaceHolder
+    })
+
+    console.log(data)
     return (
         <Card className={"rounded-xl p-4 "}>
             <CardHeader>
                 <CardTitle>Revenue</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>
             </CardHeader>
-            <CardContent >
+            <CardContent>
                 <ChartContainer config={chartConfig} className={"max-h-[260px] w-full"}>
                     <LineChart
                         accessibilityLayer
-                        data={chartData}
+                        data={data}
                         margin={{
                             left: 12,
                             right: 12,

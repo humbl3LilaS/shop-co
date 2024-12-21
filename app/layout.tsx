@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.css"
 import localFont from "next/font/local";
+import QueryProvider from "@/feature/client/product/components/query-provider";
 
 const satoshi = localFont(
     {
@@ -41,7 +42,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${satoshi.variable} ${integralCF.variable} font-sans`}>
+        <QueryProvider>
         {children}
+        </QueryProvider>
         </html>
     );
  }

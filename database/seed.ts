@@ -3,7 +3,7 @@ import {Faker, en} from "@faker-js/faker";
 import {v4 as generateUUID} from "uuid";
 import {
     IOrders,
-    IReviews, ITransactionDetails, ITransactions,
+    IReviews, ITransactionDetails,
     IUser,
     orders,
     productColors,
@@ -50,14 +50,14 @@ async function main() {
         productId: productId[Math.floor(Math.random() * productId.length)],
         userId: usersId[Math.floor(Math.random() * usersId.length)],
         rating: 4,
-        createAt: faker.date.between({from: subDays(new Date(), 90), to: new Date()}),
+        createAt: faker.date.between({from: subDays(new Date(), 180), to: new Date()}),
         content: faker.lorem.lines(3),
     }))
 
     await db.insert(reviews).values(generatedReviews);
 
     const colors = await db.select().from(productColors);
-    const generatedOrders: IOrders[] = new Array(160).fill(0).map(_ => {
+    const generatedOrders: IOrders[] = new Array(240).fill(0).map(_ => {
         const pid = productId[Math.floor(Math.random() * productId.length)]
         const cids = colors.filter(color => color.productId == pid).map(item => item.id)
         return ({
@@ -74,17 +74,17 @@ async function main() {
 
     const ordersId = generatedOrders.map(item => item.id) as string[];
     const alreadyAddedId: string[] = []
-    const generatedTransactions = new Array(40).fill(0).map((_, idx) => {
-        const orderCount = Math.floor(Math.random() * 4) + 1;
+    const generatedTransactions = new Array(80).fill(0).map((_) => {
         const availableId = ordersId.filter(id => !alreadyAddedId.includes(id));
-        const orders = (idx == 39 && availableId.length > orderCount) ? faker.helpers.arrayElements(availableId, availableId.length) : faker.helpers.arrayElements(availableId, orderCount);
+        const orders = faker.helpers.arrayElements(availableId, 3)
         alreadyAddedId.push(...orders)
+        const createdAt = faker.date.between({from: subDays(new Date(), 180), to: new Date()})
         return ({
             id: generateUUID(),
             amount: (Math.floor(Math.random() * 9) + 1) * 100,
             status: ORDER_STATUS[Math.floor(Math.random() * (ORDER_STATUS.length - 1))],
             customerId: usersId[Math.floor(Math.random() * usersId.length)],
-            createAt: faker.date.between({from: subDays(new Date(), 90), to: new Date()}),
+            createdAt,
             orders: orders,
         })
     })

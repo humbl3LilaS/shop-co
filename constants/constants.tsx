@@ -41,6 +41,8 @@ export const TOWNSHIPS: Record<string, string[]> = {
 };
 
 
-export const ORDER_STATUS = ["pending", "delivered", "canceled", "on-the-way"] as const;
+export const ORDER_STATUS = ["pending", "delivered", "on-the-way", "canceled",] as const;
 
 export const GENDERS = ["male", "female", "non-binary", "others"] as const;
+
+export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]

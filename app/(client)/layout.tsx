@@ -1,6 +1,6 @@
 import Header from "@/components/client/header";
 import Footer from "@/components/client/footer";
-import QueryProvider from "@/feature/client/product/components/query-provider";
+
 import {Toaster} from "@/components/ui/toaster";
 
 const PublicLayout = ({
@@ -10,13 +10,11 @@ const PublicLayout = ({
 }>) => {
     return (
         <body>
-        <QueryProvider>
-            <Header/>
-            <main>
-                {children}
-            </main>
-            <Footer/>
-        </QueryProvider>
+        <Header/>
+        <main>
+            {children}
+        </main>
+        <Footer/>
         <Toaster/>
         </body>
     );

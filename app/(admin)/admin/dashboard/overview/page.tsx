@@ -1,7 +1,10 @@
 import Container from "@/components/admin/Container";
 import {ArrowDownUp, ChartPie, ShoppingCart, User} from "lucide-react";
+import {getSalesInfo} from "@/feature/admin/overview/actions/get-sales-info";
 
-const OverviewPage = () => {
+const OverviewPage = async () => {
+    const salesData = await getSalesInfo();
+
     return (
         <Container className={"col-span-5"}>
             <div className={"py-10 px-14 grid grid-cols-4 gap-x-10 rounded-xl bg-white shadow-md"}>
@@ -12,7 +15,7 @@ const OverviewPage = () => {
                     </div>
                     <p className={"*:block"}>
                         <span className={"mb-1 text-black/30 text-sm"}>Order Completed</span>
-                        <span className={"font-bold text-orange-600"}>1.274k</span>
+                        <span className={"font-bold text-orange-600"}>{salesData?.completedOrders}</span>
                     </p>
                 </div>
 
@@ -22,7 +25,7 @@ const OverviewPage = () => {
                     </div>
                     <p className={"*:block"}>
                         <span className={"mb-1 text-black/30 text-sm"}>Total revenue made</span>
-                        <span className={"font-bold text-blue-600"}>$168k</span>
+                        <span className={"font-bold text-blue-600"}>${salesData?.totalRevenue}</span>
                     </p>
                 </div>
 
@@ -42,7 +45,7 @@ const OverviewPage = () => {
                     </div>
                     <p className={"*:block"}>
                         <span className={"mb-1 text-black/30 text-sm"}>Total sales made</span>
-                        <span className={"font-bold text-red-600"}>52,712</span>
+                        <span className={"font-bold text-red-600"}>{salesData?.sales}</span>
                     </p>
                 </div>
             </div>
