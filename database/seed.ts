@@ -1,8 +1,18 @@
 import {db} from "@/database/drizzle";
 import {Faker, en} from "@faker-js/faker";
 import {v4 as generateUUID} from "uuid";
-import {IOrders, IReviews, IUser, orders, productColors, products, reviews, users} from "@/database/schema";
-import {GENDERS, SIZES} from "@/constants/constants";
+import {
+    IOrders,
+    IReviews, ITransactionDetails, ITransactions,
+    IUser,
+    orders,
+    productColors,
+    products,
+    reviews, transactionDetails,
+    transactions,
+    users
+} from "@/database/schema";
+import {GENDERS, ORDER_STATUS, SIZES} from "@/constants/constants";
 import {notInArray} from "drizzle-orm/sql/expressions/conditions";
 import {subDays} from "date-fns";
 
@@ -28,6 +38,8 @@ async function main() {
         gender: GENDERS[Math.floor(Math.random() * GENDERS.length)],
     }))
     await db.delete(reviews);
+    await db.delete(transactionDetails)
+    await db.delete(transactions)
     await db.delete(users).where(notInArray(users.id, RESERVED_ID));
     await db.insert(users).values(generatedUsers)
 
@@ -45,7 +57,7 @@ async function main() {
     await db.insert(reviews).values(generatedReviews);
 
     const colors = await db.select().from(productColors);
-    const generatedOrders: IOrders[] = new Array(75).fill(0).map(_ => {
+    const generatedOrders: IOrders[] = new Array(160).fill(0).map(_ => {
         const pid = productId[Math.floor(Math.random() * productId.length)]
         const cids = colors.filter(color => color.productId == pid).map(item => item.id)
         return ({
@@ -59,6 +71,44 @@ async function main() {
     await db.delete(orders);
     await db.insert(orders).values(generatedOrders);
 
+
+    const ordersId = generatedOrders.map(item => item.id) as string[];
+    const alreadyAddedId: string[] = []
+    const generatedTransactions = new Array(40).fill(0).map((_, idx) => {
+        const orderCount = Math.floor(Math.random() * 4) + 1;
+        const availableId = ordersId.filter(id => !alreadyAddedId.includes(id));
+        const orders = (idx == 39 && availableId.length > orderCount) ? faker.helpers.arrayElements(availableId, availableId.length) : faker.helpers.arrayElements(availableId, orderCount);
+        alreadyAddedId.push(...orders)
+        return ({
+            id: generateUUID(),
+            amount: (Math.floor(Math.random() * 9) + 1) * 100,
+            status: ORDER_STATUS[Math.floor(Math.random() * (ORDER_STATUS.length - 1))],
+            customerId: usersId[Math.floor(Math.random() * usersId.length)],
+            createAt: faker.date.between({from: subDays(new Date(), 90), to: new Date()}),
+            orders: orders,
+        })
+    })
+
+    await db.insert(transactions).values(generatedTransactions)
+
+    const transitionId = generatedTransactions.map(item => item.id) as string[];
+
+    const generatedTranstionDetails: ITransactionDetails[] = transitionId.map(item => {
+        return ({
+            id: generateUUID(),
+            transactionId: item,
+            phoneNumber: faker.phone.number(),
+            region: faker.location.state(),
+            township: faker.location.city(),
+            address: faker.location.streetAddress(),
+            postalCode: faker.location.zipCode(),
+            email: faker.internet.email(),
+            deliveryMethod: faker.helpers.arrayElement(["delivery", "pickup"]),
+            transactionMethod: faker.helpers.arrayElement(["card", "paypal"])
+        })
+    });
+
+    await db.insert(transactionDetails).values(generatedTranstionDetails)
 
     console.log("seeding success")
 }

@@ -210,7 +210,11 @@ export const tDetailsAndTransactionRelation = relations(transactionDetails, ({on
 export const userInsertSchema = createInsertSchema(users);
 export const reviewInsertSchema = createInsertSchema(reviews);
 export const orderInsertSchema = createInsertSchema(orders)
+export const transactionInsertSchema = createInsertSchema(transactions);
+export const transactionDetailInsertSchema = createInsertSchema(transactionDetails)
 
 export type IUser = Zod.infer<typeof userInsertSchema>;
 export type IReviews = Zod.infer<typeof reviewInsertSchema>
 export type IOrders = Zod.infer<typeof orderInsertSchema>
+export type ITransactions = Zod.infer<typeof transactionInsertSchema>
+export type ITransactionDetails = Zod.infer<typeof transactionDetailInsertSchema>
