@@ -15,6 +15,7 @@ import {
 import {GENDERS, ORDER_STATUS, SIZES} from "@/constants/constants";
 import {notInArray} from "drizzle-orm/sql/expressions/conditions";
 import {subDays} from "date-fns";
+import {calculateDiscount} from "@/lib/utils";
 
 const RESERVED_ID = ["b9426b2d-5fd5-475d-97d2-c34bfcd6e85d", "bf8fb0ca-2b61-4885-bd3e-64525b141ee6", "0180aa3d-2999-467d-93f7-30954c509dd0", "c6d9c75e-9c16-4ce1-9b28-ad7553caf02c"]
 
@@ -44,7 +45,8 @@ async function main() {
     await db.insert(users).values(generatedUsers)
 
     const usersId = [...generatedUsers.map(item => item.id) as string[], ...RESERVED_ID];
-    const productId = (await db.select({id: products.id}).from(products)).map(item => item.id);
+    const prod = await db.select({id: products.id, price: products.price, discount: products.discount}).from(products)
+    const productId = prod.map(item => item.id);
     const generatedReviews: IReviews[] = new Array(50).fill(0).map(_ => ({
         id: generateUUID(),
         productId: productId[Math.floor(Math.random() * productId.length)],
@@ -74,21 +76,29 @@ async function main() {
 
     const ordersId = generatedOrders.map(item => item.id) as string[];
     const alreadyAddedId: string[] = []
-    const generatedTransactions = new Array(80).fill(0).map((_) => {
+    const generatedTransactions = new Array(40).fill(0).map((_) => {
         const availableId = ordersId.filter(id => !alreadyAddedId.includes(id));
         const orders = faker.helpers.arrayElements(availableId, 3)
+        const amount = orders.reduce((acc, nxt) => {
+            const order = generatedOrders.find(order => order.id === nxt);
+            const prodInfo = prod.find(item => item.id === order?.productId)
+            if (order && prodInfo) {
+                return (order.quantity * prodInfo.price) - (calculateDiscount(prodInfo.price, prodInfo.discount ?? 0))+ acc
+            } else {
+                return 0
+            }
+        }, 0)
         alreadyAddedId.push(...orders)
         const createdAt = faker.date.between({from: subDays(new Date(), 180), to: new Date()})
         return ({
             id: generateUUID(),
-            amount: (Math.floor(Math.random() * 9) + 1) * 100,
+            amount,
             status: ORDER_STATUS[Math.floor(Math.random() * (ORDER_STATUS.length - 1))],
             customerId: usersId[Math.floor(Math.random() * usersId.length)],
             createdAt,
             orders: orders,
         })
     })
-
     await db.insert(transactions).values(generatedTransactions)
 
     const transitionId = generatedTransactions.map(item => item.id) as string[];
