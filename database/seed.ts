@@ -80,13 +80,9 @@ async function main() {
         const availableId = ordersId.filter(id => !alreadyAddedId.includes(id));
         const orders = faker.helpers.arrayElements(availableId, 3)
         const amount = orders.reduce((acc, nxt) => {
-            const order = generatedOrders.find(order => order.id === nxt);
-            const prodInfo = prod.find(item => item.id === order?.productId)
-            if (order && prodInfo) {
-                return (order.quantity * prodInfo.price) - (calculateDiscount(prodInfo.price, prodInfo.discount ?? 0))+ acc
-            } else {
-                return 0
-            }
+            const order = generatedOrders.find(order => order.id === nxt)!;
+            const prodInfo = prod.find(item => item.id === order?.productId)!;
+            return (order.quantity * calculateDiscount(prodInfo.price, prodInfo.discount ?? 0)) + acc;
         }, 0)
         alreadyAddedId.push(...orders)
         const createdAt = faker.date.between({from: subDays(new Date(), 180), to: new Date()})
