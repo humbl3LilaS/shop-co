@@ -8,7 +8,10 @@ export default auth(async (req) => {
     const isProtectedRoute = path.startsWith("/admin/dashboard");
     const cookie = (await cookies()).get("admin-session")?.value;
     const session = await decrypt(cookie);
-    console.log("middleware running")
+    const userSession = await auth();
+    if (path === "/") {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/visit-count`, {method: "POST", body: JSON.stringify({id: userSession?.user.id})});
+    }
     if (isProtectedRoute && !session?.userId) {
         return NextResponse.redirect(new URL("/admin", req.nextUrl))
     }
@@ -18,5 +21,5 @@ export default auth(async (req) => {
 
 export const config = {
     // matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
-    matcher: ["/admin/dashboard", "/admin/dashboard/:path*"],
+    matcher: ["/admin/dashboard", "/admin/dashboard/:path*", "/"],
 }
