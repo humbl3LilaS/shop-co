@@ -14,7 +14,6 @@ type ProductPreviewProps = {
 }
 
 const ProductPreview = async ({title, data, separator, redirect}: ProductPreviewProps) => {
-
     return (
         <section className={cn("pt-10 px-4", !separator && "pb-16")}>
             <h2 className={"mb-8 text-4xl text-center font-bold font-title uppercase tracking-wide"}>{title}</h2>

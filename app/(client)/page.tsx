@@ -1,32 +1,27 @@
 import Hero from "@/components/client/hero";
 import Partners from "@/components/client/partners";
-import ProductPreview from "@/components/client/product-preview";
-import {getRecentProducts} from "@/actions/product-actions";
 import BrowseStyle from "@/components/client/browse-style";
 import Testimonials from "@/components/client/testimonials";
+import {Suspense} from "react";
+import NewArrivals from "@/components/client/new-arrivals";
+import PopularProducts from "@/components/client/popular-products";
+import ProductPreviewSkeleton from "@/components/client/product-preview-skeleton";
+
 
 
 const Home = async () => {
-    const products = await getRecentProducts();
-    if (!products || !products.length) {
-        return <div>No product</div>
-    }
+
     return (
         <main>
             <Hero/>
             <Partners/>
-            <ProductPreview
-                title={"new arrivals"}
-                data={products}
-                separator={true}
-                redirect={{url: "/new-arrivals"}}
-            />
-            {/*TODO: replace with top selling products's query*/}
-            <ProductPreview
-                title={"top selling"}
-                data={products}
-                redirect={{url: "/top-selling"}}
-            />
+
+            <Suspense fallback={<ProductPreviewSkeleton title={"new arrivals"}/>}>
+                <NewArrivals/>
+            </Suspense>
+            <Suspense fallback={<ProductPreviewSkeleton title={"new arrivals"}/>}>
+                <PopularProducts/>
+            </Suspense>
             <BrowseStyle/>
             <Testimonials/>
         </main>
