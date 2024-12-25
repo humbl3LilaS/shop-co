@@ -21,7 +21,6 @@ export const getTopProducts = async () => {
         }
     }, [] as Array<{ id: string, totalSales: number }>)
     const topThree = data.sort((a, b) => b.totalSales - a.totalSales).slice(0, 3);
-    console.log(topThree);
     const ids = topThree.map(item => item.id);
     const topProducts = await db.select().from(products).where(inArray(products.id, ids));
     return topThree.map(top => {

@@ -1,18 +1,11 @@
 import Container from "@/components/admin/Container";
 import {ChevronRight, User} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {getVisitCount} from "@/feature/admin/overview/actions/get-visit-count";
-import {IVisitsCount} from "@/types/api.types";
-import {calculateVisitPercentage, formatVisitCount} from "@/feature/admin/overview/lib/util";
-import VisitPercentage, {VisitPercentageVariant} from "@/feature/admin/overview/components/visit-percentage";
+import {Skeleton} from "@/components/ui/skeleton";
 
-const VisitPage = async () => {
-    const visitCount = await getVisitCount();
-    const totalVisitCount = visitCount
-        ? (Object.keys(visitCount).map(item => visitCount[item as keyof IVisitsCount]).reduce((a, b) => a + b, 0))
-        : 100000
+const OverviewVisitLoading = () => {
     return (
-        <Container className={"col-span-2 row-span-2"}>
+        <Container className={"col-span-2 row-span-2 h-full"}>
             <div className={"w-full h-full p-8 bg-white rounded-xl shadow-md flex flex-col"}>
                 <header className={"mb-6"}>
                     <h2 className={"font-semibold"}>
@@ -27,7 +20,7 @@ const VisitPage = async () => {
                     <p className={"*:block"}>
                         <span className={"mb-1 font-bold"}>Pro Analytics</span>
                         <span className={"font-bold text-blue-400"}>
-                            {formatVisitCount(totalVisitCount)}
+                            ...
                         </span>
                     </p>
                     <Button variant={"link"} className={"ml-auto"}>
@@ -36,21 +29,16 @@ const VisitPage = async () => {
                 </div>
                 <div className={"mt-8 flex flex-col justify-center gap-y-4"}>
                     {
-                        visitCount &&
-                        Object.keys(visitCount)
-                            .sort((a, b) => visitCount[b as keyof IVisitsCount] - visitCount[a as keyof IVisitsCount])
+                        ["male", "female", "anonymous", "non-binary", "others"]
                             .map(item =>
                                 <div key={item}>
                                     <p className={"mb-1 flex justify-between text-sm "}>
                                         <span className={"capitalize"}>{item}</span>
                                         <span className={"text-black/50"}>
-                                    {calculateVisitPercentage(totalVisitCount, visitCount[item as keyof IVisitsCount])}%
+                                    ...%
                                 </span>
                                     </p>
-                                    <VisitPercentage
-                                        value={calculateVisitPercentage(totalVisitCount, visitCount[item as keyof IVisitsCount])}
-                                        variant={item as VisitPercentageVariant}
-                                    />
+                                    <Skeleton className={"w-full h-2"}/>
                                 </div>)
                     }
                 </div>
@@ -59,4 +47,4 @@ const VisitPage = async () => {
     );
 };
 
-export default VisitPage;
+export default OverviewVisitLoading;
