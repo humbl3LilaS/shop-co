@@ -35,7 +35,6 @@ export default function SaleChart() {
         placeholderData: getSalePlaceHolder
     })
 
-    console.log(data)
     return (
         <Card className={"rounded-xl p-4 h-full"}>
             <CardHeader>
