@@ -1,9 +1,16 @@
 import Container from "@/components/admin/Container";
 import {ChevronRight, User} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {Progress} from "@/components/ui/progress";
+import {getVisitCount} from "@/feature/admin/overview/actions/get-visit-count";
+import {IVisitsCount} from "@/types/api.types";
+import {calculateVisitPercentage, formatVisitCount} from "@/feature/admin/overview/lib/util";
+import VisitPercentage, {VisitPercentageVariant} from "@/feature/admin/overview/components/visit-percentage";
 
-const VisitPage = () => {
+const VisitPage = async () => {
+    const visitCount = await getVisitCount();
+    const totalVisitCount = visitCount
+        ? (Object.keys(visitCount).map(item => visitCount[item as keyof IVisitsCount]).reduce((a, b) => a + b, 0))
+        : 100000
     return (
         <Container className={"col-span-2 row-span-2"}>
             <div className={"w-full h-full p-8 bg-white rounded-xl shadow-md flex flex-col"}>
@@ -19,41 +26,30 @@ const VisitPage = () => {
                     </div>
                     <p className={"*:block"}>
                         <span className={"mb-1 font-bold"}>Pro Analytics</span>
-                        <span className={"font-bold text-blue-400"}>2.5m</span>
+                        <span className={"font-bold text-blue-400"}>
+                            {formatVisitCount(totalVisitCount)}
+                        </span>
                     </p>
                     <Button variant={"link"} className={"ml-auto"}>
                         <ChevronRight color="#99c1f1"/>
                     </Button>
                 </div>
                 <div className={"mt-8 flex flex-col justify-center gap-y-4"}>
-                    <div>
-                        <p className={"mb-1 flex justify-between text-sm "}>
-                            <span>Man</span>
-                            <span className={"text-black/50"}>30%</span>
-                        </p>
-                        <Progress value={30} className={"*:bg-orange-500 *:rounded-r-xl h-2"}/>
-                    </div>
-                    <div>
-                        <p className={"mb-1 flex justify-between text-sm "}>
-                            <span>Women</span>
-                            <span className={"text-black/50"}>60%</span>
-                        </p>
-                        <Progress value={70} className={"*:bg-blue-700 *:rounded-r-xl h-2"}/>
-                    </div>
-                    <div>
-                        <p className={"mb-1 flex justify-between text-sm "}>
-                            <span>Others Genders</span>
-                            <span className={"text-black/50"}>10%</span>
-                        </p>
-                        <Progress value={30} className={"*:bg-green-500 *:rounded-r-xl h-2"}/>
-                    </div>
-                    <div>
-                        <p className={"mb-1 flex justify-between text-sm "}>
-                            <span>Visits/days</span>
-                            <span className={"text-black/50"}>60%</span>
-                        </p>
-                        <Progress value={60} className={"*:bg-red-600 *:rounded-r-xl h-2"}/>
-                    </div>
+                    {
+                        visitCount && Object.keys(visitCount).map(item =>
+                            <div key={item}>
+                                <p className={"mb-1 flex justify-between text-sm "}>
+                                    <span className={"capitalize"}>{item}</span>
+                                    <span className={"text-black/50"}>
+                                    {calculateVisitPercentage(totalVisitCount, visitCount[item as keyof IVisitsCount])}%
+                                </span>
+                                </p>
+                                <VisitPercentage
+                                    value={calculateVisitPercentage(totalVisitCount, visitCount[item as keyof IVisitsCount])}
+                                    variant={item as VisitPercentageVariant}
+                                />
+                            </div>)
+                    }
                 </div>
             </div>
         </Container>

@@ -15,7 +15,6 @@ const Home = async () => {
         <main>
             <Hero/>
             <Partners/>
-
             <Suspense fallback={<ProductPreviewSkeleton title={"new arrivals"}/>}>
                 <NewArrivals/>
             </Suspense>

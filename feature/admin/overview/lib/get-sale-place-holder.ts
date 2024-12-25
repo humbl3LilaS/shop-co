@@ -1,11 +1,7 @@
-import {MONTHS} from "@/constants/constants";
-import {Faker, en} from "@faker-js/faker";
 
-export const getSalePeriod = () => {
-    const currentMonth = new Date().getMonth();
-    const lastSixMonths = currentMonth > 5 ? currentMonth - 5 : 0;
-    return MONTHS.slice(lastSixMonths, currentMonth + 1);
-}
+import {Faker, en} from "@faker-js/faker";
+import {getSalePeriod} from "@/feature/admin/overview/lib/util";
+
 
 export const getSalePlaceHolder = () => {
     const period = getSalePeriod();

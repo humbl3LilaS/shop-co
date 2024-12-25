@@ -4,7 +4,8 @@ import {db} from "@/database/drizzle";
 import {transactions} from "@/database/schema";
 import {between} from "drizzle-orm/sql/expressions/conditions";
 import {getMonth, subDays} from "date-fns";
-import {getSalePeriod} from "@/feature/admin/overview/util/get-sale-period";
+import {getSalePeriod} from "@/feature/admin/overview/lib/util";
+
 
 export const getSalesPerMonth = async () => {
     const trans = await db.select().from(transactions).where(between(transactions.createdAt, subDays(new Date(), 180), new Date()));

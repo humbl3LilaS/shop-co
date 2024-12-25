@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/chart"
 import {useQuery} from "@tanstack/react-query";
 import {getSalesPerMonth} from "@/feature/admin/overview/actions/get-sales-per-month";
-import {getSalePlaceHolder} from "@/feature/admin/overview/util/get-sale-period";
+import {getSalePlaceHolder} from "@/feature/admin/overview/lib/get-sale-place-holder";
 
 
 const chartConfig = {
@@ -37,7 +37,7 @@ export default function SaleChart() {
 
     console.log(data)
     return (
-        <Card className={"rounded-xl p-4 "}>
+        <Card className={"rounded-xl p-4 h-full"}>
             <CardHeader>
                 <CardTitle>Revenue</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>

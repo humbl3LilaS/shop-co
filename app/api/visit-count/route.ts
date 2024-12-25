@@ -2,14 +2,9 @@ import {redis} from "@/database/redis";
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {eq} from "drizzle-orm";
+import {IVisitsCount} from "@/types/api.types";
 
-type IVisitsCount = {
-    anonymous: number,
-    male: number,
-    female: number,
-    "non-binary": number,
-    others: number
-}
+
 export const POST = async (req: Request) => {
     try {
         const visitCount = await redis.json.get("visit") as IVisitsCount;

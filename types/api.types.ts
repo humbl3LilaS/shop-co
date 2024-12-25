@@ -31,4 +31,10 @@ export interface IUserInfo {
     gender: string | null;
 }
 
-
+export type IVisitsCount = {
+    anonymous: number,
+    male: number,
+    female: number,
+    "non-binary": number,
+    others: number
+}
