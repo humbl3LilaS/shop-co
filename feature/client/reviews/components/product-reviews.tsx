@@ -1,14 +1,22 @@
 import {useGetReviewByProductId} from "@/feature/client/reviews/hooks/use-get-review-by-product-id";
 import {useParams} from "next/navigation";
-import {SlidersHorizontal} from "lucide-react";
+import {ChevronLeft, ChevronRight, SlidersHorizontal} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import Container from "@/components/client/container";
 import ReviewCard from "@/feature/client/reviews/components/review-card";
+import {useState} from "react";
 
 
 const ProductReviews = () => {
     const params = useParams() as { productId: string };
-    const {data} = useGetReviewByProductId(params?.productId);
+    const [page, setPage] = useState(0);
+
+    const {
+        data,
+        fetchNextPage,
+        fetchPreviousPage,
+    } = useGetReviewByProductId(params?.productId);
+
     return (
         <Container className={"py-5"}>
             <header>
@@ -17,7 +25,11 @@ const ProductReviews = () => {
                         <span className={"font-bold text-xl"}>
                             All Reviews
                         </span>
-                        <span className={"text-black/40"}>({data?.length})</span>
+                        {
+                            data ? <span>
+                                ({data.pages[page].length})
+                            </span> : <span>(...)</span>
+                        }
                     </h2>
                     <div className={"flex items-center gap-x-2"}>
                         <button
@@ -33,18 +45,38 @@ const ProductReviews = () => {
             </header>
             <div className={"mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"}>
                 {
-                    data && data.map(item =>
+                    data && data.pages[page].map(item =>
                         <ReviewCard data={item} key={item.id}/>
                     )
                 }
             </div>
             {
                 data
-                && data.length === 0
+                && data.pages[page].length === 0
                 && <div className={"py-5 lg:py-8"}>
                     <h3 className={" text-center text-lg font-bold underline lg:text-xl"}>No Reviews Yet</h3>
                 </div>
             }
+            <div className={"flex items-center justify-end gap-x-4 mt-4"}>
+                <Button onClick={async () => {
+                    await fetchPreviousPage();
+                    setPage(page - 1)
+                }}
+                        disabled={page === 0}
+                >
+                    <ChevronLeft/>
+                </Button>
+                <Button onClick={
+                    async () => {
+                        await fetchNextPage();
+                        setPage(page + 1)
+                    }
+                }
+                        disabled={data?.pages[page].length !== 4}
+                >
+                    <ChevronRight/>
+                </Button>
+            </div>
         </Container>
     );
 };
