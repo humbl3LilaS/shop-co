@@ -1,30 +1,41 @@
-"use client"
-import {SubmitHandler, useForm} from "react-hook-form";
-import {CheckoutFormSchema, CheckoutFormSchemaType} from "@/validation/client-schema";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
+"use client";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { CheckoutFormSchema, CheckoutFormSchemaType } from "@/validation/client-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import Container from "@/components/client/container";
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {CreditCard, Loader2, Store, Truck} from "lucide-react";
-import {cn} from "@/lib/utils";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {TOWNSHIPS, ZONES} from "@/constants/constants";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { CreditCard, Loader2, Store, Truck } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { TOWNSHIPS, ZONES } from "@/constants/constants";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
-import {Button} from "@/components/ui/button";
-import {IUserInfo} from "@/types/api.types";
-import {useCartStore} from "@/hooks/use-cart-store";
-import {submitCheckout} from "@/feature/client/checkout/actions/submit-checkout";
-import {useCartSummary} from "@/hooks/use-cart-summary";
-import {useRouter} from "next/navigation";
-import {useToast} from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { IUserInfo } from "@/types/api.types";
+import { useCartStore } from "@/hooks/use-cart-store";
+import { submitCheckout } from "@/feature/client/checkout/actions/submit-checkout";
+import { useCartSummary } from "@/hooks/use-cart-summary";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
-
-const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
-    const cart = useCartStore(state => state.cart);
-    const emptyCart = useCartStore(state => state.emptyCart);
+const CheckoutForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
+    const cart = useCartStore((state) => state.cart);
+    const emptyCart = useCartStore((state) => state.emptyCart);
     const summary = useCartSummary();
-
 
     const form = useForm<CheckoutFormSchemaType>({
         resolver: zodResolver(CheckoutFormSchema),
@@ -39,14 +50,14 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
             township: defaultValues.township ?? "",
             postalCode: defaultValues.postalCode ?? "",
             phone: defaultValues.phoneNumber ?? "",
-            transactionMethod: "card"
+            transactionMethod: "card",
         },
-    })
+    });
 
     const router = useRouter();
-    const {toast} = useToast();
+    const { toast } = useToast();
 
-    if(cart.length === 0) {
+    if (cart.length === 0) {
         router.replace("/");
     }
 
@@ -57,289 +68,300 @@ const CheckoutForm = ({defaultValues}: { defaultValues: IUserInfo }) => {
                 title: res.message,
                 variant: "destructive",
                 duration: 1500,
-            })
+            });
         } else {
             toast({
                 title: "Checkout Success",
                 description: 1500,
-            })
+            });
             emptyCart();
             router.replace("/checkout/success");
         }
-
-    }
+    };
 
     const state = form.watch("state");
 
     return (
         <Container>
             <Form {...form}>
-
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <h3 className={"font-bold text-2xl mb-2"}>Contact</h3>
                     <FormField
                         name={"email"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    Email
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>Email</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: example@gmail.com"}/>
+                                    <Input {...field} placeholder={"Eg: example@gmail.com"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <h3 className={"font-bold text-2xl mb-2"}>Delivery</h3>
                     <FormField
                         name={"deliveryMethod"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel className={"sr-only"}>
-                                    Delivery Method
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel className={"sr-only"}>Delivery Method</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value}
-                                                className={"gap-0"}>
+                                    <RadioGroup
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        className={"gap-0"}
+                                    >
                                         <FormItem
-                                            className={
-                                                cn(
-                                                    "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-tr-lg rounded-tl-lg border-[1.5px] border-red-300",
-                                                    field.value === "delivery" ? "border-red-500" : "border-b-0"
-                                                )
-                                            }>
+                                            className={cn(
+                                                "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-tr-lg rounded-tl-lg border-[1.5px] border-red-300",
+                                                field.value === "delivery"
+                                                    ? "border-red-500"
+                                                    : "border-b-0",
+                                            )}
+                                        >
                                             <FormControl>
-                                                <RadioGroupItem value={"delivery"}/>
+                                                <RadioGroupItem value={"delivery"} />
                                             </FormControl>
-                                            <FormLabel className={"w-full flex items-center justify-between !mt-0"}>
+                                            <FormLabel
+                                                className={
+                                                    "w-full flex items-center justify-between !mt-0"
+                                                }
+                                            >
                                                 <span>Deliver</span>
-                                                <Truck/>
+                                                <Truck />
                                             </FormLabel>
                                         </FormItem>
                                         <FormItem
-                                            className={
-                                                cn(
-                                                    "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-br-lg rounded-bl-lg border-[1.5px] border-red-300 border-t-0",
-                                                    field.value === "pickup" && "border-red-500 border-t-1.5"
-                                                )
-                                            }>
+                                            className={cn(
+                                                "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-br-lg rounded-bl-lg border-[1.5px] border-red-300 border-t-0",
+                                                field.value === "pickup" &&
+                                                    "border-red-500 border-t-1.5",
+                                            )}
+                                        >
                                             <FormControl>
-                                                <RadioGroupItem value={"pickup"}/>
+                                                <RadioGroupItem value={"pickup"} />
                                             </FormControl>
-                                            <FormLabel className={"w-full flex items-center  justify-between !mt-0"}>
+                                            <FormLabel
+                                                className={
+                                                    "w-full flex items-center  justify-between !mt-0"
+                                                }
+                                            >
                                                 <span>Pickup in Store</span>
-                                                <Store/>
+                                                <Store />
                                             </FormLabel>
                                         </FormItem>
                                     </RadioGroup>
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"firstName"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    First Name
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>First Name</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: Yamashita"}/>
+                                    <Input {...field} placeholder={"Eg: Yamashita"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"lastName"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    Last Name
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>Last Name</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: Shirakawa"}/>
+                                    <Input {...field} placeholder={"Eg: Shirakawa"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"address"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    Address
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>Address</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Address"}/>
+                                    <Input {...field} placeholder={"Address"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"state"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel className={"sr-only"}>
-                                    State/ Division
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel className={"sr-only"}>State/ Division</FormLabel>
+                                <FormMessage />
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl className={"py-2"}>
                                         <SelectTrigger className={"pb-7 pt-9 relative"}>
-                                            <span className={"absolute top-1 left-3.5 text-xs"}>State/Division</span>
-                                            <SelectValue placeholder={"State/Division"}/>
+                                            <span className={"absolute top-1 left-3.5 text-xs"}>
+                                                State/Division
+                                            </span>
+                                            <SelectValue placeholder={"State/Division"} />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        {
-                                            ZONES.map(item =>
-                                                <SelectItem value={item} key={item}>{item}</SelectItem>
-                                            )
-                                        }
+                                        {ZONES.map((item) => (
+                                            <SelectItem value={item} key={item}>
+                                                {item}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"township"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel className={"sr-only"}>
-                                    TownShip
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel className={"sr-only"}>TownShip</FormLabel>
+                                <FormMessage />
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                        <SelectTrigger className={cn("relative", field.value && "pb-7 pt-9")}>
-                                            {field.value &&
-                                                <span className={"absolute top-1 left-3.5 text-xs"}>Township</span>}
-                                            <SelectValue placeholder={"Township"}/>
+                                        <SelectTrigger
+                                            className={cn("relative", field.value && "pb-7 pt-9")}
+                                        >
+                                            {field.value && (
+                                                <span className={"absolute top-1 left-3.5 text-xs"}>
+                                                    Township
+                                                </span>
+                                            )}
+                                            <SelectValue placeholder={"Township"} />
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        {
-                                            TOWNSHIPS[state]?.map(item =>
-                                                <SelectItem value={item} key={item}>{item}</SelectItem>
-                                            )
-                                        }
+                                        {TOWNSHIPS[state]?.map((item) => (
+                                            <SelectItem value={item} key={item}>
+                                                {item}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"postalCode"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    Postal Code
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>Postal Code</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: 111111"}/>
+                                    <Input {...field} placeholder={"Eg: 111111"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <FormField
                         name={"phone"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel>
-                                    Phone Number
-                                </FormLabel>
-                                <FormMessage/>
+                                <FormLabel>Phone Number</FormLabel>
+                                <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Eg: 09123456789"}/>
+                                    <Input {...field} placeholder={"Eg: 09123456789"} />
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
 
                     <h3 className={"font-bold text-2xl mb-2"}>Payment Method</h3>
                     <FormField
                         name={"transactionMethod"}
                         control={form.control}
-                        render={({field}) =>
+                        render={({ field }) => (
                             <FormItem className={"mb-8"}>
-                                <FormLabel className={"sr-only"}>
-                                    Delivery Method
-                                </FormLabel>
+                                <FormLabel className={"sr-only"}>Delivery Method</FormLabel>
                                 <FormControl>
-                                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value}
-                                                className={"gap-0"}>
+                                    <RadioGroup
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        className={"gap-0"}
+                                    >
                                         <FormItem
-                                            className={
-                                                cn(
-                                                    "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-tr-lg rounded-tl-lg border-[1.5px] border-red-300",
-                                                    field.value === "card" ? "border-red-500" : "border-b-0"
-                                                )
-                                            }>
+                                            className={cn(
+                                                "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-tr-lg rounded-tl-lg border-[1.5px] border-red-300",
+                                                field.value === "card"
+                                                    ? "border-red-500"
+                                                    : "border-b-0",
+                                            )}
+                                        >
                                             <FormControl>
-                                                <RadioGroupItem value={"card"}/>
+                                                <RadioGroupItem value={"card"} />
                                             </FormControl>
-                                            <FormLabel className={"w-full flex items-center justify-between !mt-0"}>
+                                            <FormLabel
+                                                className={
+                                                    "w-full flex items-center justify-between !mt-0"
+                                                }
+                                            >
                                                 <span>Card</span>
-                                                <CreditCard/>
+                                                <CreditCard />
                                             </FormLabel>
                                         </FormItem>
                                         <FormItem
-                                            className={
-                                                cn(
-                                                    "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-br-lg rounded-bl-lg border-[1.5px] border-red-300 border-t-0",
-                                                    field.value === "paypal" && "border-red-500 border-t-1.5"
-                                                )
-                                            }>
+                                            className={cn(
+                                                "w-full px-3 py-2.5 flex items-center gap-x-2 rounded-br-lg rounded-bl-lg border-[1.5px] border-red-300 border-t-0",
+                                                field.value === "paypal" &&
+                                                    "border-red-500 border-t-1.5",
+                                            )}
+                                        >
                                             <FormControl>
-                                                <RadioGroupItem value={"paypal"}/>
+                                                <RadioGroupItem value={"paypal"} />
                                             </FormControl>
-                                            <FormLabel className={"w-full flex items-center  justify-between !mt-0"}>
+                                            <FormLabel
+                                                className={
+                                                    "w-full flex items-center  justify-between !mt-0"
+                                                }
+                                            >
                                                 <span>Paypal</span>
-                                                <CreditCard/>
+                                                <CreditCard />
                                             </FormLabel>
                                         </FormItem>
                                     </RadioGroup>
                                 </FormControl>
                             </FormItem>
-                        }
+                        )}
                     />
                     <h3 className={"font-bold text-2xl mb-2"}>Order Summary</h3>
                     <div className={"md:hidden"}>
-                        <CheckoutSummary/>
+                        <CheckoutSummary />
                     </div>
                     <Button
                         className={"mt-4 w-full rounded-3xl"}
                         disabled={form.formState.isSubmitting || !form.formState.isValid}
                     >
-                        {
-                            form.formState.isSubmitting ? <>
-                                <Loader2 className={"animate-spin"}/>
+                        {form.formState.isSubmitting ? (
+                            <>
+                                <Loader2 className={"animate-spin"} />
                                 <span>Checking Out</span>
-                            </> : "Checkout"
-                        }
+                            </>
+                        ) : (
+                            "Checkout"
+                        )}
                     </Button>
                 </form>
             </Form>

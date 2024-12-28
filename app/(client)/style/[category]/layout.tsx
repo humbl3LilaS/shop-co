@@ -1,16 +1,11 @@
-import {AntdRegistry} from "@ant-design/nextjs-registry";
-
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const ProductCategoryPageLayout = ({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) => {
-    return (
-        <AntdRegistry>
-            {children}
-        </AntdRegistry>
-    );
+    return <AntdRegistry>{children}</AntdRegistry>;
 };
 
 export default ProductCategoryPageLayout;

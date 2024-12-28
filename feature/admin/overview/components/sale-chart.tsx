@@ -1,39 +1,32 @@
-"use client"
+"use client";
 
-import {CartesianGrid, Line, LineChart, XAxis} from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
-import {useQuery} from "@tanstack/react-query";
-import {getSalesPerMonth} from "@/feature/admin/overview/actions/get-sales-per-month";
-import {getSalePlaceHolder} from "@/feature/admin/overview/lib/get-sale-place-holder";
-
+} from "@/components/ui/chart";
+import { useQuery } from "@tanstack/react-query";
+import { getSalesPerMonth } from "@/feature/admin/overview/actions/get-sales-per-month";
+import { getSalePlaceHolder } from "@/feature/admin/overview/lib/get-sale-place-holder";
 
 const chartConfig = {
     desktop: {
         label: "Revenue",
         color: "blue",
     },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export default function SaleChart() {
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: ["sale-data"],
         queryFn: getSalesPerMonth,
         staleTime: Infinity,
-        placeholderData: getSalePlaceHolder
-    })
+        placeholderData: getSalePlaceHolder,
+    });
 
     return (
         <Card className={"rounded-xl p-4 h-full"}>
@@ -50,9 +43,8 @@ export default function SaleChart() {
                             left: 12,
                             right: 12,
                         }}
-
                     >
-                        <CartesianGrid vertical={false}/>
+                        <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="month"
                             tickLine={false}
@@ -60,10 +52,7 @@ export default function SaleChart() {
                             tickMargin={8}
                             tickFormatter={(value) => value.slice(0, 3)}
                         />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel/>}
-                        />
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                         <Line
                             dataKey="revenue"
                             type="natural"
@@ -75,5 +64,5 @@ export default function SaleChart() {
                 </ChartContainer>
             </CardContent>
         </Card>
-    )
+    );
 }

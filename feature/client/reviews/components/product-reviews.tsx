@@ -7,67 +7,71 @@ import ReviewCard from "@/feature/client/reviews/components/review-card";
 import { useState } from "react";
 
 const ProductReviews = () => {
-	const params = useParams() as { productId: string };
-	const [page, setPage] = useState(0);
-	const { data, fetchNextPage, fetchPreviousPage, isFetching } = useGetReviewByProductId(params?.productId);
+    const params = useParams() as { productId: string };
+    const [page, setPage] = useState(0);
+    const { data, fetchNextPage, fetchPreviousPage, isFetching } = useGetReviewByProductId(
+        params?.productId,
+    );
 
-	return (
-		<Container className={"py-5"}>
-			{/* Header */}
-			<header>
-				<div className={"flex items-center justify-between"}>
-					<h2 className={"flex items-baseline gap-x-2"}>
-						<span className={"font-bold text-xl"}>All Reviews</span>
-						{data ? <span>({data.pages[page].length})</span> : <span>(...)</span>}
-					</h2>
-					<div className={"flex items-center gap-x-2"}>
-						<button className={"size-8  flex items-center justify-center rounded-full bg-[#f0f0f0]"}>
-							<SlidersHorizontal className={"size-4"} />
-						</button>
-						<Button className={"rounded-3xl"}>Write a Review</Button>
-					</div>
-				</div>
-			</header>
+    return (
+        <Container className={"py-5"}>
+            {/* Header */}
+            <header>
+                <div className={"flex items-center justify-between"}>
+                    <h2 className={"flex items-baseline gap-x-2"}>
+                        <span className={"font-bold text-xl"}>All Reviews</span>
+                        {data ? <span>({data.pages[page].length})</span> : <span>(...)</span>}
+                    </h2>
+                    <div className={"flex items-center gap-x-2"}>
+                        <button
+                            className={
+                                "size-8  flex items-center justify-center rounded-full bg-[#f0f0f0]"
+                            }
+                        >
+                            <SlidersHorizontal className={"size-4"} />
+                        </button>
+                        <Button className={"rounded-3xl"}>Write a Review</Button>
+                    </div>
+                </div>
+            </header>
 
-			{/* Review Grid */}
-			<div className={"mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"}>
-				{data &&
-					data.pages[page].map((item) => (
-						<ReviewCard
-							data={item}
-							key={item.id}
-						/>
-					))}
-			</div>
+            {/* Review Grid */}
+            <div className={"mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"}>
+                {data && data.pages[page].map((item) => <ReviewCard data={item} key={item.id} />)}
+            </div>
 
-			{/* For empty Review State */}
-			{data && data.pages[page].length === 0 && (
-				<div className={"py-5 lg:py-8"}>
-					<h3 className={" text-center text-lg font-bold underline lg:text-xl"}>No Reviews Yet</h3>
-				</div>
-			)}
+            {/* For empty Review State */}
+            {data && data.pages[page].length === 0 && (
+                <div className={"py-5 lg:py-8"}>
+                    <h3 className={" text-center text-lg font-bold underline lg:text-xl"}>
+                        No Reviews Yet
+                    </h3>
+                </div>
+            )}
 
-			{/* Pagination Control */}
-			<div className={"flex items-center justify-end gap-x-4 mt-4"}>
-				<Button
-					onClick={async () => {
-						await fetchPreviousPage();
-						setPage(page - 1);
-					}}
-					disabled={page === 0 || isFetching}>
-					<ChevronLeft />
-				</Button>
-				<Button
-					onClick={async () => {
-						await fetchNextPage();
-						setPage(page + 1);
-					}}
-					disabled={data?.pages[page].length !== 4 || isFetching}>
-					<ChevronRight />
-				</Button>
-			</div>
-		</Container>
-	);
+            {/* Pagination Control */}
+            <div className={"flex items-center justify-end gap-x-4 mt-4"}>
+                <Button
+                    onClick={async () => {
+                        await fetchPreviousPage();
+                        setPage(page - 1);
+                    }}
+                    disabled={page === 0 || isFetching}
+                >
+                    <ChevronLeft />
+                </Button>
+                <Button
+                    onClick={async () => {
+                        await fetchNextPage();
+                        setPage(page + 1);
+                    }}
+                    disabled={data?.pages[page].length !== 4 || isFetching}
+                >
+                    <ChevronRight />
+                </Button>
+            </div>
+        </Container>
+    );
 };
 
 export default ProductReviews;

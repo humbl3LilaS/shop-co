@@ -1,10 +1,14 @@
 import Image from "next/image";
-import {PARTNER_ICONS} from "@/constants/ui-constants";
+import { PARTNER_ICONS } from "@/constants/ui-constants";
 
 const Partners = () => {
     return (
         <section className={"py-10 px-4  bg-black "}>
-            <ul className={"flex items-center justify-center flex-wrap gap-x-4 gap-y-4 md:gap-x-6 lg:gap-x-28"}>
+            <ul
+                className={
+                    "flex items-center justify-center flex-wrap gap-x-4 gap-y-4 md:gap-x-6 lg:gap-x-28"
+                }
+            >
                 {PARTNER_ICONS.map((icon) => (
                     <Image
                         src={icon.path}

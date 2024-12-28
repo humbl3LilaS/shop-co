@@ -1,12 +1,12 @@
-"use server"
-import {db} from "@/database/drizzle";
-import {orders, productColors, products, transactions} from "@/database/schema";
-import {and, eq, inArray} from "drizzle-orm";
-import {auth} from "@/auth";
+"use server";
+import { db } from "@/database/drizzle";
+import { orders, productColors, products, transactions } from "@/database/schema";
+import { and, eq, inArray } from "drizzle-orm";
+import { auth } from "@/auth";
 
 export const getOrdersByTransactionId = async (transactionId: string) => {
     try {
-        const session = await auth()
+        const session = await auth();
         if (!session) {
             return undefined;
         }
@@ -36,7 +36,7 @@ export const getOrdersByTransactionId = async (transactionId: string) => {
             .from(orders)
             .innerJoin(products, eq(products.id, orders.productId))
             .innerJoin(productColors, eq(productColors.id, orders.colorId))
-            .where(inArray(orders.id, transaction.orders))
+            .where(inArray(orders.id, transaction.orders));
 
         if (!order) {
             return undefined;
@@ -45,6 +45,6 @@ export const getOrdersByTransactionId = async (transactionId: string) => {
     } catch (error) {
         console.log("Error Fetching Transaction ById", error);
     }
-}
+};
 
-export type IOrderInfo = NonNullable<Awaited<ReturnType<typeof getOrdersByTransactionId>>>[number]
+export type IOrderInfo = NonNullable<Awaited<ReturnType<typeof getOrdersByTransactionId>>>[number];

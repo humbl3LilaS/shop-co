@@ -2,9 +2,9 @@ import CheckoutSummaryDropDown from "@/feature/client/checkout/components/checko
 import CheckoutForm from "@/feature/client/checkout/components/checkout-form";
 import CheckoutSummary from "@/feature/client/checkout/components/checkout-summary";
 import Container from "@/components/client/container";
-import {auth} from "@/auth";
-import {notFound, redirect} from "next/navigation";
-import {getProfileData} from "@/feature/client/profile/actions/getProfileData";
+import { auth } from "@/auth";
+import { notFound, redirect } from "next/navigation";
+import { getProfileData } from "@/feature/client/profile/actions/getProfileData";
 
 const CheckoutPage = async () => {
     const session = await auth();
@@ -18,13 +18,13 @@ const CheckoutPage = async () => {
 
     return (
         <div className={"lg:grid grid-cols-2 lg:h-[90vh] lg:py-8 lg:overflow-y-scroll"}>
-            <CheckoutSummaryDropDown/>
+            <CheckoutSummaryDropDown />
             <div className={"overflow-y-scroll"}>
-                <CheckoutForm defaultValues={profile}/>
+                <CheckoutForm defaultValues={profile} />
             </div>
             <Container className={"hidden md:block lg:pr-25 lg:pl-10"}>
                 <h3 className={"font-bold text-2xl mb-4"}>Order Summary</h3>
-                <CheckoutSummary/>
+                <CheckoutSummary />
             </Container>
         </div>
     );

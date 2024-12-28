@@ -1,5 +1,5 @@
-"use client"
-import {usePathname, useRouter} from "next/navigation";
+"use client";
+import { usePathname, useRouter } from "next/navigation";
 import ActionButton from "@/components/share/action-button";
 
 const RedirectBtn = () => {

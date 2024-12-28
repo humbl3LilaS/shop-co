@@ -1,8 +1,12 @@
-import {IUserInfo} from "@/types/api.types";
+import { IUserInfo } from "@/types/api.types";
 
-const BillingInfo = ({data}: { data: IUserInfo }) => {
+const BillingInfo = ({ data }: { data: IUserInfo }) => {
     return (
-        <div className={"px-6 py-4 mt-4  border border-black/40 rounded-2xl shadow-md lg:px-14 lg:py-10"}>
+        <div
+            className={
+                "px-6 py-4 mt-4  border border-black/40 rounded-2xl shadow-md lg:px-14 lg:py-10"
+            }
+        >
             <h3 className={"mb-3 text-xl font-bold lg:mb-5 lg:text-2xl"}>Billing Info</h3>
             <div className={"grid grid-cols-2 gap-y-4"}>
                 <div className={"*:block"}>

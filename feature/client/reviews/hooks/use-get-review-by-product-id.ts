@@ -1,10 +1,10 @@
-import {getAllReviews} from "@/feature/client/reviews/actions/get-all-reviews";
-import {useInfiniteQuery} from "@tanstack/react-query";
+import { getAllReviews } from "@/feature/client/reviews/actions/get-all-reviews";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const useGetReviewByProductId = (productId: string) => {
     return useInfiniteQuery({
         queryKey: ["reviews", productId],
-        queryFn: ({pageParam}) => getAllReviews(productId, pageParam),
+        queryFn: ({ pageParam }) => getAllReviews(productId, pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
             if (lastPage.length < 4) {
@@ -19,6 +19,6 @@ export const useGetReviewByProductId = (productId: string) => {
             return firstPageParam - 1;
         },
         staleTime: 60 * 60 * 1000,
-        enabled: !!productId
-    })
-}
+        enabled: !!productId,
+    });
+};

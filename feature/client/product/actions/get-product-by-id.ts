@@ -1,13 +1,13 @@
-"use server"
+"use server";
 
-import {db} from "@/database/drizzle";
-import {productColors, products} from "@/database/schema";
-import {eq} from "drizzle-orm";
+import { db } from "@/database/drizzle";
+import { productColors, products } from "@/database/schema";
+import { eq } from "drizzle-orm";
 
 type ProductColor = {
     id: string;
     colorHex: string;
-}
+};
 type Product = {
     id: string;
     name: string;
@@ -20,7 +20,7 @@ type Product = {
     sizes: string[] | null;
     imagesUrl: string[] | null;
     details: string | null;
-}
+};
 
 export const getProductById = async (id: string) => {
     try {
@@ -28,29 +28,32 @@ export const getProductById = async (id: string) => {
             .select()
             .from(products)
             .leftJoin(productColors, eq(productColors.productId, products.id))
-            .where(eq(products.id, id))
+            .where(eq(products.id, id));
         if (!rows) {
-            return undefined
+            return undefined;
         }
 
-        const [result] = rows.reduce<Array<{ products: Product, product_colors: (ProductColor | null)[] }>>(
-            (acc, row) => {
-                const product = row.products;
-                const color = row.product_colors;
-                if (acc.length === 0) {
-                    return [{products: product, product_colors: [color]}];
-                } else {
-                    return acc.map(item => {
-                        return item.products.id === color?.productId ? {
-                            ...item,
-                            product_colors: [color, ...item.product_colors]
-                        } : item;
-                    })
-                }
-            }, [])
+        const [result] = rows.reduce<
+            Array<{ products: Product; product_colors: (ProductColor | null)[] }>
+        >((acc, row) => {
+            const product = row.products;
+            const color = row.product_colors;
+            if (acc.length === 0) {
+                return [{ products: product, product_colors: [color] }];
+            } else {
+                return acc.map((item) => {
+                    return item.products.id === color?.productId
+                        ? {
+                              ...item,
+                              product_colors: [color, ...item.product_colors],
+                          }
+                        : item;
+                });
+            }
+        }, []);
         return result;
     } catch (error) {
         console.error(error);
         return undefined;
     }
-}
+};

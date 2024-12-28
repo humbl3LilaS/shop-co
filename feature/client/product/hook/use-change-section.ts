@@ -1,12 +1,11 @@
-import {create} from "zustand";
+import { create } from "zustand";
 
 type Store = {
-    activeSession: "details" | "reviews" | "faqs"
+    activeSession: "details" | "reviews" | "faqs";
     setSection: (payload: "details" | "reviews" | "faqs") => void;
-}
+};
 
-export const useChangeSection = create<Store>(set => ({
+export const useChangeSection = create<Store>((set) => ({
     activeSession: "reviews",
-    setSection: (payload) => (set(() => ({activeSession: payload}))),
-}))
-
+    setSection: (payload) => set(() => ({ activeSession: payload })),
+}));

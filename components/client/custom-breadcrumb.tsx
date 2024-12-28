@@ -1,15 +1,19 @@
-"use client"
+"use client";
 import {
-    Breadcrumb, BreadcrumbEllipsis,
+    Breadcrumb,
+    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
-    BreadcrumbSeparator
+    BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {usePathname} from "next/navigation";
-import {getValidPathnameArray} from "@/lib/utils";
-import {DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
-
+import { usePathname } from "next/navigation";
+import { getValidPathnameArray } from "@/lib/utils";
+import {
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const CustomBreadcrumb = () => {
     const pathname = usePathname();
@@ -20,12 +24,12 @@ const CustomBreadcrumb = () => {
                 <BreadcrumbItem>
                     <BreadcrumbLink href="/">Home</BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator/>
-                {
-                    pathnameArray.length > 2 && <>
+                <BreadcrumbSeparator />
+                {pathnameArray.length > 2 && (
+                    <>
                         <BreadcrumbItem>
                             <DropdownMenuTrigger className="flex items-center gap-1">
-                                <BreadcrumbEllipsis className="h-4 w-4"/>
+                                <BreadcrumbEllipsis className="h-4 w-4" />
                                 <span className="sr-only">Toggle menu</span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
@@ -34,25 +38,23 @@ const CustomBreadcrumb = () => {
                                 <DropdownMenuItem>GitHub</DropdownMenuItem>
                             </DropdownMenuContent>
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
+                        <BreadcrumbSeparator />
                     </>
-                }
-                {
-                    pathnameArray.length == 2 && <>
+                )}
+                {pathnameArray.length == 2 && (
+                    <>
                         <BreadcrumbItem className={"capitalize"}>
                             <BreadcrumbLink href={`/${pathnameArray[0]}`}>
                                 {pathnameArray[0]}
                             </BreadcrumbLink>
                         </BreadcrumbItem>
-                        <BreadcrumbSeparator/>
-                        <BreadcrumbItem>
-                            {pathnameArray[1]}
-                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>{pathnameArray[1]}</BreadcrumbItem>
                     </>
-                }
-                {
-                    pathnameArray.length == 1 && <BreadcrumbItem className={"capitalize"}>{pathnameArray[0]}</BreadcrumbItem>
-                }
+                )}
+                {pathnameArray.length == 1 && (
+                    <BreadcrumbItem className={"capitalize"}>{pathnameArray[0]}</BreadcrumbItem>
+                )}
             </BreadcrumbList>
         </Breadcrumb>
     );

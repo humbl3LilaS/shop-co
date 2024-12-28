@@ -1,28 +1,30 @@
-"use server"
+"use server";
 
-import {db} from "@/database/drizzle";
-import {products} from "@/database/schema";
-import {IProductCategory, IProductTypes} from "@/types/object.types";
-import {and, eq, gt, inArray, lte, arrayOverlaps} from "drizzle-orm";
-import {calculatePageCounts, slugToArray} from "@/lib/utils";
-import {CategoryPageQuery} from "@/app/(client)/style/[category]/page";
-
+import { db } from "@/database/drizzle";
+import { products } from "@/database/schema";
+import { IProductCategory, IProductTypes } from "@/types/object.types";
+import { and, eq, gt, inArray, lte, arrayOverlaps } from "drizzle-orm";
+import { calculatePageCounts, slugToArray } from "@/lib/utils";
+import { CategoryPageQuery } from "@/app/(client)/style/[category]/page";
 
 export const getRecentProducts = async () => {
     try {
-        const result = await db.select().from(products).orderBy(products.arrivedAt).limit(4)
+        const result = await db.select().from(products).orderBy(products.arrivedAt).limit(4);
         if (!result) {
             return undefined;
         }
         return result;
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
-}
+};
 
-export const getProductByCategory = async (category: IProductCategory, query: CategoryPageQuery) => {
+export const getProductByCategory = async (
+    category: IProductCategory,
+    query: CategoryPageQuery,
+) => {
     try {
-        const page = parseInt(query.page) ?? 1
+        const page = parseInt(query.page) ?? 1;
         const offset = (page - 1) * 10;
         const types = slugToArray(query.types) as unknown as IProductTypes[];
         const sizes = slugToArray(query.sizes);
@@ -38,12 +40,10 @@ export const getProductByCategory = async (category: IProductCategory, query: Ca
                     eq(products.productCategory, category),
                     gt(products.price, min),
                     lte(products.price, max),
-                )
+                ),
             )
             .limit(10)
-            .offset(offset)
-        ;
-
+            .offset(offset);
         const totalProducts = result.length;
         const totalPages = calculatePageCounts(totalProducts);
         if (!result) {
@@ -56,7 +56,7 @@ export const getProductByCategory = async (category: IProductCategory, query: Ca
             totalProducts,
         };
     } catch (err) {
-        console.log(err)
-        return undefined
+        console.log(err);
+        return undefined;
     }
-}
+};

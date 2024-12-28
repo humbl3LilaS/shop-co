@@ -1,13 +1,11 @@
 const AuthLayout = ({
-                        children,
-                    }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) => {
     return (
         <body>
-        <main>
-            {children}
-        </main>
+            <main>{children}</main>
         </body>
     );
 };

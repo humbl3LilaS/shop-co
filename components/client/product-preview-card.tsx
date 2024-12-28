@@ -1,13 +1,13 @@
 import Image from "next/image";
-import {Star} from "lucide-react";
+import { Star } from "lucide-react";
 import Link from "next/link";
-import {IProduct} from "@/types/api.types";
+import { IProduct } from "@/types/api.types";
 import PriceTag from "@/components/share/price-tag";
 
 type ProductPreviewCardProps = {
     data: IProduct;
-}
-const ProductPreviewCard = ({data}: ProductPreviewCardProps) => {
+};
+const ProductPreviewCard = ({ data }: ProductPreviewCardProps) => {
     return (
         <article className={"w-full max-w-[350px] mx-auto"}>
             <Image
@@ -18,22 +18,20 @@ const ProductPreviewCard = ({data}: ProductPreviewCardProps) => {
                 className={"aspect-square w-full mb-4 rounded-xl"}
             />
             <h3 className={"mb-4 font-bold uppercase line-clamp-1"}>
-                <Link href={`/product/${data.id}`}>
-                    {data.name}
-                </Link>
+                <Link href={`/product/${data.id}`}>{data.name}</Link>
             </h3>
             {/*TODO: later replace with actual data*/}
             <div className={"mb-1.5 flex items-center gap-x-2"}>
-                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                <Star color="#f9f06b" fill={"#f9f06b"}/>
-                <Star color="#f9f06b" fill={"#f9f06b"}/>
+                <Star color="#f9f06b" fill={"#f9f06b"} />
+                <Star color="#f9f06b" fill={"#f9f06b"} />
+                <Star color="#f9f06b" fill={"#f9f06b"} />
+                <Star color="#f9f06b" fill={"#f9f06b"} />
                 <p>
                     4.5/<span className={"text-black/60"}>5</span>
                 </p>
             </div>
             <div className={"mb-9"}>
-                <PriceTag price={data.price} discount={data.discount}/>
+                <PriceTag price={data.price} discount={data.discount} />
             </div>
         </article>
     );

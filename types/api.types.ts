@@ -27,14 +27,14 @@ export interface IUserInfo {
     township: string | null;
     address: string | null;
     postalCode: string | null;
-    phoneNumber:string | null;
+    phoneNumber: string | null;
     gender: string | null;
 }
 
 export type IVisitsCount = {
-    anonymous: number,
-    male: number,
-    female: number,
-    "non-binary": number,
-    others: number
-}
+    anonymous: number;
+    male: number;
+    female: number;
+    "non-binary": number;
+    others: number;
+};

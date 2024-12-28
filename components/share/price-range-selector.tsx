@@ -1,6 +1,6 @@
 "use client";
-import {Slider} from "antd";
-import {ConfigProvider} from "antd";
+import { Slider } from "antd";
+import { ConfigProvider } from "antd";
 
 type PriceRangeSelectorProps = {
     value: [number, number];
@@ -8,24 +8,14 @@ type PriceRangeSelectorProps = {
     step: number;
     min: number;
     max: number;
-}
+};
 
-const PriceRangeSelector = (
-    {
-        value,
-        onChange,
-        step,
-        min,
-        max
-    }: PriceRangeSelectorProps
-) => {
-
-
+const PriceRangeSelector = ({ value, onChange, step, min, max }: PriceRangeSelectorProps) => {
     const handleSliderChange = (value: number[]) => {
         if (value.length === 2) {
-            onChange([value[0], value[1]])
+            onChange([value[0], value[1]]);
         }
-    }
+    };
 
     return (
         <div className={"relative w-full max-w-md"}>
@@ -39,12 +29,12 @@ const PriceRangeSelector = (
                             railBg: "rgba(0,0,0,0.1)",
                             handleActiveColor: "black",
                             dotActiveBorderColor: "black",
-                        }
-                    }
+                        },
+                    },
                 }}
             >
                 <Slider
-                    key={value.join('-')}
+                    key={value.join("-")}
                     range={true}
                     min={min}
                     max={max}
@@ -61,10 +51,12 @@ const PriceRangeSelector = (
             >
                 ${value[0]}
             </span>
-            <span className={"block text-sm absolute top-4/5 -translate-x-1/2 font-bold z-20"}
-                  style={{
-                      left: `${(value[1] / max) * 100}%`,
-                  }}>
+            <span
+                className={"block text-sm absolute top-4/5 -translate-x-1/2 font-bold z-20"}
+                style={{
+                    left: `${(value[1] / max) * 100}%`,
+                }}
+            >
                 ${value[1]}
             </span>
         </div>

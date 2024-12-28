@@ -1,9 +1,9 @@
 const OverviewLayout = ({
-                            children,
-                            chart,
-                            visit,
-                            products,
-                        }: Readonly<{
+    children,
+    chart,
+    visit,
+    products,
+}: Readonly<{
     children: React.ReactNode;
     chart: React.ReactNode;
     visit: React.ReactNode;

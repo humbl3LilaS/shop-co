@@ -8,10 +8,12 @@ const TopProductsPage = () => {
                 <header>
                     <div>
                         <h2 className={"font-bold"}>Top Products</h2>
-                        <p className={"font-semibold text-black/40 text-sm"}>Best selling products in your store</p>
+                        <p className={"font-semibold text-black/40 text-sm"}>
+                            Best selling products in your store
+                        </p>
                     </div>
                 </header>
-                <TopProducts/>
+                <TopProducts />
             </div>
         </Container>
     );

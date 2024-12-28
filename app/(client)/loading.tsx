@@ -1,4 +1,4 @@
-import {Loader2} from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const Loading = () => {
     return (
@@ -6,7 +6,7 @@ const Loading = () => {
             <p className={"flex items-center gap-x-3"}>
                 <h2 className={"text-2xl font-bold"}>Loading....</h2>
                 <span className="block text-lg">
-                    <Loader2 className={"animate-spin"}/>
+                    <Loader2 className={"animate-spin"} />
                 </span>
             </p>
         </div>

@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 
 export const useMediaQuery = (query: string): boolean => {
     const [matches, setMatches] = useState<boolean>(false);
 
     useEffect(() => {
         // Ensure this only runs on the client
-        if (typeof window === 'undefined') return;
+        if (typeof window === "undefined") return;
 
         const mediaQueryList = window.matchMedia(query);
 
@@ -17,11 +17,11 @@ export const useMediaQuery = (query: string): boolean => {
         setMatches(mediaQueryList.matches);
 
         // Add listener for media query changes
-        mediaQueryList.addEventListener('change', handleChange);
+        mediaQueryList.addEventListener("change", handleChange);
 
         // Cleanup listener on unmount
         return () => {
-            mediaQueryList.removeEventListener('change', handleChange);
+            mediaQueryList.removeEventListener("change", handleChange);
         };
     }, [query]);
 

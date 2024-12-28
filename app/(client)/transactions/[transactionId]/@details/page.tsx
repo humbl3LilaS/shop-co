@@ -1,14 +1,18 @@
-import {getTransactionDetails} from "@/feature/client/transactions/actions/get-transaction-details";
-import {notFound} from "next/navigation";
-import {format} from "date-fns";
-import {cn} from "@/lib/utils";
+import { getTransactionDetails } from "@/feature/client/transactions/actions/get-transaction-details";
+import { notFound } from "next/navigation";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import CancelTransactionBtn from "@/feature/client/transactions/components/cancel-transaction-btn";
 
-const DetailsInTransactionPage = async ({params}: { params: Promise<{ transactionId: string }> }) => {
-    const {transactionId} = await params;
+const DetailsInTransactionPage = async ({
+    params,
+}: {
+    params: Promise<{ transactionId: string }>;
+}) => {
+    const { transactionId } = await params;
     const details = await getTransactionDetails(transactionId);
     if (!details) {
-        return notFound()
+        return notFound();
     }
     return (
         <div className={"mt-8 border border-black/40 p-4 rounded-lg"}>
@@ -44,23 +48,20 @@ const DetailsInTransactionPage = async ({params}: { params: Promise<{ transactio
             <p>
                 <span className={"font-bold text-black/60"}>Status: </span>
                 <span
-                    className={
-                        cn(
-                            "px-3 py-1 rounded-3xl text-white capitalize font-semibold",
-                            details.status === "pending" && {"bg-orange-400": true},
-                            details.status === "canceled" && {"bg-red-400": true},
-                            details.status === "delivered" && {"bg-green-400": true},
-                            details.status === "on-the-way" && {"bg-blue-600": true},
-                        )
-                    }
+                    className={cn(
+                        "px-3 py-1 rounded-3xl text-white capitalize font-semibold",
+                        details.status === "pending" && { "bg-orange-400": true },
+                        details.status === "canceled" && { "bg-red-400": true },
+                        details.status === "delivered" && { "bg-green-400": true },
+                        details.status === "on-the-way" && { "bg-blue-600": true },
+                    )}
                 >
-                                {details.status}
+                    {details.status}
                 </span>
             </p>
-            {
-                details.status === "pending" &&
-                <CancelTransactionBtn transactionId={transactionId} redirect={true}/>
-            }
+            {details.status === "pending" && (
+                <CancelTransactionBtn transactionId={transactionId} redirect={true} />
+            )}
         </div>
     );
 };
