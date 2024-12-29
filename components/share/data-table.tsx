@@ -4,7 +4,7 @@ import {
     ColumnFiltersState,
     getFilteredRowModel,
     getPaginationRowModel,
-    PaginationState
+    PaginationState,
 } from "@tanstack/table-core";
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import {
@@ -13,7 +13,7 @@ import {
     TableCell,
     TableHead,
     TableHeader,
-    TableRow
+    TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -31,11 +31,9 @@ interface DataTableProps {
 const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 5
+        pageSize: 5,
     });
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    );
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const table = useReactTable({
         data: data ?? [],
         columns: columns,
@@ -46,14 +44,13 @@ const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => 
         onColumnFiltersChange: setColumnFilters,
         state: {
             pagination,
-            columnFilters
-        }
+            columnFilters,
+        },
     });
-
 
     return (
         <div>
-            {filerOn && data &&
+            {filerOn && data && (
                 <div className={"mb-4"}>
                     <Input
                         placeholder="Filter by name..."
@@ -64,7 +61,7 @@ const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => 
                         className="max-w-sm ml-auto"
                     />
                 </div>
-            }
+            )}
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -75,23 +72,29 @@ const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => 
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
+                                                  header.column.columnDef.header,
+                                                  header.getContext(),
+                                              )}
                                     </TableHead>
                                 );
                             })}
                         </TableRow>
                     ))}
                 </TableHeader>
-                {
-                    data && <TableBody>
+                {data && (
+                    <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                <TableRow
+                                    key={row.id}
+                                    data-state={row.getIsSelected() && "selected"}
+                                >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
                                         </TableCell>
                                     ))}
                                 </TableRow>
@@ -104,13 +107,10 @@ const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => 
                             </TableRow>
                         )}
                     </TableBody>
-                }
+                )}
             </Table>
-            {
-                !data && <DataTableSkeleton paginationOn={paginationOn} />
-            }
-            {
-                paginationOn && data &&
+            {!data && <DataTableSkeleton paginationOn={paginationOn} />}
+            {paginationOn && data && (
                 <div className="flex items-center justify-between space-x-2 py-4">
                     <p className={"text-black/40 text-sm font-semibold"}>
                         Page {pagination.pageIndex + 1} of {table.getPageCount()}
@@ -132,9 +132,10 @@ const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => 
                             disabled={!table.getCanNextPage()}
                         >
                             <ChevronRight />
-                        </Button></div>
+                        </Button>
+                    </div>
                 </div>
-            }
+            )}
         </div>
     );
 };
