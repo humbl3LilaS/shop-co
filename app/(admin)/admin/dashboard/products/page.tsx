@@ -3,7 +3,7 @@ import ProductTable from "@/feature/admin/product/components/product-table";
 
 const ProductPage = () => {
     return (
-        <Container className={"p-8 overflow-y-scroll"}>
+        <Container className={"h-auto p-8"}>
             <ProductTable />
         </Container>
     );

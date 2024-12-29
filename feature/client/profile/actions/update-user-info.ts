@@ -13,7 +13,7 @@ export const updateUserInfo = async (payload: Partial<IUserInfo>) => {
         }
         const [data] = await db
             .update(users)
-            // @ts-ignore
+            // @ts-expect-error might deal with type error later
             .set(payload)
             .where(eq(users.id, session.user.id))
             .returning();
