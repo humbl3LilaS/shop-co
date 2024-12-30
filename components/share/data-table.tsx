@@ -26,12 +26,13 @@ interface DataTableProps {
     data: any[] | undefined;
     paginationOn?: boolean;
     filerOn?: boolean;
+    pageSize?: number;
 }
 
-const DataTable = ({ data, columns, paginationOn, filerOn }: DataTableProps) => {
+const DataTable = ({ data, columns, paginationOn, filerOn, pageSize }: DataTableProps) => {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 5,
+        pageSize: pageSize ?? 5,
     });
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const table = useReactTable({
