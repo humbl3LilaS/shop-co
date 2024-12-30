@@ -2,6 +2,7 @@ import Header from "@/components/client/header";
 import Footer from "@/components/client/footer";
 
 import { Toaster } from "@/components/ui/toaster";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const PublicLayout = ({
     children,
@@ -14,6 +15,7 @@ const PublicLayout = ({
             <main>{children}</main>
             <Footer />
             <Toaster />
+            <ReactQueryDevtools initialIsOpen={false} />
         </body>
     );
 };
