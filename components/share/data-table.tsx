@@ -21,20 +21,40 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import DataTableSkeleton from "@/components/share/data-table-skeleton";
 
-interface DataTableProps {
-    columns: ColumnDef<any, any>[];
-    data: any[] | undefined;
+interface BaseDataTableProps<TData> {
+    columns: ColumnDef<TData, any>[];
+    data: TData[] | undefined;
     paginationOn?: boolean;
-    filerOn?: boolean;
     pageSize?: number;
 }
 
-const DataTable = ({ data, columns, paginationOn, filerOn, pageSize }: DataTableProps) => {
+interface FilterableDataTableProps<TData> extends BaseDataTableProps<TData> {
+    filterOn: true;
+    filterKey: keyof TData;
+}
+
+interface NonFilterableDataTableProps<TData> extends BaseDataTableProps<TData> {
+    filterOn?: false;
+    filterKey?: never;
+}
+
+type DataTableProps<TData> = FilterableDataTableProps<TData> | NonFilterableDataTableProps<TData>;
+
+const DataTable = <TData,>({
+    data,
+    columns,
+    paginationOn,
+    pageSize,
+    filterOn = false,
+    filterKey,
+}: DataTableProps<TData>) => {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: pageSize ?? 5,
     });
+
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
     const table = useReactTable({
         data: data ?? [],
         columns: columns,
@@ -51,13 +71,15 @@ const DataTable = ({ data, columns, paginationOn, filerOn, pageSize }: DataTable
 
     return (
         <div>
-            {filerOn && data && (
+            {filterOn && data && (
                 <div className={"mb-4"}>
                     <Input
-                        placeholder="Filter by name..."
-                        value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                        placeholder={`Filter by ${String(filterKey)}...`}
+                        value={
+                            (table.getColumn(String(filterKey))?.getFilterValue() as string) ?? ""
+                        }
                         onChange={(event) =>
-                            table.getColumn("name")?.setFilterValue(event.target.value)
+                            table.getColumn(String(filterKey))?.setFilterValue(event.target.value)
                         }
                         className="max-w-sm ml-auto"
                     />

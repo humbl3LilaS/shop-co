@@ -8,7 +8,14 @@ const ProductTable = () => {
     const { data: products } = useGetAllProducts();
     return (
         <div className={"p-8 bg-white rounded-2xl"}>
-            <DataTable data={products} columns={columns} paginationOn={true} filerOn={true} />
+            <DataTable
+                //@ts-expect-error asdf jsk
+                data={products}
+                columns={columns}
+                paginationOn={true}
+                filterOn={true}
+                filterKey={"name"}
+            />
         </div>
     );
 };

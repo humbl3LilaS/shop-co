@@ -7,7 +7,13 @@ const OrdersTable = () => {
     const { data } = useGetAllOrders();
     return (
         <div className={"p-8 bg-white rounded-2xl"}>
-            <DataTable data={data} columns={columns} paginationOn={true} />
+            <DataTable
+                data={data}
+                columns={columns}
+                paginationOn={true}
+                filterOn={true}
+                filterKey={"id"}
+            />
         </div>
     );
 };
