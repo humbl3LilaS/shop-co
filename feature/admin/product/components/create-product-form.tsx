@@ -28,6 +28,7 @@ import {
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
 import { createProductColor } from "@/feature/admin/product/actions/create-product-color";
+import MDEditor from "@uiw/react-md-editor";
 
 const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>({
@@ -58,7 +59,7 @@ const CreateProductForm = () => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className={"max-w-xl mx-auto pt-10"}>
+                <div className={"grid grid-cols-2 gap-4"}>
                     <FormField
                         name={"name"}
                         control={form.control}
@@ -96,20 +97,6 @@ const CreateProductForm = () => {
                                 <FormMessage />
                                 <FormControl>
                                     <Input {...field} placeholder={"Discount..."} />
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        name={"description"}
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Description</FormLabel>
-                                <FormMessage />
-                                <FormControl>
-                                    <Input {...field} placeholder={"Description..."} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -211,10 +198,10 @@ const CreateProductForm = () => {
                         name={"sizes"}
                         control={form.control}
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className={"col-span-2"}>
                                 <FormLabel>Select Available Sizes</FormLabel>
                                 <FormControl>
-                                    <ul>
+                                    <ul className={"grid grid-cols-5"}>
                                         {SIZES.map((size, idx) => (
                                             <SizeCheckbox
                                                 key={idx}
@@ -241,10 +228,36 @@ const CreateProductForm = () => {
                         )}
                     />
 
-                    <Button className={"mt-4"} type={"submit"}>
-                        Submit
-                    </Button>
+                    <FormField
+                        name={"description"}
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem className={"col-span-2"}>
+                                <FormLabel className={"sr-only"}>Description</FormLabel>
+                                <FormControl>
+                                    <div className={"h-[500px]"}>
+                                        {window !== undefined && (
+                                            <MDEditor
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                minHeight={300}
+                                                style={{
+                                                    minHeight: "500px",
+                                                    backgroundColor: "white",
+                                                    color: "black",
+                                                }}
+                                                preview={"edit"}
+                                            />
+                                        )}
+                                    </div>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
                 </div>
+                <Button className={"mt-4"} type={"submit"}>
+                    Submit
+                </Button>
             </form>
         </Form>
     );
