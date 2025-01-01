@@ -7,7 +7,13 @@ const CustomersTable = () => {
     const { data } = useGetAllCustomers();
     return (
         <div className={"p-8 bg-white rounded-2xl"}>
-            <DataTable data={data} columns={columns} paginationOn={true} />
+            <DataTable
+                data={data}
+                columns={columns}
+                paginationOn={true}
+                filterOn={true}
+                filterKey={"email"}
+            />
         </div>
     );
 };

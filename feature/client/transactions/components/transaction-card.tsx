@@ -1,8 +1,8 @@
 import { ITransaction } from "@/feature/client/transactions/actions/get-transactions";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import CancelTransactionBtn from "@/feature/client/transactions/components/cancel-transaction-btn";
+import TransactionStatus from "@/components/share/transaction-status";
 
 const TransactionCard = ({ data }: { data: ITransaction }) => {
     return (
@@ -17,17 +17,7 @@ const TransactionCard = ({ data }: { data: ITransaction }) => {
             <p className={"mt-3"}>Ordered at: {format(data.createdAt, "do MMM yyyy")}</p>
             <p className={"mt-3 flex items-center gap-x-3"}>
                 <span>Status: </span>
-                <span
-                    className={cn(
-                        "px-3 py-1 rounded-3xl text-white capitalize font-semibold",
-                        data.status === "pending" && { "bg-orange-400": true },
-                        data.status === "canceled" && { "bg-red-400": true },
-                        data.status === "delivered" && { "bg-green-400": true },
-                        data.status === "on-the-way" && { "bg-blue-600": true },
-                    )}
-                >
-                    {data.status}
-                </span>
+                <TransactionStatus status={data.status} />
             </p>
             {data.status === "pending" && <CancelTransactionBtn transactionId={data.id} />}
         </div>
