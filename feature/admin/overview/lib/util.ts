@@ -2,8 +2,11 @@ import { MONTHS } from "@/constants/constants";
 
 export const getSalePeriod = () => {
     const currentMonth = new Date().getMonth();
-    const lastSixMonths = currentMonth > 5 ? currentMonth - 5 : 0;
-    return MONTHS.slice(lastSixMonths, currentMonth + 1);
+    const lastSixMonths = currentMonth > 5 ? currentMonth - 5 : currentMonth + 5;
+
+    return currentMonth > lastSixMonths
+        ? MONTHS.slice(lastSixMonths, currentMonth + 1)
+        : MONTHS.slice(currentMonth, lastSixMonths + 1);
 };
 
 export const formatVisitCount = (visitCount: number) => {

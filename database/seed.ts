@@ -16,7 +16,7 @@ import {
 } from "@/database/schema";
 import { GENDERS, ORDER_STATUS, SIZES } from "@/constants/constants";
 import { notInArray } from "drizzle-orm/sql/expressions/conditions";
-import { subDays } from "date-fns";
+import { addDays, subDays } from "date-fns";
 import { calculateDiscount } from "@/lib/utils";
 
 const RESERVED_ID = [
@@ -75,7 +75,7 @@ async function main() {
     await db.insert(reviews).values(generatedReviews);
 
     const colors = await db.select().from(productColors);
-    const generatedOrders: IOrders[] = new Array(240).fill(0).map((_) => {
+    const generatedOrders: IOrders[] = new Array(300).fill(0).map((_) => {
         const pid = productId[Math.floor(Math.random() * productId.length)];
         const cids = colors.filter((color) => color.productId == pid).map((item) => item.id);
         return {
@@ -91,7 +91,7 @@ async function main() {
 
     const ordersId = generatedOrders.map((item) => item.id) as string[];
     const alreadyAddedId: string[] = [];
-    const generatedTransactions = new Array(40).fill(0).map((_) => {
+    const generatedTransactions = new Array(100).fill(0).map((_) => {
         const availableId = ordersId.filter((id) => !alreadyAddedId.includes(id));
         const orders = faker.helpers.arrayElements(availableId, 3);
         const amount = orders.reduce((acc, nxt) => {
@@ -101,8 +101,8 @@ async function main() {
         }, 0);
         alreadyAddedId.push(...orders);
         const createdAt = faker.date.between({
-            from: subDays(new Date(), 180),
-            to: new Date(),
+            from: subDays(new Date(), 120),
+            to: addDays(new Date(), 60),
         });
         return {
             id: generateUUID(),
