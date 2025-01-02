@@ -26,7 +26,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
     }
     const { products: product, product_colors } = res;
     const totalRating = await getTotalRating(productId);
-
+    console.log(product.description);
     const colors = product_colors.filter((item) => item !== null);
 
     return (
@@ -48,7 +48,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
                                 <Rating data={0} />
                             )}
                             <PriceTag discount={product.discount} price={product.price} />
-                            <p className={"mt-5 mb-6 text-black/40"}>{product.description}</p>
+                            <p className={"mt-5 mb-6 text-black/40"}>{product.details}</p>
                             <hr />
                         </article>
                         <AddToCartForm
@@ -59,7 +59,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
                     </div>
                 </div>
             </Container>
-            <SectionSelector details={product.details} />
+            <SectionSelector details={product.description} />
         </>
     );
 };

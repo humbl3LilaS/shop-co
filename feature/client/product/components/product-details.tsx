@@ -1,14 +1,14 @@
 import Container from "@/components/client/container";
 
 import markdownit from "markdown-it";
-import { addLineBreaks } from "@/lib/utils";
 
 const ProductDetails = ({ details }: { details: string | null }) => {
     const md = new markdownit();
+    console.log(details);
     //TODO: remove addLineBreaks after adding markdown parser in create-products-from in admin panel
-    const parsedHtml = md.render(addLineBreaks(details ?? ""));
+    const parsedHtml = md.render(details ?? "");
     return (
-        <Container>
+        <Container className={"py-8"}>
             <div
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
                 className={"prose-base break-after-all"}
