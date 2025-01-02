@@ -5,12 +5,10 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form";
 import { SubmitHandler, type UseFormReturn } from "react-hook-form";
-import {
-    ProductFormSchemaType
-} from "@/validation/client-schema";
+import { ProductFormSchemaType } from "@/validation/client-schema";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,7 +18,7 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
+    SelectValue,
 } from "@/components/ui/select";
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
@@ -29,10 +27,10 @@ import MDEditor from "@uiw/react-md-editor";
 type ProductFormBaseProps = {
     form: UseFormReturn<ProductFormSchemaType, any, undefined>;
     onSubmit: SubmitHandler<ProductFormSchemaType>;
-}
+    disable?: boolean;
+};
 
-const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
-
+const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -73,7 +71,11 @@ const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
                                 <FormLabel>Discount</FormLabel>
                                 <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Discount..."} value={field.value ?? 0} />
+                                    <Input
+                                        {...field}
+                                        placeholder={"Discount..."}
+                                        value={field.value ?? 0}
+                                    />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -169,17 +171,15 @@ const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
                                             <SizeCheckbox
                                                 key={idx}
                                                 value={size}
+                                                checked={field.value.includes(size)}
                                                 onCheckedChange={(value) => {
                                                     if (value) {
-                                                        form.setValue("sizes", [
-                                                            ...field.value,
-                                                            size
-                                                        ]);
+                                                        field.onChange([...field.value, size]);
                                                     } else {
                                                         const filterSizes = field.value.filter(
-                                                            (item) => item !== size
+                                                            (item) => item !== size,
                                                         );
-                                                        form.setValue("sizes", [...filterSizes]);
+                                                        field.onChange([...filterSizes]);
                                                     }
                                                 }}
                                             />
@@ -207,7 +207,7 @@ const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
                                                 style={{
                                                     minHeight: "500px",
                                                     backgroundColor: "white",
-                                                    color: "black"
+                                                    color: "black",
                                                 }}
                                                 preview={"edit"}
                                             />
@@ -218,7 +218,7 @@ const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
                         )}
                     />
                 </div>
-                <Button className={"mt-4"} type={"submit"}>
+                <Button className={"mt-4"} type={"submit"} disabled={disable}>
                     Submit
                 </Button>
             </form>

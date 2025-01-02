@@ -11,16 +11,17 @@ const EditProductForm = ({ defaultValues }: { defaultValues: ProductFormSchemaTy
         defaultValues: {
             ...defaultValues,
             discount: defaultValues.discount ?? 0,
-            description: defaultValues.description ?? ""
-        }
+            description: defaultValues.description ?? "",
+        },
     });
 
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (value) => {
-        console.log(value);
+        const dirtyFields = Object.keys(form.formState.dirtyFields) as unknown as Array<
+            keyof ProductFormSchemaType
+        >;
+        console.log("dirtyFields", dirtyFields);
     };
-    return (
-        <ProductFormBase form={form} onSubmit={onSubmit} />
-    );
+    return <ProductFormBase form={form} onSubmit={onSubmit} />;
 };
 
 export default EditProductForm;
