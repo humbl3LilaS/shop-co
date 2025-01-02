@@ -9,7 +9,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -18,16 +18,17 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
+    SelectValue
 } from "@/components/ui/select";
 import { GENDERS, TOWNSHIPS, ZONES } from "@/constants/constants";
 import { Button } from "@/components/ui/button";
 import { updateUserInfo } from "@/feature/client/profile/actions/update-user-info";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { useEditProfileSheet } from "@/feature/client/profile/hooks/use-edit-profile-sheet";
 import { Loader2 } from "lucide-react";
 import { getGenderIcon } from "@/lib/icon-selector";
+import { revalidateUserProfileData } from "@/feature/client/profile/actions/getProfileData";
+
 
 const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
     const form = useForm<ProfileEditFormSchemaType>({
@@ -40,12 +41,11 @@ const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
             township: defaultValues.township ?? "",
             address: defaultValues.address ?? "",
             postalCode: defaultValues.postalCode ?? "",
-            gender: defaultValues.gender ?? "",
-        },
+            gender: defaultValues.gender ?? ""
+        }
     });
 
     const { toast } = useToast();
-    const router = useRouter();
     const setOpen = useEditProfileSheet((state) => state.setOpen);
     const disableSubmit = !form.formState.isDirty || form.formState.isSubmitting;
     const onSubmit: SubmitHandler<ProfileEditFormSchemaType> = async (values) => {
@@ -58,7 +58,7 @@ const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
         const valuesChanges = dirtyField.reduce((obj, key) => {
             return {
                 ...obj,
-                [key]: values[key as keyof typeof values],
+                [key]: values[key as keyof typeof values]
             };
         }, {} as Partial<IUserInfo>);
         const res = await updateUserInfo(valuesChanges);
@@ -66,7 +66,7 @@ const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
             toast({ title: "Failed to update info", variant: "destructive" });
         }
         toast({ title: "Successfully updated profile" });
-        router.refresh();
+        await revalidateUserProfileData();
         setOpen(false);
     };
 
