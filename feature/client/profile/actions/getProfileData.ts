@@ -18,10 +18,7 @@ const fetchUserProfile = async (userId: string) => {
     }
 };
 
-export const getProfileData = unstable_cache(
-    fetchUserProfile,
-    ["user-profile"]
-);
+export const getProfileData = unstable_cache(fetchUserProfile, ["user-profile"]);
 
 export const revalidateUserProfileData = async () => {
     revalidateTag("user-profile");

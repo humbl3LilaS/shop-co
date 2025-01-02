@@ -8,7 +8,7 @@ export const getSalesInfo = unstable_cache(
         try {
             const res = await db.select().from(transactions);
             const completedOrders = res.filter(
-                (item) => item.status === "delivered" || item.status === "on-the-way"
+                (item) => item.status === "delivered" || item.status === "on-the-way",
             ).length;
             const totalRevenue = res.reduce((acc, item) => acc + item.amount, 0);
             const totalOrders = await db.select().from(orders);
@@ -24,5 +24,5 @@ export const getSalesInfo = unstable_cache(
         }
     },
     ["sales-info"],
-    { revalidate: 3600, tags: ["sales-info"] }
+    { revalidate: 3600, tags: ["sales-info"] },
 );

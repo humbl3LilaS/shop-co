@@ -9,7 +9,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
+    SelectValue,
 } from "@/components/ui/select";
 import { GENDERS, TOWNSHIPS, ZONES } from "@/constants/constants";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,6 @@ import { useEditProfileSheet } from "@/feature/client/profile/hooks/use-edit-pro
 import { Loader2 } from "lucide-react";
 import { getGenderIcon } from "@/lib/icon-selector";
 import { revalidateUserProfileData } from "@/feature/client/profile/actions/getProfileData";
-
 
 const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
     const form = useForm<ProfileEditFormSchemaType>({
@@ -41,8 +40,8 @@ const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
             township: defaultValues.township ?? "",
             address: defaultValues.address ?? "",
             postalCode: defaultValues.postalCode ?? "",
-            gender: defaultValues.gender ?? ""
-        }
+            gender: defaultValues.gender ?? "",
+        },
     });
 
     const { toast } = useToast();
@@ -58,7 +57,7 @@ const ProfileEditForm = ({ defaultValues }: { defaultValues: IUserInfo }) => {
         const valuesChanges = dirtyField.reduce((obj, key) => {
             return {
                 ...obj,
-                [key]: values[key as keyof typeof values]
+                [key]: values[key as keyof typeof values],
             };
         }, {} as Partial<IUserInfo>);
         const res = await updateUserInfo(valuesChanges);

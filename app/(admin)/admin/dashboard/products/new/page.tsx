@@ -1,5 +1,5 @@
 import Container from "@/components/admin/Container";
-import CreateProductForm from "@/feature/admin/product/components/create-product-form";
+import CreateProductForm from "@/feature/admin/products/components/create-product-form";
 
 const NewProductPage = () => {
     return (

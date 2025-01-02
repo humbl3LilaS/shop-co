@@ -36,7 +36,7 @@ export const products = pgTable("products", {
         .$default(() => createUUID()),
     name: text("name").notNull(),
     price: integer("price").notNull(),
-    discount: integer("discount"),
+    discount: integer("discount").default(0),
     description: text("description").notNull(),
     details: text("details"),
     coverImage: text("cover_image").notNull(),

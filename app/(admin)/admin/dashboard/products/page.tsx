@@ -1,5 +1,5 @@
 import Container from "@/components/admin/Container";
-import ProductTable from "@/feature/admin/product/components/product-table";
+import ProductTable from "@/feature/admin/products/components/product-table";
 
 const ProductPage = () => {
     return (

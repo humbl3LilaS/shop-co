@@ -5,56 +5,33 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, type UseFormReturn } from "react-hook-form";
 import {
-    ProductFormSchema,
-    ProductFormSchemaDefaultValues,
-    ProductFormSchemaType,
+    ProductFormSchemaType
 } from "@/validation/client-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { createProduct } from "@/feature/admin/product/actions/create-product-action";
+
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
+    SelectValue
 } from "@/components/ui/select";
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
-import { createProductColor } from "@/feature/admin/product/actions/create-product-color";
 import MDEditor from "@uiw/react-md-editor";
 
-const CreateProductForm = () => {
-    const form = useForm<ProductFormSchemaType>({
-        resolver: zodResolver(ProductFormSchema),
-        mode: "onChange",
-        defaultValues: { ...ProductFormSchemaDefaultValues },
-    });
+type ProductFormBaseProps = {
+    form: UseFormReturn<ProductFormSchemaType, any, undefined>;
+    onSubmit: SubmitHandler<ProductFormSchemaType>;
+}
 
-    const { toast } = useToast();
-
-    const onSubmit: SubmitHandler<ProductFormSchemaType> = async (value) => {
-        const { colorHex, ...payload } = value;
-        const product = await createProduct({ ...payload });
-        if (!product) {
-            toast({ title: "Product Creation Failed", variant: "destructive" });
-        }
-        const color = await createProductColor({
-            colorHex,
-            productId: product?.id ?? "",
-        });
-        if (!color) {
-            toast({ title: "Product Creation Failed", variant: "destructive" });
-        }
-        toast({ title: "Product Created" });
-        form.reset({ ...ProductFormSchemaDefaultValues });
-    };
+const ProductFormBase = ({ form, onSubmit }: ProductFormBaseProps) => {
 
     return (
         <Form {...form}>
@@ -96,21 +73,7 @@ const CreateProductForm = () => {
                                 <FormLabel>Discount</FormLabel>
                                 <FormMessage />
                                 <FormControl>
-                                    <Input {...field} placeholder={"Discount..."} />
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        name={"coverImage"}
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Cover Image Url</FormLabel>
-                                <FormMessage />
-                                <FormControl>
-                                    <Input {...field} placeholder={"Description..."} />
+                                    <Input {...field} placeholder={"Discount..."} value={field.value ?? 0} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -210,11 +173,11 @@ const CreateProductForm = () => {
                                                     if (value) {
                                                         form.setValue("sizes", [
                                                             ...field.value,
-                                                            size,
+                                                            size
                                                         ]);
                                                     } else {
                                                         const filterSizes = field.value.filter(
-                                                            (item) => item !== size,
+                                                            (item) => item !== size
                                                         );
                                                         form.setValue("sizes", [...filterSizes]);
                                                     }
@@ -244,7 +207,7 @@ const CreateProductForm = () => {
                                                 style={{
                                                     minHeight: "500px",
                                                     backgroundColor: "white",
-                                                    color: "black",
+                                                    color: "black"
                                                 }}
                                                 preview={"edit"}
                                             />
@@ -263,4 +226,4 @@ const CreateProductForm = () => {
     );
 };
 
-export default CreateProductForm;
+export default ProductFormBase;

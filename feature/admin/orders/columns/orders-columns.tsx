@@ -16,7 +16,7 @@ export const columns = [
         cell: ({ getValue }) => (
             <Image
                 src={getValue()}
-                alt={"product preview image"}
+                alt={"products preview image"}
                 width={50}
                 height={50}
                 className={"w-12.5 aspect-square rounded-lg"}

@@ -8,7 +8,8 @@ import { calculatePageCounts, slugToArray } from "@/lib/utils";
 import { CategoryPageQuery } from "@/app/(client)/style/[category]/page";
 import { unstable_cache } from "next/cache";
 
-export const getRecentProducts = unstable_cache(async () => {
+export const getRecentProducts = unstable_cache(
+    async () => {
         try {
             const result = await db.select().from(products).orderBy(products.arrivedAt).limit(4);
             if (!result) {
@@ -20,12 +21,12 @@ export const getRecentProducts = unstable_cache(async () => {
         }
     },
     ["recent-products"],
-    { revalidate: 3600, tags: ["recent-products"] }
+    { revalidate: 3600, tags: ["recent-products"] },
 );
 
 export const getProductByCategory = async (
     category: IProductCategory,
-    query: CategoryPageQuery
+    query: CategoryPageQuery,
 ) => {
     try {
         const page = parseInt(query.page) ?? 1;
@@ -43,8 +44,8 @@ export const getProductByCategory = async (
                     sizes.length > 0 ? arrayOverlaps(products.sizes, sizes) : undefined,
                     eq(products.productCategory, category),
                     gt(products.price, min),
-                    lte(products.price, max)
-                )
+                    lte(products.price, max),
+                ),
             )
             .limit(10)
             .offset(offset);
@@ -57,7 +58,7 @@ export const getProductByCategory = async (
             data: result,
             totalPages,
             currentPage: parseInt(String(page)) || 1,
-            totalProducts
+            totalProducts,
         };
     } catch (err) {
         console.log(err);
