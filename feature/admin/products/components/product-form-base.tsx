@@ -5,7 +5,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form";
 import { SubmitHandler, type UseFormReturn } from "react-hook-form";
 import { ProductFormSchemaType } from "@/validation/client-schema";
@@ -18,7 +18,7 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
+    SelectValue
 } from "@/components/ui/select";
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
@@ -29,14 +29,15 @@ type ProductFormBaseProps = {
     form: UseFormReturn<ProductFormSchemaType, any, undefined>;
     onSubmit: SubmitHandler<ProductFormSchemaType>;
     disable?: boolean;
+    mode: "edit" | "new"
 };
 
-const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
+const ProductFormBase = ({ form, onSubmit, disable, mode }: ProductFormBaseProps) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className={"grid grid-cols-2 gap-4"}>
-                    <FormField
+                    {mode === "new" && <FormField
                         name={"coverImage"}
                         control={form.control}
                         render={({ field }) => (
@@ -51,7 +52,7 @@ const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
                                 </FormControl>
                             </FormItem>
                         )}
-                    />
+                    />}
                     <FormField
                         name={"name"}
                         control={form.control}
@@ -194,7 +195,7 @@ const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
                                                         field.onChange([...field.value, size]);
                                                     } else {
                                                         const filterSizes = field.value.filter(
-                                                            (item) => item !== size,
+                                                            (item) => item !== size
                                                         );
                                                         field.onChange([...filterSizes]);
                                                     }
@@ -224,7 +225,7 @@ const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
                                                 style={{
                                                     minHeight: "500px",
                                                     backgroundColor: "white",
-                                                    color: "black",
+                                                    color: "black"
                                                 }}
                                                 preview={"edit"}
                                             />

@@ -3,21 +3,23 @@ import { CATEGORIES, GENDERS, SIZES, TOWNSHIPS, TYPES, ZONES } from "@/constants
 import { Writeable } from "@/types/util.types";
 import { IGender } from "@/types/object.types";
 
+export type CoverImageState = { mode: "edit", imageUrl: string } | { mode: "new", file: File | null }
+
 export const ProductFormSchema = z.object({
     name: z.string(),
     price: z.preprocess(
         (value) => (typeof value === "string" ? parseFloat(value) : value),
-        z.number().refine((arg) => arg > 0),
+        z.number().refine((arg) => arg > 0)
     ),
     discount: z
         .preprocess(
             (value) => (typeof value === "string" ? parseFloat(value) : value),
-            z.number().refine((arg) => arg >= 0 && arg <= 80),
+            z.number().refine((arg) => arg >= 0 && arg <= 80)
         )
         .optional()
         .nullable(),
-    description: z.string().optional(),
-    coverImage: z.string(),
+    description: z.string(),
+    coverImage: z.custom<File | null>(),
     colorHex: z.string().refine((arg) => arg.length === 6),
     productCategory: z
         .string()
@@ -26,7 +28,7 @@ export const ProductFormSchema = z.object({
     sizes: z
         .string()
         .refine((arg) => ([...SIZES] as Writeable<any, any>).includes(arg))
-        .array(),
+        .array()
 });
 
 export const ProductFormSchemaDefaultValues: ProductFormSchemaType = {
@@ -34,11 +36,11 @@ export const ProductFormSchemaDefaultValues: ProductFormSchemaType = {
     price: 0,
     description: "",
     discount: 0,
-    coverImage: "",
+    coverImage: null,
     productCategory: "",
     productType: "",
     sizes: [],
-    colorHex: "",
+    colorHex: ""
 };
 
 export type ProductFormSchemaType = Zod.infer<typeof ProductFormSchema>;
@@ -53,7 +55,7 @@ export const FilterFormSchema = z.object({
     types: z
         .string()
         .refine((arg) => ([...TYPES] as Writeable<any, any>).includes(arg))
-        .array(),
+        .array()
 });
 
 export type FilterFormSchemaType = Zod.infer<typeof FilterFormSchema>;
@@ -61,13 +63,13 @@ export type FilterFormSchemaType = Zod.infer<typeof FilterFormSchema>;
 export const FilterFormDefaultValues: FilterFormSchemaType = {
     priceRange: [0, 400],
     sizes: [],
-    types: [],
+    types: []
 };
 
 export const AddToCartFormSchema = z.object({
     color: z.string().optional(),
     size: z.string(),
-    quantity: z.number().int().positive(),
+    quantity: z.number().int().positive()
 });
 
 export type AddToCartFormSchemaType = Zod.infer<typeof AddToCartFormSchema>;
@@ -85,13 +87,13 @@ export const CheckoutFormSchema = z
             .string()
             .refine((arg) => arg.length === 6, { message: "Invalid Postal Code" }),
         phone: z.string().regex(/^09\d{9}$/, { message: "Invalid Phone Number" }),
-        transactionMethod: z.string().refine((arg) => arg === "card" || arg === "paypal"),
+        transactionMethod: z.string().refine((arg) => arg === "card" || arg === "paypal")
     })
     .superRefine((arg, ctx) => {
         const state = arg.state;
         if (!TOWNSHIPS[state].includes(arg.township)) {
             ctx.addIssue({
-                path: ["township"],
+                path: ["township"]
             } as IssueData);
         }
     });
@@ -108,34 +110,34 @@ export const SignUpSchema = z
             .string()
             .min(8, { message: "Password must be at least 8 characters long" })
             .regex(/[A-Z]/, {
-                message: "Password must contain at least one uppercase letter",
+                message: "Password must contain at least one uppercase letter"
             })
             .regex(/[a-z]/, {
-                message: "Password must contain at least one lowercase letter",
+                message: "Password must contain at least one lowercase letter"
             })
             .regex(/[0-9]/, { message: "Password must contain at least one number" })
             .regex(/[@$!%*?&]/, {
-                message: "Password must contain at least one special character (@$!%*?&)",
+                message: "Password must contain at least one special character (@$!%*?&)"
             }),
         confirmPassword: z
             .string()
             .min(8, { message: "Password must be at least 8 characters long" })
             .regex(/[A-Z]/, {
-                message: "Password must contain at least one uppercase letter",
+                message: "Password must contain at least one uppercase letter"
             })
             .regex(/[a-z]/, {
-                message: "Password must contain at least one lowercase letter",
+                message: "Password must contain at least one lowercase letter"
             })
             .regex(/[0-9]/, { message: "Password must contain at least one number" })
             .regex(/[@$!%*?&]/, {
-                message: "Password must contain at least one special character (@$!%*?&)",
-            }),
+                message: "Password must contain at least one special character (@$!%*?&)"
+            })
     })
     .superRefine((arg, ctx) => {
         if (arg.confirmPassword !== arg.confirmPassword) {
             ctx.addIssue({
                 path: ["password", "confirmPassword"],
-                message: "Password and ConfirmPassword must be the same",
+                message: "Password and ConfirmPassword must be the same"
             } as IssueData);
         }
     });
@@ -148,12 +150,12 @@ export const SignUpSchemaDefaultValues: SignUpSchemaType = {
     firstName: "",
     userName: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
 };
 
 export const SignInSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(1),
+    password: z.string().min(1)
 });
 
 export type SignInSchemaType = Zod.infer<typeof SignInSchema>;
@@ -181,14 +183,14 @@ export const ProfileEditFormSchema = z
             .string()
             .optional()
             .refine((arg) => !arg || arg.length === 6, {
-                message: "Invalid Postal Code",
+                message: "Invalid Postal Code"
             }),
-        gender: z.string().refine((arg) => !arg || GENDERS.includes(arg as IGender)),
+        gender: z.string().refine((arg) => !arg || GENDERS.includes(arg as IGender))
     })
     .superRefine((arg, ctx) => {
         if (arg.state && arg.township && !TOWNSHIPS[arg.state]?.includes(arg.township)) {
             ctx.addIssue({
-                path: ["township"],
+                path: ["township"]
             } as IssueData);
         }
     });

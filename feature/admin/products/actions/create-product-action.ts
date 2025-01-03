@@ -1,18 +1,19 @@
 "use server";
 
-import { ProductFormSchemaType } from "@/validation/client-schema";
 import { db } from "@/database/drizzle";
-import { products } from "@/database/schema";
+import { IProducts, products } from "@/database/schema";
 
-export const createProduct = async (payload: Omit<ProductFormSchemaType, "colorHex">) => {
+export const createProduct = async (payload: Omit<IProducts, "sizes"> & { sizes: string[] }) => {
     try {
         const [product] = await db
             .insert(products)
             .values(
-                //@ts-expect-error so sick of checking this type
                 {
                     ...payload,
-                },
+                    sizes: payload.sizes as unknown as string[],
+                    coverImage: payload.coverImage as unknown as string,
+                    imagesUrl: []
+                }
             )
             .returning();
         if (!product) {
