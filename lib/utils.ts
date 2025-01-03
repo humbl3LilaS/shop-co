@@ -28,7 +28,3 @@ export const slugToArray = (slug?: string) => {
     if (!slug) return [];
     return slug.split("_").filter((item) => !!item);
 };
-
-export const addLineBreaks = (input: string): string => {
-    return input.replace(/  /g, `\n`);
-};

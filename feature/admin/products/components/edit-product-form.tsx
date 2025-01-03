@@ -31,13 +31,11 @@ const EditProductForm = ({ defaultValues }: { defaultValues: ProductFormSchemaTy
                 [key]: values[key as keyof typeof values],
             };
         }, {} as Partial<IProducts>);
-        console.log(valuesChanges);
         const res = await updateProductById(productId as string, valuesChanges);
         if (res.error) {
             toast({ title: res.message, variant: "destructive", duration: 500 });
             return;
         } else {
-            console.log("success");
             toast({ title: res.message, duration: 500 });
             router.push(`/admin/dashboard/products/${productId}`);
         }

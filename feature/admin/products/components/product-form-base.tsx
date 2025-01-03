@@ -23,6 +23,7 @@ import {
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
 import MDEditor from "@uiw/react-md-editor";
+import CoverImageUploader from "@/feature/admin/products/components/cover-image-uploader";
 
 type ProductFormBaseProps = {
     form: UseFormReturn<ProductFormSchemaType, any, undefined>;
@@ -35,6 +36,22 @@ const ProductFormBase = ({ form, onSubmit, disable }: ProductFormBaseProps) => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className={"grid grid-cols-2 gap-4"}>
+                    <FormField
+                        name={"coverImage"}
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem className={"col-span-2"}>
+                                <FormLabel className={"sr-only"}>ProductImage</FormLabel>
+                                <FormMessage />
+                                <FormControl>
+                                    <CoverImageUploader
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
                     <FormField
                         name={"name"}
                         control={form.control}
