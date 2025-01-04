@@ -38,7 +38,7 @@ export const products = pgTable("products", {
     price: integer("price").notNull(),
     discount: integer("discount").default(0),
     description: text("description").notNull(),
-    details: text("details"),
+    details: text("details").notNull(),
     coverImage: text("cover_image").notNull(),
     imagesUrl: text("images_url").array(),
     arrivedAt: timestamp("arrived_at").defaultNow().notNull(),

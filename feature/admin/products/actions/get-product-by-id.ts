@@ -9,13 +9,14 @@ export const getProductById = async (id: string) => {
             id: products.id,
             name: products.name,
             price: products.price,
+            details: products.details,
             description: products.description,
             coverImage: products.coverImage,
             discount: products.discount,
-            colorHex: productColors.colorHex,
             productCategory: products.productCategory,
             productType: products.productType,
             sizes: products.sizes,
+            colorHex: productColors.colorHex,
         })
         .from(products)
         .innerJoin(productColors, eq(products.id, productColors.productId))

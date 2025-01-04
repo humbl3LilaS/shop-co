@@ -48,7 +48,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
                                 <Rating data={0} />
                             )}
                             <PriceTag discount={product.discount} price={product.price} />
-                            <p className={"mt-5 mb-6 text-black/40"}>{product.details}</p>
+                            <p className={"mt-5 mb-6 text-black/40"}>{product.description}</p>
                             <hr />
                         </article>
                         <AddToCartForm
@@ -59,7 +59,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
                     </div>
                 </div>
             </Container>
-            <SectionSelector details={product.description} />
+            <SectionSelector details={product.details} />
         </>
     );
 };

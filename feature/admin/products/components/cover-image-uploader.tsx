@@ -9,9 +9,8 @@ type CoverImageUploaderProps = {
     onChange: (value: File) => void;
 };
 
-
 const CoverImageUploader = ({ value, onChange }: CoverImageUploaderProps) => {
-    const [imageUrl, setImageUrl] = useState(() => value ? URL.createObjectURL(value) : null);
+    const [imageUrl, setImageUrl] = useState(() => (value ? URL.createObjectURL(value) : null));
 
     const addImageHandler: ChangeEventHandler<HTMLInputElement> = (evt) => {
         if (evt.target.files && evt.target.files[0]) {
@@ -20,7 +19,6 @@ const CoverImageUploader = ({ value, onChange }: CoverImageUploaderProps) => {
             onChange(evt.target.files[0]);
         }
     };
-
 
     return (
         <div className={"flex gap-x-6 items-center"}>

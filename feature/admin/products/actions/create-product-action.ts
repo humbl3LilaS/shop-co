@@ -7,14 +7,12 @@ export const createProduct = async (payload: Omit<IProducts, "sizes"> & { sizes:
     try {
         const [product] = await db
             .insert(products)
-            .values(
-                {
-                    ...payload,
-                    sizes: payload.sizes as unknown as string[],
-                    coverImage: payload.coverImage as unknown as string,
-                    imagesUrl: []
-                }
-            )
+            .values({
+                ...payload,
+                sizes: payload.sizes as unknown as string[],
+                coverImage: payload.coverImage as unknown as string,
+                imagesUrl: [],
+            })
             .returning();
         if (!product) {
             return undefined;

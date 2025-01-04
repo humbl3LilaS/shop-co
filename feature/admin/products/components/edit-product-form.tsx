@@ -16,8 +16,10 @@ const EditProductForm = ({ defaultValues }: { defaultValues: ProductFormSchemaTy
             ...defaultValues,
             discount: defaultValues.discount ?? 0,
             description: defaultValues.description ?? "",
+            details: defaultValues.details ?? "",
         },
     });
+    console.log("details", defaultValues.details);
     const { productId } = useParams();
     const { toast } = useToast();
     const router = useRouter();
@@ -40,7 +42,7 @@ const EditProductForm = ({ defaultValues }: { defaultValues: ProductFormSchemaTy
             router.push(`/admin/dashboard/products/${productId}`);
         }
     };
-    return <ProductFormBase form={form} onSubmit={onSubmit} />;
+    return <ProductFormBase form={form} onSubmit={onSubmit} mode={"edit"} />;
 };
 
 export default EditProductForm;

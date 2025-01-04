@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
     ProductFormSchema,
     ProductFormSchemaDefaultValues,
-    ProductFormSchemaType
+    ProductFormSchemaType,
 } from "@/validation/client-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
@@ -17,7 +17,7 @@ const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>({
         resolver: zodResolver(ProductFormSchema),
         mode: "onChange",
-        defaultValues: { ...ProductFormSchemaDefaultValues }
+        defaultValues: { ...ProductFormSchemaDefaultValues },
     });
 
     const { toast } = useToast();
@@ -38,7 +38,7 @@ const CreateProductForm = () => {
 
         // create product in the product table
         // @ts-expect-error ignore typing
-        const product = await createProduct({ ...payload, coverImage: image.imageUrl});
+        const product = await createProduct({ ...payload, coverImage: image.imageUrl });
         if (!product) {
             toast({ title: "Product Creation Failed", variant: "destructive" });
             return;
@@ -47,7 +47,7 @@ const CreateProductForm = () => {
         // create new product color in the product table
         const color = await createProductColor({
             colorHex,
-            productId: product?.id ?? ""
+            productId: product?.id ?? "",
         });
 
         if (!color) {
