@@ -25,15 +25,15 @@ import SizeCheckbox from "@/components/client/size-checkbox";
 import MDEditor from "@uiw/react-md-editor";
 import CoverImageUploader from "@/feature/admin/products/components/cover-image-uploader";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 
 type ProductFormBaseProps = {
     form: UseFormReturn<ProductFormSchemaType, any, undefined>;
     onSubmit: SubmitHandler<ProductFormSchemaType>;
-    disable?: boolean;
     mode: "edit" | "new";
 };
 
-const ProductFormBase = ({ form, onSubmit, disable, mode }: ProductFormBaseProps) => {
+const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -258,8 +258,19 @@ const ProductFormBase = ({ form, onSubmit, disable, mode }: ProductFormBaseProps
                         )}
                     />
                 </div>
-                <Button className={"mt-4"} type={"submit"} disabled={disable}>
-                    Submit
+                <Button
+                    className={"mt-4 w-48"}
+                    type={"submit"}
+                    disabled={!form.formState.isValid || !form.formState.isSubmitting}
+                >
+                    {form.formState.isSubmitting ? (
+                        <>
+                            <Loader2 className="animate-spin" />
+                            <span>{mode === "new" ? "Submitting" : "Editing"}</span>
+                        </>
+                    ) : (
+                        <span>Submit</span>
+                    )}
                 </Button>
             </form>
         </Form>
