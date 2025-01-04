@@ -59,6 +59,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
                     </div>
                 </div>
             </Container>
+            {/*TODO: Separate this out with using parallel route*/}
             <SectionSelector details={product.details} />
         </>
     );

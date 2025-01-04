@@ -21,9 +21,21 @@ const CoverImageUploader = ({ value, onChange }: CoverImageUploaderProps) => {
     };
 
     return (
-        <div className={"flex gap-x-6 items-center"}>
-            {!imageUrl && (
+        <div className={"flex gap-x-4 items-center"}>
+            {imageUrl && (
                 <div>
+                    <Image
+                        src={imageUrl}
+                        alt={`CoverImage of product`}
+                        width={500}
+                        height={500}
+                        className={"w-[150px] h-[150px] rounded-2xl"}
+                    />
+                </div>
+            )}
+
+            <div>
+                {!imageUrl && (
                     <Label
                         htmlFor={"add-image"}
                         className={
@@ -33,27 +45,23 @@ const CoverImageUploader = ({ value, onChange }: CoverImageUploaderProps) => {
                         <ImageIcon className={"size-10"} />
                         <span className={"fond-bold font-black/40"}>Upload</span>
                     </Label>
-                    <input
-                        id={"add-image"}
-                        type={"file"}
-                        accept={"images/*"}
-                        hidden={true}
-                        onChange={addImageHandler}
-                    />
-                </div>
-            )}
-
-            {imageUrl && (
-                <>
-                    <Image
-                        src={imageUrl}
-                        alt={`CoverImage of product`}
-                        width={500}
-                        height={500}
-                        className={"w-[150px] h-[150px] rounded-2xl"}
-                    />
-                </>
-            )}
+                )}
+                {imageUrl && (
+                    <Label
+                        htmlFor={"add-image"}
+                        className={"block px-4 py-2 bg-black text-white font-semibold rounded-xl"}
+                    >
+                        Choose another image
+                    </Label>
+                )}
+                <input
+                    id={"add-image"}
+                    type={"file"}
+                    accept={"images/*"}
+                    hidden={true}
+                    onChange={addImageHandler}
+                />
+            </div>
         </div>
     );
 };
