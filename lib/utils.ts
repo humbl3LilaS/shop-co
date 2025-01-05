@@ -29,12 +29,15 @@ export const slugToArray = (slug?: string) => {
     return slug.split("_").filter((item) => !!item);
 };
 
-export const getDirtyField = <T extends Record<string, any>>(defaultValue: T, dirtyValue: Partial<Readonly<Record<keyof T, boolean | boolean[]>>>) => {
+export const getDirtyField = <T extends Record<string, any>>(
+    defaultValue: T,
+    dirtyValue: Partial<Readonly<Record<keyof T, boolean | boolean[]>>>,
+) => {
     const dirtyField = Object.keys(dirtyValue);
     const valueChanges = dirtyField.reduce((obj, key) => {
         return {
             ...obj,
-            [key]: defaultValue[key]
+            [key]: defaultValue[key],
         };
     }, {} as Partial<T>);
     return valueChanges;

@@ -5,7 +5,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form";
 import { SubmitHandler, type UseFormReturn } from "react-hook-form";
 import { ProductFormSchemaType } from "@/validation/client-schema";
@@ -18,7 +18,7 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
+    SelectValue,
 } from "@/components/ui/select";
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
@@ -34,7 +34,10 @@ type ProductFormBaseProps = {
 };
 
 const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
-    const disable = !form.formState.isValid || form.formState.isSubmitting || (mode === "edit" && !form.formState.isDirty);
+    const disable =
+        !form.formState.isValid ||
+        form.formState.isSubmitting ||
+        (mode === "edit" && !form.formState.isDirty);
 
     return (
         <Form {...form}>
@@ -219,7 +222,7 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                                                         field.onChange([...field.value, size]);
                                                     } else {
                                                         const filterSizes = field.value.filter(
-                                                            (item) => item !== size
+                                                            (item) => item !== size,
                                                         );
                                                         field.onChange([...filterSizes]);
                                                     }
@@ -241,30 +244,24 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                                 <FormLabel className={"sr-only"}>Product Details</FormLabel>
                                 <FormControl>
                                     <div className={"h-[500px]"}>
-                                        {window !== undefined && (
-                                            <MDEditor
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                minHeight={300}
-                                                style={{
-                                                    minHeight: "500px",
-                                                    backgroundColor: "white",
-                                                    color: "black"
-                                                }}
-                                                preview={"edit"}
-                                            />
-                                        )}
+                                        <MDEditor
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            minHeight={300}
+                                            style={{
+                                                minHeight: "500px",
+                                                backgroundColor: "white",
+                                                color: "black",
+                                            }}
+                                            preview={"edit"}
+                                        />
                                     </div>
                                 </FormControl>
                             </FormItem>
                         )}
                     />
                 </div>
-                <Button
-                    className={"mt-4 w-48"}
-                    type={"submit"}
-                    disabled={disable}
-                >
+                <Button className={"mt-4 w-48"} type={"submit"} disabled={disable}>
                     {form.formState.isSubmitting ? (
                         <>
                             <Loader2 className="animate-spin" />

@@ -21,23 +21,24 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
             description: defaultValues.description ?? "",
             details: defaultValues.details ?? "",
             sizes: defaultValues.sizes as unknown as string[],
-            coverImage: null
-        }
+            coverImage: null,
+        },
     });
 
     const { productId } = useParams();
     const { toast } = useToast();
     const router = useRouter();
 
-
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (values) => {
-
-        const valuesChanges = getDirtyField<IProducts>({
-            ...values,
-            productCategory: values.productCategory as IProductCategory,
-            productType: values.productType as IProductTypes,
-            coverImage: defaultValues.coverImage,
-        }, form.formState.dirtyFields);
+        const valuesChanges = getDirtyField<IProducts>(
+            {
+                ...values,
+                productCategory: values.productCategory as IProductCategory,
+                productType: values.productType as IProductTypes,
+                coverImage: defaultValues.coverImage,
+            },
+            form.formState.dirtyFields,
+        );
         const res = await updateProductById(productId as string, valuesChanges);
         if (res.error) {
             toast({ title: res.message, variant: "destructive", duration: 500 });
