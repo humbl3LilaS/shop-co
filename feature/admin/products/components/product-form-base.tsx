@@ -5,7 +5,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from "@/components/ui/form";
 import { SubmitHandler, type UseFormReturn } from "react-hook-form";
 import { ProductFormSchemaType } from "@/validation/client-schema";
@@ -18,7 +18,7 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
+    SelectValue
 } from "@/components/ui/select";
 import { CATEGORIES, SIZES, TYPES } from "@/constants/constants";
 import SizeCheckbox from "@/components/client/size-checkbox";
@@ -34,6 +34,8 @@ type ProductFormBaseProps = {
 };
 
 const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
+    const disable = !form.formState.isValid || form.formState.isSubmitting || (mode === "edit" && !form.formState.isDirty);
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -217,7 +219,7 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                                                         field.onChange([...field.value, size]);
                                                     } else {
                                                         const filterSizes = field.value.filter(
-                                                            (item) => item !== size,
+                                                            (item) => item !== size
                                                         );
                                                         field.onChange([...filterSizes]);
                                                     }
@@ -247,7 +249,7 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                                                 style={{
                                                     minHeight: "500px",
                                                     backgroundColor: "white",
-                                                    color: "black",
+                                                    color: "black"
                                                 }}
                                                 preview={"edit"}
                                             />
@@ -261,7 +263,7 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                 <Button
                     className={"mt-4 w-48"}
                     type={"submit"}
-                    disabled={!form.formState.isValid || !form.formState.isSubmitting}
+                    disabled={disable}
                 >
                     {form.formState.isSubmitting ? (
                         <>
