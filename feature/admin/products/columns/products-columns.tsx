@@ -2,9 +2,14 @@ import { createColumnHelper } from "@tanstack/table-core";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
 import { EllipsisVertical } from "lucide-react";
 import { IProducts } from "@/database/schema";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 const columnHelper = createColumnHelper<IProducts>();
 
@@ -19,7 +24,7 @@ export const columns = [
                 height={50}
                 className={"w-12.5 aspect-square rounded-lg"}
             />
-        ),
+        )
     }),
     columnHelper.accessor("name", {
         header: () => <span className={"text-xs"}>Name</span>,
@@ -31,11 +36,11 @@ export const columns = [
             >
                 {getValue()}
             </Link>
-        ),
+        )
     }),
     columnHelper.accessor("arrivedAt", {
         header: () => <span className={"text-xs"}>Date Added</span>,
-        cell: ({ getValue }) => <span>{format(getValue() ?? new Date(), "do MMM yyyy")}</span>,
+        cell: ({ getValue }) => <span>{format(getValue() ?? new Date(), "do MMM yyyy")}</span>
     }),
     columnHelper.accessor("productCategory", {
         header: () => <span className={"text-xs"}>Category</span>,
@@ -47,7 +52,7 @@ export const columns = [
             >
                 {getValue()}
             </span>
-        ),
+        )
     }),
     columnHelper.accessor("productType", {
         header: () => <span className={"text-xs"}>Type</span>,
@@ -59,7 +64,7 @@ export const columns = [
             >
                 {getValue()}
             </span>
-        ),
+        )
     }),
     columnHelper.accessor("price", {
         header: () => <span className={"text-xs"}>Price</span>,
@@ -71,7 +76,7 @@ export const columns = [
             >
                 ${getValue()}
             </span>
-        ),
+        )
     }),
     columnHelper.accessor("discount", {
         header: () => <span className={"text-xs"}>Discount</span>,
@@ -83,15 +88,23 @@ export const columns = [
             >
                 {getValue()}%
             </span>
-        ),
+        )
     }),
     columnHelper.accessor("id", {
         header: () => <span></span>,
-        cell: () => (
-            // TODO: replace with dropdown action
-            <Button variant={"ghost"}>
-                <EllipsisVertical />
-            </Button>
-        ),
-    }),
+        cell: ({ getValue }) => (
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <EllipsisVertical />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem>
+                        <Link href={`/admin/dashboard/products/edit/${getValue()}`} className={"w-full"}>
+                            Edit
+                        </Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        )
+    })
 ];
