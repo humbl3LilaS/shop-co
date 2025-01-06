@@ -8,7 +8,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 const columnHelper = createColumnHelper<IProducts>();
@@ -24,7 +24,7 @@ export const columns = [
                 height={50}
                 className={"w-12.5 aspect-square rounded-lg"}
             />
-        )
+        ),
     }),
     columnHelper.accessor("name", {
         header: () => <span className={"text-xs"}>Name</span>,
@@ -36,11 +36,11 @@ export const columns = [
             >
                 {getValue()}
             </Link>
-        )
+        ),
     }),
     columnHelper.accessor("arrivedAt", {
         header: () => <span className={"text-xs"}>Date Added</span>,
-        cell: ({ getValue }) => <span>{format(getValue() ?? new Date(), "do MMM yyyy")}</span>
+        cell: ({ getValue }) => <span>{format(getValue() ?? new Date(), "do MMM yyyy")}</span>,
     }),
     columnHelper.accessor("productCategory", {
         header: () => <span className={"text-xs"}>Category</span>,
@@ -52,7 +52,7 @@ export const columns = [
             >
                 {getValue()}
             </span>
-        )
+        ),
     }),
     columnHelper.accessor("productType", {
         header: () => <span className={"text-xs"}>Type</span>,
@@ -64,7 +64,7 @@ export const columns = [
             >
                 {getValue()}
             </span>
-        )
+        ),
     }),
     columnHelper.accessor("price", {
         header: () => <span className={"text-xs"}>Price</span>,
@@ -76,7 +76,7 @@ export const columns = [
             >
                 ${getValue()}
             </span>
-        )
+        ),
     }),
     columnHelper.accessor("discount", {
         header: () => <span className={"text-xs"}>Discount</span>,
@@ -88,7 +88,7 @@ export const columns = [
             >
                 {getValue()}%
             </span>
-        )
+        ),
     }),
     columnHelper.accessor("id", {
         header: () => <span></span>,
@@ -99,12 +99,15 @@ export const columns = [
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem>
-                        <Link href={`/admin/dashboard/products/edit/${getValue()}`} className={"w-full"}>
+                        <Link
+                            href={`/admin/dashboard/products/edit/${getValue()}`}
+                            className={"w-full"}
+                        >
                             Edit
                         </Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-        )
-    })
+        ),
+    }),
 ];

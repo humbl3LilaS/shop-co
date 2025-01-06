@@ -40,7 +40,7 @@ export const products = pgTable("products", {
     description: text("description").notNull(),
     details: text("details").notNull(),
     coverImage: text("cover_image").notNull(),
-    imagesUrl: text("images_url").array(),
+    imagesUrl: text("images_url").array().default([]).notNull(),
     arrivedAt: timestamp("arrived_at").defaultNow().notNull(),
     productCategory: text("product_category", {
         enum: [...CATEGORIES],
@@ -208,5 +208,8 @@ export type IUser = Zod.infer<typeof userInsertSchema>;
 export type IReviews = Zod.infer<typeof reviewInsertSchema>;
 export type IOrders = Zod.infer<typeof orderInsertSchema>;
 export type ITransactions = Zod.infer<typeof transactionInsertSchema>;
-export type IProducts = Omit<Zod.infer<typeof productInsertSchema>, "sizes"> & { sizes: string[] };
+export type IProducts = Omit<Zod.infer<typeof productInsertSchema>, "sizes" | "imagesUrl"> & {
+    sizes: string[];
+    imagesUrl: string[];
+};
 export type ITransactionDetails = Zod.infer<typeof transactionDetailInsertSchema>;
