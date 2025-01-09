@@ -22,6 +22,7 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
             details: defaultValues.details ?? "",
             sizes: defaultValues.sizes as unknown as string[],
             coverImage: null,
+            imagesUrl: "edit",
         },
     });
 
@@ -36,6 +37,7 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
                 productCategory: values.productCategory as IProductCategory,
                 productType: values.productType as IProductTypes,
                 coverImage: defaultValues.coverImage,
+                imagesUrl: defaultValues.imagesUrl,
             },
             form.formState.dirtyFields,
         );

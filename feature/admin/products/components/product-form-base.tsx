@@ -66,20 +66,23 @@ const ProductFormBase = ({ form, onSubmit, mode }: ProductFormBaseProps) => {
                                 name={"imagesUrl"}
                                 control={form.control}
                                 render={({ field }) => (
-                                    <FormItem className={"col-span-2"}>
-                                        <FormLabel className={"sr-only"}>ProductImage</FormLabel>
-                                        <FormMessage />
-                                        <FormControl>
-                                            <ImageGalleryUploader
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                            />
-                                        </FormControl>
-                                    </FormItem>
+                                    <>
+                                        {
+                                            field.value !== "edit" && <FormItem className={"col-span-2"}>
+                                                <FormLabel className={"sr-only"}>ProductImage</FormLabel>
+                                                <FormMessage />
+                                                <FormControl>
+                                                    <ImageGalleryUploader
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        }
+                                    </>
                                 )}
                             />
                         </>
-
                     )}
                     <FormField
                         name={"name"}
