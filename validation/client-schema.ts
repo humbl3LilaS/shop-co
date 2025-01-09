@@ -21,7 +21,7 @@ export const ProductFormSchema = z.object({
     coverImage: z.custom<File | null>(),
     imagesUrl: z.custom<Array<File> | null | "edit">().refine((arg) => {
         if (arg === "edit") return true;
-        return arg !== null ? arg.length === 4 : false;
+        return arg !== null ? arg.length === 3 : false;
     }),
     colorHex: z.string().refine((arg) => arg.length === 6),
     productCategory: z

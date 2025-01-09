@@ -11,7 +11,6 @@ export const createProduct = async (payload: Omit<IProducts, "sizes"> & { sizes:
                 ...payload,
                 sizes: payload.sizes as unknown as string[],
                 coverImage: payload.coverImage as unknown as string,
-                imagesUrl: [],
             })
             .returning();
         if (!product) {

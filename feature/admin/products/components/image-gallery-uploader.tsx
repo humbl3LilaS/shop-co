@@ -9,7 +9,7 @@ type ImageGalleryUploaderProps = {
 };
 const ImageGalleryUploader = ({ value, onChange }: ImageGalleryUploaderProps) => {
     const imageUrls = value ? value.map((item) => URL.createObjectURL(item)) : null;
-    const placeholderLen = 4 - (imageUrls?.length ?? 0);
+    const placeholderLen = 3 - (imageUrls?.length ?? 0);
     const onUpload: ChangeEventHandler<HTMLInputElement> = (evt) => {
         if (evt.target.files && evt.target.files[0]) {
             onChange(value ? [...value, evt.target.files[0]] : [evt.target.files[0]]);
