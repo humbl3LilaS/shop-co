@@ -1,4 +1,5 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function AdminLayout({
     children,
@@ -9,6 +10,7 @@ export default function AdminLayout({
         <body className={"overflow-hidden"}>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
+            <Toaster />
         </body>
     );
 }

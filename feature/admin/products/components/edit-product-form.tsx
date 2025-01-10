@@ -10,6 +10,7 @@ import { getDirtyField } from "@/lib/utils";
 
 import { IProductCategory, IProductTypes } from "@/types/object.types";
 import { IProducts } from "@/database/schema";
+import { useQueryClient } from "@tanstack/react-query";
 
 const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
     const form = useForm<ProductFormSchemaType>({
@@ -22,13 +23,14 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
             details: defaultValues.details ?? "",
             sizes: defaultValues.sizes as unknown as string[],
             coverImage: null,
-            imagesUrl: "edit",
-        },
+            imagesUrl: "edit"
+        }
     });
 
     const { productId } = useParams();
     const { toast } = useToast();
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const onSubmit: SubmitHandler<ProductFormSchemaType> = async (values) => {
         const valuesChanges = getDirtyField<IProducts>(
@@ -37,9 +39,9 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
                 productCategory: values.productCategory as IProductCategory,
                 productType: values.productType as IProductTypes,
                 coverImage: defaultValues.coverImage,
-                imagesUrl: defaultValues.imagesUrl,
+                imagesUrl: defaultValues.imagesUrl
             },
-            form.formState.dirtyFields,
+            form.formState.dirtyFields
         );
         const res = await updateProductById(productId as string, valuesChanges);
         if (res.error) {
@@ -47,7 +49,8 @@ const EditProductForm = ({ defaultValues }: { defaultValues: IProducts }) => {
             return;
         } else {
             toast({ title: res.message, duration: 500 });
-            router.push(`/admin/dashboard/products/${productId}`);
+            await queryClient.invalidateQueries({ queryKey: ["products"] });
+            router.replace(`/admin/dashboard/products/${productId}`);
         }
     };
     return <ProductFormBase form={form} onSubmit={onSubmit} mode={"edit"} />;
