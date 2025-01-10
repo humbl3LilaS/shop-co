@@ -16,6 +16,7 @@ export const getProductById = async (id: string) => {
             productCategory: products.productCategory,
             productType: products.productType,
             sizes: products.sizes,
+            imagesUrl: products.imagesUrl,
             colorHex: productColors.colorHex,
         })
         .from(products)

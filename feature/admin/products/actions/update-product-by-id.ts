@@ -4,7 +4,6 @@ import { db } from "@/database/drizzle";
 import { eq } from "drizzle-orm";
 
 export const updateProductById = async (id: string, payload: Partial<IProducts>) => {
-    // @ts-expect-error error
     const res = await db.update(products).set(payload).where(eq(products.id, id)).returning();
     if (!res) {
         return {

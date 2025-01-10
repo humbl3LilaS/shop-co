@@ -1,16 +1,17 @@
 "use server";
 
-
 import { IProducts, products } from "@/database/schema";
 import { uploadImage } from "@/feature/admin/products/actions/upload-image";
 import { db } from "@/database/drizzle";
 import { createProductColor } from "@/feature/admin/products/actions/create-product-color";
 
-export const createProduct = async (payload: Omit<IProducts, "coverImage" | "imagesUrl"> & {
-    coverImage: File,
-    imagesUrl: File[]
-    colorHex: string,
-}) => {
+export const createProduct = async (
+    payload: Omit<IProducts, "coverImage" | "imagesUrl"> & {
+        coverImage: File;
+        imagesUrl: File[];
+        colorHex: string;
+    },
+) => {
     try {
         const { colorHex, ...productInfo } = payload;
 
@@ -21,12 +22,14 @@ export const createProduct = async (payload: Omit<IProducts, "coverImage" | "ima
         }
 
         // upload gallery images to cloudinary
-        const galleryImages = await Promise.all(productInfo.imagesUrl.map(item => uploadImage(item)));
-        const galleryImageUploadError = galleryImages.some(item => item.error);
+        const galleryImages = await Promise.all(
+            productInfo.imagesUrl.map((item) => uploadImage(item)),
+        );
+        const galleryImageUploadError = galleryImages.some((item) => item.error);
         if (galleryImageUploadError) {
             return { error: true, message: "Error images gallery" };
         }
-        const imagesUrl = galleryImages.map(item => item.imageUrl!);
+        const imagesUrl = galleryImages.map((item) => item.imageUrl!);
 
         // create  product in the database
         const [product] = await db
@@ -35,7 +38,7 @@ export const createProduct = async (payload: Omit<IProducts, "coverImage" | "ima
                 ...productInfo,
                 sizes: productInfo.sizes as unknown as string[],
                 coverImage: coverImage.imageUrl!,
-                imagesUrl: imagesUrl
+                imagesUrl: imagesUrl,
             })
             .returning();
         if (!product) {
@@ -45,12 +48,11 @@ export const createProduct = async (payload: Omit<IProducts, "coverImage" | "ima
         // create new product color in the product table
         const color = await createProductColor({
             colorHex,
-            productId: product?.id ?? ""
+            productId: product?.id ?? "",
         });
 
         if (!color) {
             return { error: true, message: "Product Creation Failed" };
-
         }
 
         return { error: false, message: "Product Created" };
@@ -60,6 +62,5 @@ export const createProduct = async (payload: Omit<IProducts, "coverImage" | "ima
         } else {
             return { error: true, message: "Error creating product" };
         }
-
     }
 };

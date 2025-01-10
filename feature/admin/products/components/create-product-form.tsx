@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
     ProductFormSchema,
     ProductFormSchemaDefaultValues,
-    ProductFormSchemaType
+    ProductFormSchemaType,
 } from "@/validation/client-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
@@ -17,7 +17,7 @@ const CreateProductForm = () => {
     const form = useForm<ProductFormSchemaType>({
         resolver: zodResolver(ProductFormSchema),
         mode: "onChange",
-        defaultValues: { ...ProductFormSchemaDefaultValues }
+        defaultValues: { ...ProductFormSchemaDefaultValues },
     });
 
     const { toast } = useToast();
@@ -33,7 +33,7 @@ const CreateProductForm = () => {
             coverImage: value.coverImage,
             imagesUrl: value.imagesUrl,
             productType: value.productType as IProductTypes,
-            productCategory: value.productCategory as IProductCategory
+            productCategory: value.productCategory as IProductCategory,
         });
         if (res.error) {
             return toast({ title: res.message, variant: "destructive", duration: 500 });
@@ -41,7 +41,7 @@ const CreateProductForm = () => {
         toast({ title: "Product Created" });
         form.reset({ ...ProductFormSchemaDefaultValues });
         await queryClient.invalidateQueries({
-            queryKey: ["products"]
+            queryKey: ["products"],
         });
         router.push("/admin/dashboard/products");
     };

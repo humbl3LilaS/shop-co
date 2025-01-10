@@ -7,7 +7,8 @@ import { createInsertSchema } from "drizzle-zod";
 export const users = pgTable("users", {
     id: text("id")
         .primaryKey()
-        .$default(() => createUUID()),
+        .$default(() => createUUID())
+        .notNull(),
     email: text("email").notNull().unique(),
     password: text("password").notNull(),
     firstName: text("first_name").notNull(),
@@ -66,7 +67,7 @@ export const productColors = pgTable("product_colors", {
         .primaryKey()
         .$default(() => createUUID()),
     productId: text("product_id")
-        .references(() => products.id)
+        .references(() => products.id, { onDelete: "cascade" })
         .notNull(),
     colorHex: varchar("color_hex", { length: 6 }).notNull(),
 });
@@ -85,7 +86,7 @@ export const reviews = pgTable(
             .primaryKey()
             .$default(() => createUUID()),
         productId: text("product_id")
-            .references(() => products.id)
+            .references(() => products.id, { onDelete: "cascade" })
             .notNull(),
         userId: text("user_id")
             .references(() => users.id)
@@ -118,10 +119,10 @@ export const orders = pgTable("orders", {
         .primaryKey()
         .$default(() => createUUID()),
     productId: text("product_id")
-        .references(() => products.id)
+        .references(() => products.id, { onDelete: "cascade" })
         .notNull(),
     colorId: text("color_id")
-        .references(() => productColors.id)
+        .references(() => productColors.id, { onDelete: "cascade" })
         .notNull(),
     size: text("size").notNull(),
     quantity: integer("quantity").notNull(),
@@ -156,11 +157,18 @@ export const transactions = pgTable("transactions", {
     customerId: text("customer_id")
         .references(() => users.id)
         .notNull(),
-    orders: text("orders").array().notNull(),
+    orders: text("orders")
+        .references(() => orders.id)
+        .array()
+        .notNull(),
     status: text("status", { enum: [...ORDER_STATUS] }).notNull(),
     amount: integer("amount").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const transactionsOrderRelation = relations(transactions, ({ many }) => ({
+    orders: many(orders),
+}));
 
 export const transactionsCustomerRelation = relations(transactions, ({ one }) => ({
     customer: one(users, {
